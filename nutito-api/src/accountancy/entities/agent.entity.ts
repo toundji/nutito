@@ -5,7 +5,7 @@ import { Entity, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Angent extends BaseEntity{
     @Column({nullable: false})
-    User: number;
+    user: User;
 
     @Column({nullable: false})
     company: Company;
