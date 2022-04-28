@@ -1,4 +1,4 @@
-import { CategoryCompany } from './categorycompany.entity';
+import { CategoryCompany } from './category-company.entity';
 import { Domaine } from './domaine.entity';
 import { Entity } from 'typeorm';
 import { Column, PrimaryGeneratedColumn, BaseEntity  } from 'typeorm';

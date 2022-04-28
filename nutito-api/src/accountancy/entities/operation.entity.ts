@@ -5,7 +5,7 @@ import { PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from 'typeorm';
 import { Compte } from './compte.entity';
 import { File } from './file.entity';
-import { operationClient } from './operationclient.entity';
+import { operationClient } from './operation-client.entity';
 
 
 @Entity()

@@ -1,10 +1,12 @@
+import { Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from 'typeorm';
 @Entity()
 export class TypeOperation() extends BaseEntity{
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumneratedColumn('increment')
     id:Number;
 
-    @column({nullable: false})
+    @Column({nullable: false})
     name: String;
 
     @column({nullable: false})
