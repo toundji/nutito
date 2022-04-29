@@ -1,3 +1,5 @@
+import * as bcrypt from 'bcrypt';
+
 export const formatTime = (unix_timestamp: number): string => {
     var date = new Date(unix_timestamp);
     var hours = date.getHours();
@@ -22,6 +24,12 @@ export const formatTimeDifference = (date1: Date, date2: Date): string => {
     let hours = Math.floor(delta / 3600);
     var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     return formattedTime;
+}
+
+export const hashPassword = async (plainPassword: string): Promise<string> => {
+  const saltOrRounds = 10;
+  const hash = await bcrypt.hash(plainPassword, saltOrRounds);
+  return hash;
 }
 
 

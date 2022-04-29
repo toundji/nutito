@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
-import * as bcrypt from 'bcrypt';
 import { Slugger } from 'src/utilities/helpers/slugger.helper';
+import { hashPassword } from '../../utilities/helpers/functions.helper';
 
 @Injectable()
 export class UserService {
@@ -30,9 +30,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const saltOrRounds = 10;
-    const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
-    createUserDto.password = hash;
+    createUserDto.password = await hashPassword(createUserDto.password);
     let user: User = new User();
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
