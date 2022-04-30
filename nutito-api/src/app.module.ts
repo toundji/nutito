@@ -21,7 +21,7 @@ import { AccountancyModule } from './accountancy/accountancy.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    TypeOrmModule.forRoot(config),
+    TypeOrmModule.forRoot(),
     UserModule,
     AccountancyModule,
     MailModule,

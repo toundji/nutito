@@ -16,20 +16,7 @@ import { WorkField } from './entities/work-field.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([
-            Account,
-            AgentRole,
-            Agent,
-            Career,
-            ClientOperationType,
-            CompanyCategory,
-            Company,
-            File,
-            Licence,
-            OperationType,
-            Operation,
-            WorkField
-        ]),
+       
     ],
     exports: [
         

@@ -19,9 +19,6 @@ import { SessionSerializer } from './serializers/session.serializer';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([
-            User,
-        ]),
         PassportModule,
         JwtModule.registerAsync({
             useFactory: async (configService: ConfigService) => ({

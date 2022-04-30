@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class Migration1651341478329 implements MigrationInterface {
-    name = 'Migration1651341478329'
+export class Migration1651347381280 implements MigrationInterface {
+    name = 'Migration1651347381280'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE \`account\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`amount\` int NOT NULL, \`code\` varchar(255) NOT NULL, \`amount_in\` int NOT NULL, \`amount_out\` int NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
@@ -13,20 +13,11 @@ export class Migration1651341478329 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE \`client_operation_type\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`name\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`type\` enum ('entrée', 'sortie') NOT NULL DEFAULT 'entrée', PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`operation\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`name\` varchar(255) NOT NULL, \`date\` datetime NOT NULL, \`amount\` int NOT NULL, \`amount_in\` int NOT NULL, \`amount_out\` int NOT NULL, \`balance\` int NOT NULL, \`description\` varchar(255) NOT NULL, \`operation_type_id\` int NOT NULL, \`client_operation_type_id\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`file\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`name\` varchar(255) NOT NULL, \`location\` varchar(255) NOT NULL, \`mimetype\` varchar(255) NOT NULL, \`entity\` varchar(255) NOT NULL, \`entity_id\` int NOT NULL, \`operation_id\` int NULL, \`user_id\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`user\` (\`id\` int NOT NULL AUTO_INCREMENT, \`email\` varchar(255) NOT NULL, \`phone\` varchar(255) NOT NULL, \`ifu\` varchar(255) NOT NULL, \`birth_date\` date NULL, \`birth_place\` varchar(255) NULL, \`address\` varchar(255) NULL, \`password\` varchar(255) NOT NULL, \`user_type\` varchar(255) NOT NULL, \`country\` varchar(255) NOT NULL, \`verification_token\` varchar(255) NULL, \`active\` tinyint NOT NULL DEFAULT 0, \`slug\` varchar(255) NULL, UNIQUE INDEX \`IDX_e12875dfb3b1d92d7d7c5377e2\` (\`email\`), UNIQUE INDEX \`IDX_8e1f623798118e629b46a9e629\` (\`phone\`), UNIQUE INDEX \`IDX_ab55c58f899e26df12585a6e42\` (\`ifu\`), UNIQUE INDEX \`IDX_ac08b39ccb744ea6682c0db1c2\` (\`slug\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`agent\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`updated_id\` int NULL, \`user_id\` int NULL, UNIQUE INDEX \`REL_031462988904ed291dd85171a8\` (\`user_id\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`career\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`agent_id\` int NOT NULL, \`company_id\` int NOT NULL, \`roleId\` int NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`agent_role\` (\`id\` int NOT NULL AUTO_INCREMENT, \`created_at\` datetime NOT NULL, \`updated_at\` datetime NULL, \`creator_id\` int NOT NULL, \`updater_id\` int NULL, \`name\` varchar(255) NOT NULL, \`description\` text NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`company_workfield\` (\`companyId\` int NOT NULL, \`workFieldId\` int NOT NULL, INDEX \`IDX_5ce32764f39a40d13c76308b41\` (\`companyId\`), INDEX \`IDX_c3c2a921c831c7de763f36d576\` (\`workFieldId\`), PRIMARY KEY (\`companyId\`, \`workFieldId\`)) ENGINE=InnoDB`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`phone\` varchar(255) NOT NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD UNIQUE INDEX \`IDX_8e1f623798118e629b46a9e629\` (\`phone\`)`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`ifu\` varchar(255) NOT NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD UNIQUE INDEX \`IDX_ab55c58f899e26df12585a6e42\` (\`ifu\`)`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`birth_date\` date NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`birth_place\` varchar(255) NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`address\` varchar(255) NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` ADD \`country\` varchar(255) NOT NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` CHANGE \`verification_token\` \`verification_token\` varchar(255) NULL`);
-        await queryRunner.query(`ALTER TABLE \`user\` CHANGE \`slug\` \`slug\` varchar(255) NULL`);
         await queryRunner.query(`ALTER TABLE \`licence\` ADD CONSTRAINT \`FK_7aff118ec29d76f955cd5e565ff\` FOREIGN KEY (\`company_id\`) REFERENCES \`company\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`company\` ADD CONSTRAINT \`FK_9633c0cb30e59b3c11e773a20a8\` FOREIGN KEY (\`company_category_id\`) REFERENCES \`company_category\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`operation\` ADD CONSTRAINT \`FK_a3ae8f466f04ad4e8de987db807\` FOREIGN KEY (\`operation_type_id\`) REFERENCES \`operation_type\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION`);
@@ -54,16 +45,6 @@ export class Migration1651341478329 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`operation\` DROP FOREIGN KEY \`FK_a3ae8f466f04ad4e8de987db807\``);
         await queryRunner.query(`ALTER TABLE \`company\` DROP FOREIGN KEY \`FK_9633c0cb30e59b3c11e773a20a8\``);
         await queryRunner.query(`ALTER TABLE \`licence\` DROP FOREIGN KEY \`FK_7aff118ec29d76f955cd5e565ff\``);
-        await queryRunner.query(`ALTER TABLE \`user\` CHANGE \`slug\` \`slug\` varchar(255) NULL DEFAULT 'NULL'`);
-        await queryRunner.query(`ALTER TABLE \`user\` CHANGE \`verification_token\` \`verification_token\` varchar(255) NULL DEFAULT 'NULL'`);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`country\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`address\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`birth_place\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`birth_date\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP INDEX \`IDX_ab55c58f899e26df12585a6e42\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`ifu\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP INDEX \`IDX_8e1f623798118e629b46a9e629\``);
-        await queryRunner.query(`ALTER TABLE \`user\` DROP COLUMN \`phone\``);
         await queryRunner.query(`DROP INDEX \`IDX_c3c2a921c831c7de763f36d576\` ON \`company_workfield\``);
         await queryRunner.query(`DROP INDEX \`IDX_5ce32764f39a40d13c76308b41\` ON \`company_workfield\``);
         await queryRunner.query(`DROP TABLE \`company_workfield\``);
@@ -71,6 +52,11 @@ export class Migration1651341478329 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE \`career\``);
         await queryRunner.query(`DROP INDEX \`REL_031462988904ed291dd85171a8\` ON \`agent\``);
         await queryRunner.query(`DROP TABLE \`agent\``);
+        await queryRunner.query(`DROP INDEX \`IDX_ac08b39ccb744ea6682c0db1c2\` ON \`user\``);
+        await queryRunner.query(`DROP INDEX \`IDX_ab55c58f899e26df12585a6e42\` ON \`user\``);
+        await queryRunner.query(`DROP INDEX \`IDX_8e1f623798118e629b46a9e629\` ON \`user\``);
+        await queryRunner.query(`DROP INDEX \`IDX_e12875dfb3b1d92d7d7c5377e2\` ON \`user\``);
+        await queryRunner.query(`DROP TABLE \`user\``);
         await queryRunner.query(`DROP TABLE \`file\``);
         await queryRunner.query(`DROP TABLE \`operation\``);
         await queryRunner.query(`DROP TABLE \`client_operation_type\``);

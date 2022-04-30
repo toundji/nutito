@@ -10,7 +10,7 @@ const config: MysqlConnectionOptions = {
     url: process.env.DATABASE_URL,
     //ssl: { rejectUnauthorized: false },
     synchronize: false,
-    entities: ["dist/src/**/*/*.entity.js"],
+    entities: ["dist/**/*.entity{.ts,.js}"],
     migrations: ["dist/src/db/migrations/*.js"],
     cli: {  
         migrationsDir: "src/db/migrations",
