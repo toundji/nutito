@@ -1,7 +1,5 @@
 import { BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-
-
 export abstract class Audit extends BaseEntity  {
 
     @PrimaryGeneratedColumn('increment')
