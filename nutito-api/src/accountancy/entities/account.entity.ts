@@ -1,5 +1,4 @@
-import { Column, OneToOne } from 'typeorm';
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { Audit } from './audit.entity';
 @Entity()
 export class Account extends Audit {

@@ -1,6 +1,5 @@
 import { User } from 'src/user/entities/user.entity';
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { Column } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, Column } from 'typeorm';
 import { Audit } from './audit.entity';
 import { Operation } from './operation.entity';
 @Entity()

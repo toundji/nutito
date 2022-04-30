@@ -1,6 +1,5 @@
 import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
-import { Column, OneToMany } from 'typeorm';
-import { Entity } from 'typeorm';
+import { Column, OneToMany, Entity } from 'typeorm';
 import { Audit } from './audit.entity';
 import { Operation } from './operation.entity';
 

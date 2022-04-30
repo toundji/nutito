@@ -1,6 +1,5 @@
 import { Company } from './company.entity';
-import { JoinColumn, ManyToOne } from 'typeorm';
-import { Entity } from 'typeorm';
+import { JoinColumn, ManyToOne, Entity } from 'typeorm';
 import { AgentRole } from './agent-role.entity';
 import { Agent } from './agent.entity';
 import { Audit } from './audit.entity';

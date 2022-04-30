@@ -1,7 +1,4 @@
-import { Company } from './company.entity';
-import { User } from '../../user/entities/user.entity';
-import { Column, JoinColumn, OneToMany } from 'typeorm';
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, JoinColumn, Entity, OneToMany } from 'typeorm';
 import { Career } from './career.entity';
 import { Audit } from './audit.entity';
 

@@ -1,5 +1,5 @@
-import { BaseEntity, Column } from 'typeorm';
-import { PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 
 
 export abstract class Audit extends BaseEntity  {

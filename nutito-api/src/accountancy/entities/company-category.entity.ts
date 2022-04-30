@@ -1,5 +1,4 @@
-import { Entity, OneToMany } from 'typeorm';
-import { Column, PrimaryGeneratedColumn, BaseEntity  } from 'typeorm';
+import { Entity, OneToMany, Column } from 'typeorm';
 import { Company } from './company.entity';
 import { Audit } from './audit.entity';
 
