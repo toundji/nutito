@@ -19,4 +19,7 @@ export abstract class Audit extends BaseEntity  {
     @Column({ nullable: true })
     updater_id: number;
 
+    @Column({ unique: true })
+    slug: string;
+
 }

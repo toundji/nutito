@@ -1,8 +1,9 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
+import { Audit } from '../../accountancy/entities/audit.entity';
 
 @Entity()
-export class User extends BaseEntity {
+export class User extends Audit {
 
     @PrimaryGeneratedColumn('increment')
     id: number;
@@ -46,8 +47,5 @@ export class User extends BaseEntity {
 
     @Column('boolean', { default: false })
     active: boolean;
-
-    @Column({ nullable: true, unique: true })
-    slug: string;
 
 }

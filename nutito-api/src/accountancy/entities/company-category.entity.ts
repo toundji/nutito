@@ -16,6 +16,4 @@ export class CompanyCategory extends Audit {
     @OneToMany(type => Company, company => company.category, { onDelete: "NO ACTION" })
     companies: Company[]
 
-
-
 }
