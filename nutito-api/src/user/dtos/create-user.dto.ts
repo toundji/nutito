@@ -1,12 +1,12 @@
 import { IsEmail, IsEnum, MinLength } from 'class-validator';
-import { UserType } from '../../utilities/enums/user-type.enum';
+import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 export class CreateUserDto {
     @IsEmail()
     email: string;
 
-    @MinLength(9)
+    @MinLength(8)
     password: string;
 
-    @IsEnum(UserType)
+    @IsEnum(UserTypeEnum)
     user_type: string;
 }

@@ -2,10 +2,10 @@ import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOpti
 
 const config: MysqlConnectionOptions = {
     type: 'mysql',
-    host: process.env.MYSQL_DATABASE_HOST,
-    port: (process.env.MYSQL_DATABASE_PORT as any) as number,
-    username: process.env.MYSQL_DATABASE_USER,
-    password: process.env.MYSQL_DATABASE_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    port: (process.env.DATABASE_PORT as any) as number,
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     url: process.env.DATABASE_URL,
     //ssl: { rejectUnauthorized: false },

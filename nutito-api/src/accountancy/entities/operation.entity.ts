@@ -1,50 +1,53 @@
-import { Column } from 'typeorm';
-/* eslint-disable prettier/prettier */
+import { Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Entity } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from 'typeorm';
-import { Compte } from './compte.entity';
-import { File } from './file.entity';
-import { operationClient } from './operation-client.entity';
+import { Audit } from './audit.entity';
+import { File } from '../entities/file.entity';
+import { OperationType } from './operation-type.entity';
+import { ClientOperationType } from './client-operation-type.entity';
 
 
 @Entity()
-export class Operation extends BaseEntity{
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class Operation extends Audit {
 
-    @Column({nullable: false})
+    @Column()
     name: string;
 
-    @Column({nullable: false})
-    compte : Compte;
-
-    @Column({nullable: false})
+    @Column()
     date: Date;
 
-    @Column({nullable: false})
-    type: OperationType;
-
-    @Column({nullable: false})
+    @Column()
     amount: number;
+    
+    @Column()
+    amount_in: number;
 
-    @Column({nullable: false})
+    @Column()
+    amount_out: number;
+
+    @Column()
     balance: number;
 
-    @Column({nullable: false})
-    operation_client: operationClient;
+    @Column()
+    description: string;
 
-    @Column({nullable: false})
-    description: String;
+    @OneToMany(type => File, file => file.operation, { onDelete: "CASCADE", nullable: true })
+    documents?: File[]; 
 
-    @Column({nullable: false})
-    month: Date;
+    @ManyToOne(type => OperationType, operation_type => operation_type.operations, { onDelete: "CASCADE", nullable: false })
+    @JoinColumn({ name: "operation_type_id" })
+    operation_type: OperationType;
 
-    @Column({nullable: false})
-    document: File;
+    @ManyToOne(type => ClientOperationType, client_operation_type => client_operation_type.operations, { onDelete: "CASCADE", nullable: true })
+    @JoinColumn({ name: "client_operation_type_id" })
+    client_operation_type: ClientOperationType;
 
-    @Column('boolean', { default: false })
-    type: boolean;
+    get month() {
+        return this.date.getMonth();
+    }
 
-    
+    get type(): string {
+        return this.operation_type.type;
+    }
+
 }

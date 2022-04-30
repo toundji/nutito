@@ -10,6 +10,7 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthorisationsGuard } from './user/guards/authorisation.guard';
 import { JwtAuthGuard } from './user/guards/jwt-auth.guard';
 import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper';
+import { AccountancyModule } from './accountancy/accountancy.module';
 
 
 @Module({
@@ -22,6 +23,7 @@ import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper'
     }),
     TypeOrmModule.forRoot(config),
     UserModule,
+    AccountancyModule,
     MailModule,
   ],
   controllers: [],

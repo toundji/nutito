@@ -1,22 +1,22 @@
-import { Column, BaseEntity } from 'typeorm';
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
-@Entity()
-export class Audi extends BaseEntityity{
+import { BaseEntity, Column } from 'typeorm';
+import { PrimaryGeneratedColumn } from 'typeorm';
+
+
+export abstract class Audit extends BaseEntity  {
+
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({nullable: false})
-    creater_id: number;
+    @Column()
+    created_at: Date;
 
-    @Column({nullable: false})
-    editer_id: number;
+    @Column({ nullable: true })
+    updated_at: Date;
 
-    @Column({nullable: false})
-    create_at: Date;
+    @Column()
+    creator_id: number;
 
-    @Column({nullable: false})
-    update_at: Date;
-
-
+    @Column({ nullable: true })
+    updater_id: number;
 
 }

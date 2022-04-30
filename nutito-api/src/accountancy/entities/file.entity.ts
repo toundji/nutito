@@ -1,29 +1,34 @@
-import { Entity } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Column } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from 'typeorm';
+import { Audit } from './audit.entity';
+import { Operation } from './operation.entity';
 @Entity()
-export class File extends BaseEntity{
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class File extends Audit {
 
-    @Column({nullable: false})
+    @Column()
     name: string;
 
-    @Column({nullable: false})
+    @Column()
     location: string;
 
-    @Column({nullable: false})
+    @Column()
     mimetype: string;
 
-    @Column({nullable: false})
+    @Column()
     entity: string;
 
-    @Column({nullable: false})
+    @Column()
     entity_id: number;
     
+    @ManyToOne(type => Operation, operation => operation.documents, { onDelete: "CASCADE", nullable: true })
+    @JoinColumn({ name: "operation_id" })
+    operation: Operation
 
-   
+    @ManyToOne(type => User, user => user.profile_pictures, { onDelete: "CASCADE", nullable: true })
+    @JoinColumn({ name: "user_id" })
+    user: User
 
 
     
