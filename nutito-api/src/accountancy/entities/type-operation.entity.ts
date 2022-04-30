@@ -1,6 +1,5 @@
 import { Column } from 'typeorm';
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn,BaseEntity } from 'typeorm';
 @Entity()
 export class TypeOperation() extends BaseEntity{
     @PrimaryGeneratedColumneratedColumn('increment')
