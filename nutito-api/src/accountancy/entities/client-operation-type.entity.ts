@@ -1,5 +1,5 @@
 import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
-import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { Audit } from './audit.entity';
 import { Operation } from './operation.entity';
 
@@ -19,7 +19,7 @@ export class ClientOperationType extends Audit {
     })
     type: string;
 
-    @OneToMany(type => Operation, operation => operation.client_operation_type, { nullable: false, onDelete: "CASCADE" })
+    @OneToMany(type => Operation, operation => operation.client_operation_type, { onDelete: "NO ACTION" })
     operations: Operation[];
 
 }

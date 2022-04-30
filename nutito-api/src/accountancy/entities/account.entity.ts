@@ -4,12 +4,13 @@ import { Audit } from './audit.entity';
 @Entity()
 export class Account extends Audit {
 
+    @Column()
+    code: string;
+    
     // Cet attribut représente le solde du compte
     @Column()
     amount: number;
 
-    @Column()
-    code: string;
 
     @Column()
     amount_in: number;

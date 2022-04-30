@@ -13,7 +13,7 @@ export class CompanyCategory extends Audit {
     @Column({nullable: false})
     description: string;
 
-    @OneToMany(type => Company, company => company.category, { onDelete: "CASCADE", nullable: false })
+    @OneToMany(type => Company, company => company.category, { onDelete: "NO ACTION" })
     companies: Company[]
 
 

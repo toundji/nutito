@@ -1,6 +1,5 @@
 import { Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Entity } from 'typeorm';
-import { PrimaryGeneratedColumn } from 'typeorm';
 import { Audit } from './audit.entity';
 import { File } from '../entities/file.entity';
 import { OperationType } from './operation-type.entity';
@@ -31,14 +30,14 @@ export class Operation extends Audit {
     @Column()
     description: string;
 
-    @OneToMany(type => File, file => file.operation, { onDelete: "CASCADE", nullable: true })
-    documents?: File[]; 
+    @OneToMany(type => File, file => file.operation, { onDelete: "CASCADE" })
+    documents: File[]; 
 
-    @ManyToOne(type => OperationType, operation_type => operation_type.operations, { onDelete: "CASCADE", nullable: false })
+    @ManyToOne(type => OperationType, operation_type => operation_type.operations, { onDelete: "SET NULL", nullable: true })
     @JoinColumn({ name: "operation_type_id" })
     operation_type: OperationType;
 
-    @ManyToOne(type => ClientOperationType, client_operation_type => client_operation_type.operations, { onDelete: "CASCADE", nullable: true })
+    @ManyToOne(type => ClientOperationType, client_operation_type => client_operation_type.operations, { onDelete: "SET NULL", nullable: true })
     @JoinColumn({ name: "client_operation_type_id" })
     client_operation_type: ClientOperationType;
 

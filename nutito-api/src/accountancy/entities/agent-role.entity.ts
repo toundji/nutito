@@ -14,7 +14,7 @@ export class AgentRole extends Audit {
     @Column('text')
     description: string;
 
-    @OneToMany(type => Career, career => career.agent, { onDelete: "CASCADE", nullable: false })
+    @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
     @JoinColumn({ name: "type_agent_id" })
     careers: Career[]
 

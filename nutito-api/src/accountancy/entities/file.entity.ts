@@ -1,7 +1,6 @@
 import { User } from 'src/user/entities/user.entity';
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Column } from 'typeorm';
-import { PrimaryGeneratedColumn } from 'typeorm';
 import { Audit } from './audit.entity';
 import { Operation } from './operation.entity';
 @Entity()
@@ -17,9 +16,6 @@ export class File extends Audit {
     mimetype: string;
 
     @Column()
-    entity: string;
-
-    @Column()
     entity_id: number;
     
     @ManyToOne(type => Operation, operation => operation.documents, { onDelete: "CASCADE", nullable: true })
@@ -30,6 +26,4 @@ export class File extends Audit {
     @JoinColumn({ name: "user_id" })
     user: User
 
-
-    
 }

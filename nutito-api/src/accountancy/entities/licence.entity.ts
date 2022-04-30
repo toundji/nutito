@@ -1,6 +1,5 @@
 import { PaymentTypeEnum } from 'src/utilities/enums/payment-type.enum';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { PrimaryGeneratedColumn } from 'typeorm';
 import { Audit } from './audit.entity';
 import { Company } from './company.entity';
 @Entity()

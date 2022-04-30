@@ -1,5 +1,4 @@
-import { Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { Column, PrimaryGeneratedColumn, BaseEntity  } from 'typeorm';
+import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Career } from './career.entity';
 import { CompanyCategory } from './company-category.entity';
 import { Audit } from './audit.entity';
@@ -29,21 +28,21 @@ export class Company extends Audit {
     @Column()
     rccm: string;
 
-    @OneToMany(type => Career, career => career.company, { onDelete: "CASCADE", nullable: false })
+    @OneToMany(type => Career, career => career.company, { onDelete: "NO ACTION" })
     careers: Career[]
 
-    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "CASCADE", nullable: false })
+    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL", nullable: true })
     @JoinColumn({ name: "company_category_id" })
     category: CompanyCategory;
 
-    @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION", nullable: false })
+    @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
     licences: Licence[];
 
     @OneToOne(() => Account)
     account: Account;
 
-    @ManyToMany(type => WorkField, workfield => workfield.companies)
-    @JoinTable({ name: "company_workfield" })
+    @ManyToMany(type => WorkField, workfield => workfield.companies, { onDelete: "NO ACTION" })
+    @JoinTable({ name: "companies_workfields" })
     workfields: WorkField[]; 
 
     get license(): Licence {

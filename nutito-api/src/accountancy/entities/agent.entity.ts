@@ -12,20 +12,8 @@ export class Agent extends Audit {
     @JoinColumn({ name: "user_id" })
     user: User;
 
-    @OneToMany(type => Career, career => career.agent, { onDelete: "CASCADE", nullable: false })
+    @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
     @JoinColumn({ name: "type_agent_id" })
     careers: Career[]
-
-    @Column('date')
-    created_at: Date;
-
-    @Column('date')
-    updated_at: Date;
-
-    @Column()
-    creator_id: number;
-
-    @Column({ nullable: true })
-    updated_id: number;
 
 }
