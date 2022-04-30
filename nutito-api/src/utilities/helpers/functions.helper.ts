@@ -17,7 +17,6 @@ export const dateDiffInHours = (date1: Date, date2: Date): number => {
 
 export const formatTimeDifference = (date1: Date, date2: Date): string => {
     let difference = date2.getTime() - date1.getTime();
-    console.log(difference);
     let delta = difference / 1000;
     let seconds = "0" + delta % 60;
     let minutes = "0" + Math.floor(delta / 60) % 60
@@ -28,8 +27,8 @@ export const formatTimeDifference = (date1: Date, date2: Date): string => {
 
 export const hashPassword = async (plainPassword: string): Promise<string> => {
   const saltOrRounds = 10;
-  const hash = await bcrypt.hash(plainPassword, saltOrRounds);
-  return hash;
+  const hashedPassword = await bcrypt.hash(plainPassword, saltOrRounds);
+  return hashedPassword;
 }
 
 
