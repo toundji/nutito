@@ -14,9 +14,14 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 
 @Module({
     imports: [
+        TypeOrmModule.forFeature([
+            User
+        ]),
         PassportModule,
         JwtModule.registerAsync({
             useFactory: async (configService: ConfigService) => ({

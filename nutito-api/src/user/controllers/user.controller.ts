@@ -32,9 +32,11 @@ export class UserController {
   @DoesNotRequireAuthorisations()
   async signup(@Body() body: CreateUserDto): Promise<SignupResponseDto> {
     const user = await this.userservice.create(body);
+    console.log(user);
     const token = Math.floor(10000000 + Math.random() * 90000000).toString();
     user.verification_token = token;
     await this.userservice.set_verification_token(user, token);
+    this.mailservice.sendMailConfirmation(user, token);
     return {"message": "User Successfully Created"};
   }
 
@@ -42,8 +44,9 @@ export class UserController {
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
   @UseGuards(LocalAuthGuard)
-  async signin(@Request() request): Promise<SigninResponseDto> {
-    return this.authenticationservice.login(request.user);
+  async signin(@Body() body: AuthenticateUserDto, @Request() request): Promise<SigninResponseDto> {
+    console.log(request.user);
+    return this.authenticationservice.signin(request.user);
   }
 
   @Post('auth/mail/check')

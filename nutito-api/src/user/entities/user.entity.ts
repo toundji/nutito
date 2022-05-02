@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
 import { Audit } from '../../accountancy/entities/audit.entity';
+import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 
 @Entity()
 export class User extends Audit {
@@ -17,7 +18,7 @@ export class User extends Audit {
     @Column({ unique: true })
     ifu: string;
 
-    @Column('date', { nullable: true })
+    @Column({ nullable: true })
     birth_date: Date;
 
     @Column({ nullable: true })
@@ -27,25 +28,29 @@ export class User extends Audit {
     address: string;
 
     @Column()
-    password: string;
-
-    @Column({ nullable: false })
-    user_type: string;
-
-    @OneToMany(type => File, file => file, { onDelete: "CASCADE", nullable: true })
-    profile_pictures: File[]; 
-
-    get profile(): File {
-        return this.profile_pictures[this.profile_pictures.length - 1];
-    }
+    country: string;
 
     @Column()
-    country: string;
+    password: string;
+
+    @Column({
+        type: "enum",
+        enum: UserTypeEnum,
+        default: UserTypeEnum.USER
+    })
+    user_type: string;
 
     @Column({ nullable: true })
     verification_token: string;
 
     @Column('boolean', { default: false })
     active: boolean;
+
+    @OneToMany(type => File, file => file, { onDelete: "CASCADE" })
+    profile_pictures: File[]; 
+
+    get profile(): File {
+        return this.profile_pictures[this.profile_pictures.length - 1];
+    }
 
 }

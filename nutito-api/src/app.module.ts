@@ -15,13 +15,13 @@ import { AccountancyModule } from './accountancy/accountancy.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(config),
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    TypeOrmModule.forRoot(),
     UserModule,
     AccountancyModule,
     MailModule,

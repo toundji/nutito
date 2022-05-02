@@ -6,12 +6,12 @@ export abstract class Audit extends BaseEntity  {
     id: number;
 
     @Column()
-    created_at: Date;
+    created_at: Date = new Date();
 
     @Column({ nullable: true })
     updated_at: Date;
 
-    @Column()
+    @Column({ nullable: true })
     creator_id: number;
 
     @Column({ nullable: true })

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -25,10 +25,13 @@ export class UserService {
     return rest;
   }
 
-  async findOneByEmail(email: string): Promise<any> {
-    const user = await this.usersrepository.findOne({ where: { email: email } });
-    const { id, password, ...rest } = user;
-    return rest;
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.usersrepository.findOneOrFail({ where: { email: email } }).catch(
+      (error) => {
+        throw new NotFoundException(`User with email ${email} is not found`);
+      }
+    );
+    return user;
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -39,14 +42,12 @@ export class UserService {
     );
     user.slug = await this.slugger.slugify(user.email);
     const newUser = this.usersrepository.create(user);
-    return this.usersrepository.save(newUser).catch((db_error) => {
-      if (/(email)[\s\S]+(already exists)/.test(db_error.detail)) {
-        throw new BadRequestException(
-          'Account with this email already exists.',
-        );
-        return db_error;
+    let returnValue = await this.usersrepository.save(newUser).catch(
+      (error) => {
+        throw new BadRequestException(`Email or phone is already taken !`);
       }
-    });
+    );
+    return returnValue;
   }
 
   async set_verification_token(user: User, token: string) {

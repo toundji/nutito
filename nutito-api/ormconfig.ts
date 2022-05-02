@@ -1,4 +1,5 @@
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
+import 'dotenv/config'
 
 const config: MysqlConnectionOptions = {
     type: 'mysql',
