@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { PaymentTypeEnum } from 'src/utilities/enums/payment-type.enum';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Audit } from './audit.entity';

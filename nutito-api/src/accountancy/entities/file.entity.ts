@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from 'src/user/entities/user.entity';
 import { Entity, JoinColumn, ManyToOne, Column } from 'typeorm';
 import { Audit } from './audit.entity';

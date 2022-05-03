@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity } from 'typeorm';
 import { Audit } from './audit.entity';
 @Entity()

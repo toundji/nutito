@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from './../../user/entities/user.entity';
 import { JoinColumn, Entity, OneToMany, OneToOne } from 'typeorm';
 import { Career } from './career.entity';
@@ -11,7 +12,6 @@ export class Agent extends Audit {
     user: User;
 
     @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
-    @JoinColumn({ name: "type_agent_id" })
     careers: Career[]
 
 }

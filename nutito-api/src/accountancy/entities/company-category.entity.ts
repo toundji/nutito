@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Entity, OneToMany, Column } from 'typeorm';
 import { Company } from './company.entity';
 import { Audit } from './audit.entity';

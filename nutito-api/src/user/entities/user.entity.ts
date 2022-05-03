@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
 import { Audit } from '../../accountancy/entities/audit.entity';

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Company } from './company.entity';
 import { JoinColumn, ManyToOne, Entity } from 'typeorm';
 import { AgentRole } from './agent-role.entity';
