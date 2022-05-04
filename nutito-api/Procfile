@@ -1,1 +1,1 @@
-web: npm run start:prod
+web: npm run nest:migration:run && npm run start:prod
