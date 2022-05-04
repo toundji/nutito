@@ -42,6 +42,5 @@ export class AuthenticationService {
     } else {
       throw new BadRequestException(invalidCredentialsMessage);
     }
-    
   }
 }
