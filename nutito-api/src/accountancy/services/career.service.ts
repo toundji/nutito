@@ -12,6 +12,11 @@ export class careerService{
         
     ){}
 
+    async create(career : Career): Promise<Career>{
+       const nvcareer = await this.carrerrRepository.create(career);
+        return this.carrerrRepository.save(nvcareer);
+    }
+
 
 
 
