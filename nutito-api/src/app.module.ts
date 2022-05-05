@@ -11,6 +11,7 @@ import { AuthorisationsGuard } from './user/guards/authorisation.guard';
 import { JwtAuthGuard } from './user/guards/jwt-auth.guard';
 import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper';
 import { AccountancyModule } from './accountancy/accountancy.module';
+import { AppController } from './app.controller';
 
 
 
@@ -27,7 +28,7 @@ import { AccountancyModule } from './accountancy/accountancy.module';
     AccountancyModule,
     MailModule
   ],
-  controllers: [],
+  controllers: [AppController,],
   providers: [
     {
       provide: APP_FILTER,
