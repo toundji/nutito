@@ -11,8 +11,7 @@ import { AuthorisationsGuard } from './user/guards/authorisation.guard';
 import { JwtAuthGuard } from './user/guards/jwt-auth.guard';
 import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper';
 import { AccountancyModule } from './accountancy/accountancy.module';
-import { SwaggerProtect } from '@femike/swagger-protect';
-import { SwaggerDocLogin } from './utilities/api-docs/login';
+
 
 
 @Module({
@@ -26,10 +25,7 @@ import { SwaggerDocLogin } from './utilities/api-docs/login';
     }),
     UserModule,
     AccountancyModule,
-    MailModule,
-    SwaggerProtect.forRoot({
-      logIn: new SwaggerDocLogin(),
-    }),
+    MailModule
   ],
   controllers: [],
   providers: [
