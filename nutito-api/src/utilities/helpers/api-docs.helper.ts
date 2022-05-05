@@ -21,7 +21,7 @@ const redocOptions: RedocOptions = {
   hideHostname: false
 };
 
-export const createSwaggerDoc = async (app: INestApplication): Promise<INestApplication> => {
+export const createApiDocumentation = async (app: INestApplication): Promise<INestApplication> => {
   const document = SwaggerModule.createDocument(app, options)
   fs.writeFileSync("./openapi-schema.json", JSON.stringify(document));
   await SwaggerModule.setup(SWAGGER_DOCS_PATH, app, document);

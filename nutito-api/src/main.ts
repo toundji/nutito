@@ -7,7 +7,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import {
-  createSwaggerDoc,
+  createApiDocumentation,
   REDOCLI_DOCS_PATH,
   SWAGGER_DOCS_PATH,
 } from './utilities/helpers/api-docs.helper';
@@ -38,6 +38,6 @@ async function bootstrap() {
         new BadRequestException(errors),
     }),
   );
-  (await createSwaggerDoc(app)).listen(process.env.PORT || 3000, '0.0.0.0');
+  (await createApiDocumentation(app)).listen(process.env.PORT || 3000, '0.0.0.0');
 }
 bootstrap();
