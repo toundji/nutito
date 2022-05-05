@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 const config: PostgresConnectionOptions = {
