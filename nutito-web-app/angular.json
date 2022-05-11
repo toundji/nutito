@@ -24,12 +24,26 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/fonts"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/plugins/fontawesome/css/fontawesome.min.css",
+              "src/assets/plugins/fontawesome/css/all.min.css",
+              "src/assets/css/feather.css",
+              "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.6.0.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/feather.min.js",
+              "src/assets/plugins/slimscroll/jquery.slimscroll.min.js",
+              "src/assets/plugins/apexchart/apexcharts.min.js",
+              "src/assets/plugins/apexchart/chart-data.js",
+              "src/assets/js/script.js"
+            ]
           },
           "configurations": {
             "production": {
