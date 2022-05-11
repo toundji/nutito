@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+const slugify = require('slugify');
 
 export const formatTime = (unix_timestamp: number): string => {
     var date = new Date(unix_timestamp);
@@ -31,6 +32,15 @@ export const hashPassword = async (plainPassword: string): Promise<string> => {
   return hashedPassword;
 }
 
+
+export const sluggify = async (sluggifiable: string) => {
+  return slugify(sluggifiable, {
+      replacement: process.env.SLUG_STRINGS_REPLACEMENT,
+      remove: /[*+~.,()\/\\'"!:@]/g,
+      lower: true, 
+      trim: true 
+  });
+}
 
 
 

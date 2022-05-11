@@ -8,7 +8,6 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './authstrategies/local.strategy';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './authstrategies/jwt.strategy';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
 import { AuthorisationFactory } from './services/authorisation.factory';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -35,7 +34,6 @@ import { User } from './entities/user.entity';
     exports: [
         UserService,
         AuthenticationService,
-        Slugger,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,
@@ -49,7 +47,6 @@ import { User } from './entities/user.entity';
     providers: [
         UserService,
         AuthenticationService,
-        Slugger,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,

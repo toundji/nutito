@@ -1,10 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
-import { Audit } from '../../accountancy/entities/audit.entity';
+import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
+import { hashPassword, sluggify } from "src/utilities/helpers/functions.helper";
 
 @Entity()
-export class User extends Audit {
+export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn('increment')
     id: number;
@@ -51,6 +52,15 @@ export class User extends Audit {
 
     get profile(): File {
         return this.profile_pictures[this.profile_pictures.length - 1];
+    }
+
+    @BeforeInsert()
+    async setPasswordAndSlug() {
+        this.password = await hashPassword(this.password!);
+        this.slug = await sluggify(`user ${(new Date()).toLocaleString(
+            'fr-FR', 
+            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+        )}`);
     }
 
 }

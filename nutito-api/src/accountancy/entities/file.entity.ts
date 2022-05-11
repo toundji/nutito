@@ -1,9 +1,10 @@
 import { User } from 'src/user/entities/user.entity';
-import { Entity, JoinColumn, ManyToOne, Column } from 'typeorm';
-import { Audit } from './audit.entity';
+import { sluggify } from 'src/utilities/helpers/functions.helper';
+import { Entity, JoinColumn, ManyToOne, Column, BeforeInsert } from 'typeorm';
+import { BaseEntity } from './base.entity';
 import { Operation } from './operation.entity';
 @Entity()
-export class File extends Audit {
+export class File extends BaseEntity {
 
     @Column()
     name: string;
@@ -24,5 +25,13 @@ export class File extends Audit {
     @ManyToOne(type => User, user => user.profile_pictures, { onDelete: "CASCADE", nullable: true })
     @JoinColumn({ name: "user_id" })
     user: User
+
+    @BeforeInsert()
+    async setSlug() {
+        this.slug = await sluggify(`file ${(new Date()).toLocaleString(
+            'fr-FR', 
+            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+        )}`);
+    }
 
 }

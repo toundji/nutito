@@ -1,14 +1,15 @@
-import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, BeforeInsert } from 'typeorm';
 import { Career } from './career.entity';
 import { CompanyCategory } from './company-category.entity';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
 import { Licence } from './licence.entity';
 import { Account } from './account.entity';
 import { WorkField } from './work-field.entity';
+import { sluggify } from 'src/utilities/helpers/functions.helper';
 
 
 @Entity()
-export class Company extends Audit {
+export class Company extends BaseEntity {
 
     @Column({nullable: false})
     name: string;
@@ -47,6 +48,14 @@ export class Company extends Audit {
 
     get license(): Licence {
         return this.licences[this.licences.length - 1];
+    }
+
+    @BeforeInsert()
+    async setSlug() {
+        this.slug = await sluggify(`company ${(new Date()).toLocaleString(
+            'fr-FR', 
+            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+        )}`);
     }
 
 }

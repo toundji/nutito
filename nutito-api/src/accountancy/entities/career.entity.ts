@@ -1,11 +1,12 @@
 import { Company } from './company.entity';
-import { JoinColumn, ManyToOne, Entity } from 'typeorm';
+import { JoinColumn, ManyToOne, Entity, BeforeInsert } from 'typeorm';
 import { AgentRole } from './agent-role.entity';
 import { Agent } from './agent.entity';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
+import { sluggify } from 'src/utilities/helpers/functions.helper';
 
 @Entity()
-export class Career extends Audit {
+export class Career extends BaseEntity {
 
     @ManyToOne(type => Agent, agent => agent.careers, { onDelete: "NO ACTION", nullable: false })
     @JoinColumn({ name: "agent_id" })
@@ -18,5 +19,13 @@ export class Career extends Audit {
     @ManyToOne(type => AgentRole, role => role.careers, { onDelete: "NO ACTION", nullable: false})
     @JoinColumn({ name: "agent_role_id" })
     role: AgentRole
+
+    @BeforeInsert()
+    async setSlug() {
+        this.slug = await sluggify(`career ${(new Date()).toLocaleString(
+            'fr-FR', 
+            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+        )}`);
+    }
 
 }

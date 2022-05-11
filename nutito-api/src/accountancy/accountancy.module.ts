@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from './entities/account.entity';
 import { AgentRole } from './entities/agent-role.entity';
 import { Agent } from './entities/agent.entity';
-import { Audit } from './entities/audit.entity';
+import { BaseEntity } from './entities/base.entity';
 import { Career } from './entities/career.entity';
 import { ClientOperationType } from './entities/client-operation-type.entity';
 import { CompanyCategory } from './entities/company-category.entity';
@@ -19,7 +19,7 @@ import { WorkField } from './entities/work-field.entity';
     //        Account,
     //        AgentRole,
     //        Agent,
-    //        Audit,
+    //        BaseEntity,
     //        Career,
     //        ClientOperationType,
     //        CompanyCategory,
