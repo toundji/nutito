@@ -12,7 +12,7 @@ export class Account extends BaseEntity {
     amount: number;
 
 
-    @Column()
+    @Column({ nullable: true })
     amount_in: number;
 
     @Column({ nullable: true })
