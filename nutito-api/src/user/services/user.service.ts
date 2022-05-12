@@ -58,8 +58,8 @@ export class UserService {
 
   async checkUserExistence(email: string): Promise<any> {
     let userExists = this.findOneByEmail(email)
-      .then((result) =>  true)
-      .catch((error) =>  false) 
+      .then((result) => true)
+      .catch((error) => false); 
     return (await userExists) ? new BadRequestException({ detail: "User exists !" }) : { detail: "User does not exist !" }
   }
 
