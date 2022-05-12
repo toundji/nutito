@@ -4,7 +4,7 @@ import { CompanyCategory } from './company-category.entity';
 import { BaseEntity } from './base.entity';
 import { Licence } from './licence.entity';
 import { Account } from './account.entity';
-import { WorkField } from './work-field.entity';
+import { WorkField } from './workfield.entity';
 import { sluggify } from 'src/utilities/helpers/functions.helper';
 
 

@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
 import { hashPassword } from '../../utilities/helpers/functions.helper';
 
 @Injectable()
@@ -11,11 +10,10 @@ export class UserService {
 
   constructor(
     @InjectRepository(User)
-    private readonly usersrepository: Repository<User>,
-    private readonly slugger: Slugger
+    private readonly usersrepository: Repository<User>
   ) { }
 
-  findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return this.usersrepository.find();
   }
 
@@ -40,9 +38,8 @@ export class UserService {
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
     );
-    user.slug = await this.slugger.slugify(user.email);
     const newUser = this.usersrepository.create(user);
-    let returnValue = await this.usersrepository.save(newUser).catch(
+    let returnValue = this.usersrepository.save(newUser).catch(
       (error) => {
         throw new BadRequestException(`Email or phone is already taken !`);
       }

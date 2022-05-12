@@ -12,7 +12,7 @@ import { File } from './entities/file.entity';
 import { Licence } from './entities/licence.entity';
 import { OperationType } from './entities/operation-type.entity';
 import { Operation } from './entities/operation.entity';
-import { WorkField } from './entities/work-field.entity';
+import { WorkField } from './entities/workfield.entity';
 @Module({
     imports: [
     //    TypeOrmModule.forFeature([
