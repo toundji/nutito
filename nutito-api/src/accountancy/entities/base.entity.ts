@@ -15,11 +15,11 @@ export abstract class BaseEntity extends TypeOrmBaseEntity  {
 
     @Column()
     @CreateDateColumn()
-    created_at: Date = new Date();
+    created_at: Date;
 
     @Column({ nullable: true })
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at: Date ;
 
     @Column({ nullable: true })
     creator_id: number;

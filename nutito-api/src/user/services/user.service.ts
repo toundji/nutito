@@ -33,7 +33,6 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    createUserDto.password = await hashPassword(createUserDto.password);
     let user: User = new User();
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
@@ -57,11 +56,11 @@ export class UserService {
     this.usersrepository.save(user);
   }
 
-  async checkUserExistence(email: string): Promise<boolean> {
+  async checkUserExistence(email: string): Promise<any> {
     let userExists = this.findOneByEmail(email)
       .then((result) =>  true)
       .catch((error) =>  false) 
-    return userExists;
+    return (await userExists) ? new BadRequestException({ detail: "User exists !" }) : { detail: "User does not exist !" }
   }
 
 }

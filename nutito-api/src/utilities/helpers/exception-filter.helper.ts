@@ -25,7 +25,6 @@ export class AppExceptionFilter implements ExceptionFilter {
                 message = this.getErrorsMessages(exception);
                 break;
             case UnauthorizedException:
-                console.log("thrown");
                 status = (exception as HttpException).getStatus();
                 message = this.getErrorsMessages(exception);
                 code = (exception as any).code;
