@@ -18,5 +18,4 @@ export class createAccountDto{
     @IsNotEmpty()
     amount_out : number;
 
-
 }

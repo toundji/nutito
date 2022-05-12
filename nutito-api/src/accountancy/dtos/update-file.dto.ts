@@ -5,25 +5,25 @@ import { IsPositive } from 'class-validator';
 export class UpdateFileDto{
    
     @IsString()
-    name: string;
+    name ? : string;
 
    
     @IsString()
-    location: string;
+    location ? : string;
 
    
     @IsString()
-    mimetype: string;
+    mimetype ? : string;
 
    
     @IsPositive()
-    entity_id: number;
+    entity_id ? : number;
     
    
     @IsPositive()
-    operation_id: number;
+    operation_id ? : number;
 
    
     @IsPositive()
-    user_id: number;
+    user_id ? : number;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
 import { Column, OneToMany, Entity } from 'typeorm';
 import { Audit } from './audit.entity';

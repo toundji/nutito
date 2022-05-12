@@ -45,6 +45,8 @@ export class Company extends Audit {
     @ManyToMany(type => WorkField, workfield => workfield.companies, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
     workfields: WorkField[]; 
+    newCompany: Company[];
+    newCompany: Company[];
 
     get license(): Licence {
         return this.licences[this.licences.length - 1];

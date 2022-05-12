@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { IsPositive } from 'class-validator';
-export class UpdateCareer{
+export class UpdateCareerDto{
     @IsPositive()
-    agent_id: number;
+    agent_id?: number;
 
     @IsPositive()
-    company_id: number;
+    company_id?: number;
 
     @IsPositive()
-    agent_role_id: number;
+    agent_role_id?: number;
 
 }

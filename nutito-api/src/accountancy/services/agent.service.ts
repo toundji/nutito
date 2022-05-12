@@ -10,15 +10,13 @@ import { Agent } from '../entities/agent.entity';
 
 
 @Injectable()
-export class agentService{
+export class AgentService{
     constructor(
         @InjectRepository(Agent)
         private readonly agentrepository: Repository<Agent>,
         private readonly slugger: Slugger,
         private userService: UserService
       ) { }
-
-
 
       findAll(): Promise<Agent[]> {
         return this.agentrepository.find();
@@ -31,16 +29,15 @@ export class agentService{
                 throw new NotFoundException(`Agent with id ${id} is not found`);
             }
          );
-
          return agent;
-
          
       }
 
       async create(createAgentDto :CreateAgentDto): Promise<Agent> {
-        const newAgent: Agent = new Agent();
+        
+        const newAgent = new Agent();
         const  user = await this.userService.findOneById(createAgentDto.user_id); //presence d'une relation
-        newAgent.user = user;
+        newAgent.user = user.id;
         newAgent.save();
         return newAgent;
       }
@@ -54,7 +51,6 @@ export class agentService{
         const agent =  await this.findOneById(agentId);
 
         const user = updateAgentDto.user_id ? await this.userService.findOneById(updateAgentDto.user_id) : undefined;
-
         agent.user = user ? user : agent.user;
         
         agent. save();

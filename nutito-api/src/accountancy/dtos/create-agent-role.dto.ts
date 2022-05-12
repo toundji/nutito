@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsString } from 'class-validator';
-export class CreateCompanyCategoryDto{
+import { IsString } from 'class-validator';
+import {  IsNotEmpty } from "class-validator";
+
+export class CreateAgentRoleDto{
     @IsNotEmpty()
     @IsString()
     name: string;
@@ -8,5 +10,7 @@ export class CreateCompanyCategoryDto{
     @IsNotEmpty()
     @IsString()
     description: string;
-   
+
+    
+    
 }

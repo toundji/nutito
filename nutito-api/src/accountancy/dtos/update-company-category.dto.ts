@@ -1,11 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { IsString } from 'class-validator';
-export class UpdaateCompanyCategoryDto{
+export class UpdateCompanyCategoryDto{
     @IsString()
-    name: string;
+    name ? : string;
 
     @IsString()
-    description: string;
+    description ? : string;
 
-    // companies: Company[]
 }

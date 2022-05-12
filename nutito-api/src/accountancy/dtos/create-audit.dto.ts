@@ -12,9 +12,8 @@ export class AuditDto{
     @IsPositive()
     creator_id: number;
 
+    @IsNotEmpty()
+    @IsPositive()
     updater_id: number;
 
-    @IsNotEmpty()
-    @IsString()
-    slug: string;
 }

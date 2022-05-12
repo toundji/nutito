@@ -26,17 +26,16 @@ export class CreateCompanyDto{
     @IsString()
     rccm: string;
 
-    // careers: Career[]
+    
     @IsNotEmpty()
     @IsPositive()
-    company_category_id: number
-
-    // licences: Licence[];
-
-
-    // account: Account;
+    company_category_id: number;
 
     @IsNotEmpty()
     @IsPositive()
-    companies_workfields: number
+    companies_workfields: number;
+
+    @IsNotEmpty()
+    @IsString()
+    slug: string;
 }

@@ -4,39 +4,36 @@ import {IsString,IsPositive } from "class-validator";
 export class UpdateCompanyDto{
     
     @IsString()
-    name: string;
+    name ? : string;
 
     
     @IsString()
-    description: string;
+    description ? : string;
 
     
     @IsString()
-    city: string;
+    city ? : string;
 
     
     @IsString()
-    adress: string;
+    adress ? : string;
 
     
     @IsString()
-    ifu: string;
+    ifu ? : string;
 
     
     @IsString()
-    rccm: string;
+    rccm ? : string;
 
-    // careers: Career[]
+    // careers ? : Career[]
     
     @IsPositive()
-    company_category_id: number
+    company_category_id ? : number
 
-    // licences: Licence[];
-
-
-    // account: Account;
+    
 
     
     @IsPositive()
-    companies_workfields: number
+    companies_workfields ? : number
 }

@@ -27,4 +27,8 @@ export class CreateFileDto{
     @IsNotEmpty()
     @IsPositive()
     user_id: number;
+
+    @IsNotEmpty()
+    @IsString()
+    slug: string;   
 }

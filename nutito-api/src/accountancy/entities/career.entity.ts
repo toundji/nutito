@@ -7,6 +7,7 @@ import { Audit } from './audit.entity';
 
 @Entity()
 export class Career extends Audit {
+    [x: string]: Company;
 
     @ManyToOne(type => Agent, agent => agent.careers, { onDelete: "NO ACTION", nullable: false })
     @JoinColumn({ name: "agent_id" })
@@ -19,5 +20,8 @@ export class Career extends Audit {
     @ManyToOne(type => AgentRole, role => role.careers, { onDelete: "NO ACTION", nullable: false})
     @JoinColumn({ name: "agent_role_id" })
     role: AgentRole
+    newCarrer: Company;
+    // newCarrer: Company;
+    // newCarrer: Company;
 
 }

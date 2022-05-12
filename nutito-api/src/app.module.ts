@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';

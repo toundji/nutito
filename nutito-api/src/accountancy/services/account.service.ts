@@ -34,7 +34,7 @@ export class accountService{
     }
 
     async update(code: any, account: updateAccountDto ): Promise<Account>{
-       await this.accountRepository.update(account, code);
+        this.accountRepository.update(account, code);
         const updateAccount = await this.accountRepository.findOne(code);
         if(updateAccount){
             return updateAccount;

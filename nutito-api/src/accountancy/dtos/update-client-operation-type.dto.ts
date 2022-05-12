@@ -2,14 +2,14 @@
 import { IsString } from "class-validator";
 
 
-export class UpdateClientOperationDto{
+export class UpdateClientOperationTypeDto{
     @IsString()
-    name: string;
+    name ? : string;
 
     @IsString()
-    description: string;
+    description ? : string;
 
     @IsString()
-    OperationTypeEnum: string;
+    OperationTypeEnum ? : string;
 
 }

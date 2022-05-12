@@ -15,8 +15,7 @@ export class CreateClientOperationDto{
     @IsString()
     OperationTypeEnum: string;
 
-    @IsNotEmpty()
     @IsPositive()
-    creator_id: number;
+    operation: number;
 
 }
