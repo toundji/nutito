@@ -21,6 +21,12 @@ export class Company extends BaseEntity {
     city: string;
 
     @Column()
+    email: string;
+
+    @Column()
+    phone: string;
+
+    @Column()
     adress: string;
 
     @Column()

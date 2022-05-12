@@ -56,4 +56,12 @@ export class UserService {
     user.active = state;
     this.usersrepository.save(user);
   }
+
+  async checkUserExistence(email: string): Promise<boolean> {
+    let userExists = this.findOneByEmail(email)
+      .then((result) =>  true)
+      .catch((error) =>  false) 
+    return userExists;
+  }
+
 }

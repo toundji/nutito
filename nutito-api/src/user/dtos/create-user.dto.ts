@@ -1,4 +1,4 @@
-import { IsDate, IsDateString, IsEmail, IsEmpty, IsEnum, IsNotEmpty, IsPhoneNumber, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, IsString, MinLength } from 'class-validator';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 export class CreateUserDto {
 
@@ -12,7 +12,6 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     ifu: string;
-
     
     birth_date: string;
 

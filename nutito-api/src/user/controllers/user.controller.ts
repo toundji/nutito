@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { MailService } from 'src/mail/mail.service';
@@ -52,12 +52,19 @@ export class UserController {
   @Post('auth/mail/check')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
-  async verify_email(@Body() body: VerifyEmailDto) {
+  async verifyEmail(@Body() body: VerifyEmailDto) {
     const user = await this.userservice.findOneByEmail(body.user.email);
     if (user && user.verification_token === body.token) {
       this.userservice.set_user_activity(user, true);
       return { success: true, message: "Email confirmé avec succès" }
     }
+  }
+
+  @Get('auth/check-email-existence/:email')
+  @DoesNotRequireAuthentication()
+  @DoesNotRequireAuthorisations()
+  async checkIfEmailExists(@Param('email') email: string): Promise<boolean> {
+    return await this.userservice.checkUserExistence(email);
   }
 
 }

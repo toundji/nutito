@@ -2,6 +2,7 @@ import { Factory, FactorizedAttrs, Subfactory } from "@jorgebodega/typeorm-seedi
 import { Career } from '../entities/career.entity';
 import { AgentFactory } from "./agent.factory";
 import { AgentRoleFactory } from "./agent-role.factory";
+import { CompanyFactory } from "./company.factory";
 
 export class CareerFactory extends Factory<Career> {
     protected entity = Career;
