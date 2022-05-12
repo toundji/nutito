@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:nutito/components/app-decore.dart';
 import 'package:nutito/components/opacity-animation.dart';
 import 'package:nutito/components/shake-transition.dart';
+import 'package:nutito/screens/home/licence-warning.dart';
 import 'package:nutito/utils/app-date.dart';
 import 'package:nutito/utils/app-util.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../../utils/color-const.dart';
+import 'drawer.dart';
 import 'home-action.dart';
 import 'home-bilan.dart';
 
@@ -23,18 +25,26 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String anotation = "20.000.000.000 f";
   var periode = "01/08 - 31/08";
+  bool isChart = false;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      drawerScrimColor: Colors.transparent,
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
       appBar: _appBar,
-      endDrawer: Drawer(child: Container()),
+      endDrawer: AppDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 25),
         child: Column(
           children: [
-            HomeBilan(),
+            InkWell(
+              onTap: () => setState(() {
+                isChart = !isChart;
+              }),
+              child: isChart ? HomeBilan() : LicenceWarning(),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

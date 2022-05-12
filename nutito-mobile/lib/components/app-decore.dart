@@ -167,16 +167,14 @@ class AppDecore {
   }
 
   static Widget submitButton(
-    BuildContext context,
-    String label,
-    VoidCallback onPressed, {
-    VoidCallback? onLongPress,
-    Color? color,
-    Color? textColor,
-    double scal = 1.2,
-  }) {
+      BuildContext context, String label, VoidCallback onPressed,
+      {VoidCallback? onLongPress,
+      Color? color,
+      Color? textColor,
+      double scal = 1.2,
+      double vp = 16}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: SizeConst.padding),
+      padding: EdgeInsets.symmetric(vertical: vp),
       child: ElevatedButton(
         onPressed: onPressed,
         onLongPress: onLongPress,

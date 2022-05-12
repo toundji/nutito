@@ -9,9 +9,11 @@ import 'package:nutito/services/company.service.dart';
 import 'package:nutito/services/user.service.dart';
 import 'package:nutito/utils/color-const.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   runApp(const MyApp());
+  initializeDateFormatting();
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
           primaryColor: ColorConst.primary,
           fontFamily: "Poppins",
         ),
-        home: OnboardingFirst(),
+        home: HomeScreen(),
       ),
     );
   }
