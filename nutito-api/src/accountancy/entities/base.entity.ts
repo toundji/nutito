@@ -1,4 +1,4 @@
-import { sluggify } from 'src/utilities/helpers/functions.helper';
+import { sluggify, uuid } from '../../utilities/helpers/functions.helper';
 import { 
     BaseEntity as TypeOrmBaseEntity, 
     BeforeInsert, 
@@ -27,7 +27,12 @@ export abstract class BaseEntity extends TypeOrmBaseEntity  {
     @Column({ nullable: true })
     updater_id: number;
 
-    @Column({ unique: true })
+    @Column()
     slug: string;
+
+    @BeforeInsert()
+    async setSlug() {
+        this.slug = await sluggify(`${uuid()}`);
+    }
 
 }

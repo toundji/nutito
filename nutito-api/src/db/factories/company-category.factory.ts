@@ -1,6 +1,6 @@
 import { Factory, FactorizedAttrs } from "@jorgebodega/typeorm-seeding"
 import { faker } from "@faker-js/faker"
-import { CompanyCategory } from "../entities/company-category.entity";
+import { CompanyCategory } from "../../accountancy/entities/company-category.entity";
 
 export class CompanyCategoryFactory extends Factory<CompanyCategory> {
     protected entity = CompanyCategory;

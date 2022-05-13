@@ -1,9 +1,8 @@
-import { Column, JoinColumn, ManyToOne, OneToMany, Entity, BeforeInsert } from 'typeorm';
+import { Column, JoinColumn, ManyToOne, OneToMany, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { File } from '../entities/file.entity';
 import { OperationType } from './operation-type.entity';
 import { ClientOperationType } from './client-operation-type.entity';
-import { sluggify } from 'src/utilities/helpers/functions.helper';
 
 
 @Entity()
@@ -47,14 +46,6 @@ export class Operation extends BaseEntity {
 
     get type(): string {
         return this.operation_type.type;
-    }
-
-    @BeforeInsert()
-    async setSlug() {
-        this.slug = await sluggify(`operation ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
     }
 
 }

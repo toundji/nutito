@@ -12,24 +12,23 @@ import { File } from './entities/file.entity';
 import { Licence } from './entities/licence.entity';
 import { OperationType } from './entities/operation-type.entity';
 import { Operation } from './entities/operation.entity';
-import { WorkField } from './entities/workfield.entity';
+import { Workfield } from './entities/workfield.entity';
 @Module({
     imports: [
-    //    TypeOrmModule.forFeature([
-    //        Account,
-    //        AgentRole,
-    //        Agent,
-    //        BaseEntity,
-    //        Career,
-    //        ClientOperationType,
-    //        CompanyCategory,
-    //        Company,
-    //        File,
-    //        Licence,
-    //        OperationType,
-    //        Operation,
-    //        WorkField
-    //    ])
+       TypeOrmModule.forFeature([
+           Account,
+           AgentRole,
+           Agent,
+           Career,
+           ClientOperationType,
+           CompanyCategory,
+           Company,
+           File,
+           Licence,
+           OperationType,
+           Operation,
+           Workfield
+       ])
     ],
     exports: [
         

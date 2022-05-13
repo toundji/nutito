@@ -1,6 +1,6 @@
 import { Factory, FactorizedAttrs, Subfactory } from "@jorgebodega/typeorm-seeding"
-import { Agent } from '../entities/agent.entity';
-import { UserFactory } from "src/user/factory/user.factory";
+import { Agent } from '../../accountancy/entities/agent.entity';
+import { UserFactory } from "./user.factory";
 
 export class AgentFactory extends Factory<Agent> {
     protected entity = Agent;

@@ -1,7 +1,6 @@
-import { Entity, OneToMany, Column, BeforeInsert } from 'typeorm';
+import { Entity, OneToMany, Column } from 'typeorm';
 import { Company } from './company.entity';
 import { BaseEntity } from './base.entity';
-import { sluggify } from 'src/utilities/helpers/functions.helper';
 
 
 @Entity()
@@ -15,13 +14,5 @@ export class CompanyCategory extends BaseEntity {
 
     @OneToMany(type => Company, company => company.category, { onDelete: "NO ACTION" })
     companies: Company[]
-
-    @BeforeInsert()
-    async setSlug() {
-        this.slug = await sluggify(`company category ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
-    }
 
 }

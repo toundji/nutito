@@ -1,11 +1,10 @@
-import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, BeforeInsert } from 'typeorm';
+import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Career } from './career.entity';
 import { CompanyCategory } from './company-category.entity';
 import { BaseEntity } from './base.entity';
 import { Licence } from './licence.entity';
 import { Account } from './account.entity';
-import { WorkField } from './workfield.entity';
-import { sluggify } from 'src/utilities/helpers/functions.helper';
+import { Workfield } from './workfield.entity';
 
 
 @Entity()
@@ -27,7 +26,7 @@ export class Company extends BaseEntity {
     phone: string;
 
     @Column()
-    adress: string;
+    address: string;
 
     @Column()
     ifu: string;
@@ -48,20 +47,12 @@ export class Company extends BaseEntity {
     @OneToOne(() => Account)
     account: Account;
 
-    @ManyToMany(type => WorkField, workfield => workfield.companies, { onDelete: "NO ACTION" })
+    @ManyToMany(type => Workfield, workfield => workfield.companies, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
-    workfields: WorkField[]; 
+    workfields: Workfield[]; 
 
     get license(): Licence {
         return this.licences[this.licences.length - 1];
-    }
-
-    @BeforeInsert()
-    async setSlug() {
-        this.slug = await sluggify(`company ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
     }
 
 }

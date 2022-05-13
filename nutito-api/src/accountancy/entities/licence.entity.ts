@@ -1,6 +1,5 @@
-import { PaymentTypeEnum } from 'src/utilities/enums/payment-type.enum';
-import { sluggify } from 'src/utilities/helpers/functions.helper';
-import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { PaymentTypeEnum } from '../../utilities/enums/payment-type.enum';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Company } from './company.entity';
 @Entity()
@@ -10,7 +9,7 @@ export class Licence extends BaseEntity {
     expiry_date: Date;
 
     @Column()
-    amount: number;
+    amount: string;
 
     @Column()
     code: string;
@@ -31,13 +30,5 @@ export class Licence extends BaseEntity {
     @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE", nullable: false })
     @JoinColumn({ name: "company_id" })
     company: Company;
-
-    @BeforeInsert()
-    async setSlug() {
-        this.slug = await sluggify(`licence ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
-    }
 
 }

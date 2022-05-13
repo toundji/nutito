@@ -2,7 +2,7 @@ import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 
 import { File } from '../../accountancy/entities/file.entity';
 import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
-import { hashPassword, sluggify } from "src/utilities/helpers/functions.helper";
+import { hashPassword } from "../../utilities/helpers/functions.helper";
 
 @Entity()
 export class User extends BaseEntity {
@@ -10,13 +10,13 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ unique: true })
+    @Column()
     email: string;
 
-    @Column({ unique: true })
+    @Column()
     phone: string;
 
-    @Column({ unique: true })
+    @Column()
     ifu: string;
 
     @Column({ nullable: true })
@@ -55,12 +55,8 @@ export class User extends BaseEntity {
     }
 
     @BeforeInsert()
-    async setPasswordAndSlug() {
+    async setPassword() {
         this.password = await hashPassword(this.password!);
-        this.slug = await sluggify(`user ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
     }
 
 }

@@ -1,9 +1,8 @@
-import { sluggify } from 'src/utilities/helpers/functions.helper';
-import { Entity, Column, ManyToMany, JoinTable, BeforeInsert } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Company } from './company.entity';
 @Entity()
-export class WorkField extends BaseEntity {
+export class Workfield extends BaseEntity {
 
     @Column({nullable: false})
     name: string;
@@ -14,13 +13,5 @@ export class WorkField extends BaseEntity {
     @ManyToMany(type => Company, company => company.workfields, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
     companies: Company[];
-
-    @BeforeInsert()
-    async setSlug() {
-        this.slug = await sluggify(`workfield ${(new Date()).toLocaleString(
-            'fr-FR', 
-            { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
-        )}`);
-    }
 
 }

@@ -1,7 +1,6 @@
-import 'dotenv/config'
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
-const config: PostgresConnectionOptions = {
+const ormconfig: any = {
     type: 'postgres',
     url: process.env.DB_URL,
     host: process.env.DATABASE_HOST,
@@ -11,11 +10,14 @@ const config: PostgresConnectionOptions = {
     database: process.env.DATABASE_NAME,
     // ssl: { rejectUnauthorized: false },
     synchronize: false,
-    entities: ["dist/**/*.entity{.ts,.js}"],
+    entities: ["src/**/*.entity{.ts,.js}"],
     migrations: ["dist/src/db/migrations/*.js"],
     cli: {  
         migrationsDir: "src/db/migrations",
         entitiesDir: "src/**/*"
-    }
+    },
+    factories: ["src/db/factories/**/*{.ts,.js}"],
+    seeders: ["src/db/seeders/**/*{.ts,.js}"],
+    defaultSeeder: "RootSeeder",
 }
-export default config;
+export default ormconfig;

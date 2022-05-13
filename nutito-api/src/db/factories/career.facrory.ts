@@ -1,5 +1,5 @@
 import { Factory, FactorizedAttrs, Subfactory } from "@jorgebodega/typeorm-seeding"
-import { Career } from '../entities/career.entity';
+import { Career } from '../../accountancy/entities/career.entity';
 import { AgentFactory } from "./agent.factory";
 import { AgentRoleFactory } from "./agent-role.factory";
 import { CompanyFactory } from "./company.factory";

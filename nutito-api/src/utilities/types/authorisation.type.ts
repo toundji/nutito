@@ -1,4 +1,4 @@
-import { ActionEnum } from "src/utilities/enums/actions.enum";
+import { ActionEnum } from "../../utilities/enums/actions.enum";
 import { Subjects } from "../../user/services/authorisation.factory";
 import { User } from "../../user/entities/user.entity";
 

@@ -8,7 +8,7 @@ import { User } from '../entities/user.entity';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthenticateUserDto } from '../dtos/authenticate-user.dto';
 import { DoesNotRequireAuthentication } from '../../utilities/decorators/does-not-require-authentication.decorator';
-import { DoesNotRequireAuthorisations } from 'src/utilities/decorators/does-not-require-authorisations.decorator';
+import { DoesNotRequireAuthorisations } from '../../utilities/decorators/does-not-require-authorisations.decorator';
 import { SigninResponseDto } from '../dtos/signin-response.dto';
 import { SignupResponseDto } from '../dtos/signup-response.dto';
 
