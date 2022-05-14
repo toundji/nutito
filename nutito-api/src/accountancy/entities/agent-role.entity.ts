@@ -1,10 +1,9 @@
-/* eslint-disable prettier/prettier */
-import { Column, JoinColumn, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Career } from './career.entity';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
 
 @Entity()
-export class AgentRole extends Audit {
+export class AgentRole extends BaseEntity {
 
     @Column('varchar')
     name: string;
@@ -12,7 +11,7 @@ export class AgentRole extends Audit {
     @Column('text')
     description: string;
 
-    @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
-    careers: Career[]
+    @OneToMany(type => Career, career => career.role, { onDelete: "NO ACTION" })
+    careers?: Career[]
 
 }

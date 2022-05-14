@@ -2,14 +2,14 @@
 import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Career } from './career.entity';
 import { CompanyCategory } from './company-category.entity';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
 import { Licence } from './licence.entity';
 import { Account } from './account.entity';
-import { WorkField } from './work-field.entity';
+import { Workfield } from './workfield.entity';
 
 
 @Entity()
-export class Company extends Audit {
+export class Company extends BaseEntity {
 
     @Column({nullable: false})
     name: string;
@@ -21,7 +21,13 @@ export class Company extends Audit {
     city: string;
 
     @Column()
-    adress: string;
+    email: string;
+
+    @Column()
+    phone: string;
+
+    @Column()
+    address: string;
 
     @Column()
     ifu: string;
@@ -30,22 +36,23 @@ export class Company extends Audit {
     rccm: string;
 
     @OneToMany(type => Career, career => career.company, { onDelete: "NO ACTION" })
-    careers: Career[]
+    careers?: Career[]
 
-    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL", nullable: true })
+    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL" })
     @JoinColumn({ name: "company_category_id" })
-    category: CompanyCategory;
+    category!: CompanyCategory;
 
     @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
-    licences: Licence[];
+    licences?: Licence[];
 
-    @OneToOne(() => Account)
-    account: Account;
+    @OneToOne(() => Account, { nullable: true })
+    @JoinColumn({ name: "account_id" })
+    account!: Account;
 
-    @ManyToMany(type => WorkField, workfield => workfield.companies, { onDelete: "NO ACTION" })
+    @ManyToMany(type => Workfield, workfield => workfield.companies, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
-    workfields: WorkField[]; 
-    
+    workfields?: Workfield[]; 
+
     get license(): Licence {
         return this.licences[this.licences.length - 1];
     }

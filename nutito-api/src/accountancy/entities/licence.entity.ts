@@ -1,15 +1,14 @@
-/* eslint-disable prettier/prettier */
-import { PaymentTypeEnum } from 'src/utilities/enums/payment-type.enum';
+import { PaymentTypeEnum } from '../../utilities/enums/payment-type.enum';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
 import { Company } from './company.entity';
 @Entity()
-export class Licence extends Audit {
+export class Licence extends BaseEntity {
 
     @Column()
     expiry_date: Date;
 
-    @Column()
+    @Column('float')
     amount: number;
 
     @Column()
@@ -22,14 +21,14 @@ export class Licence extends Audit {
     })
     payment_type: string
 
-    @Column()
-    transaction_id: string;
+    @Column('integer')
+    transaction_id: number;
 
     @Column()
     transaction_info: string;
 
-    @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE", nullable: false })
+    @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "company_id" })
-    company: Company;
+    company!: Company;
 
 }

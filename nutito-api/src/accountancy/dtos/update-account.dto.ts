@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import { IsNumber, IsString } from "class-validator";
 
@@ -15,5 +16,9 @@ export class updateAccountDto{
     @IsNumber()
     amount_out ?: number;
 
+=======
+
+export class UpdateAccountDto {
+>>>>>>> dev
 
 }

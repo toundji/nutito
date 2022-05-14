@@ -1,11 +1,10 @@
-/* eslint-disable prettier/prettier */
-import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
+import { OperationTypeEnum } from '../../utilities/enums/operation-type.enum';
 import { Column, OneToMany, Entity } from 'typeorm';
-import { Audit } from './audit.entity';
+import { BaseEntity } from './base.entity';
 import { Operation } from './operation.entity';
 
 @Entity()
-export class OperationType extends Audit {
+export class OperationType extends BaseEntity {
 
     @Column()
     name: string;
@@ -21,6 +20,6 @@ export class OperationType extends Audit {
     type: string;
 
     @OneToMany(type => Operation, operation => operation.type, { onDelete: "NO ACTION" })
-    operations: Operation[];
+    operations?: Operation[];
 
 }

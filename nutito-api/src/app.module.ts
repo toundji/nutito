@@ -12,22 +12,24 @@ import { AuthorisationsGuard } from './user/guards/authorisation.guard';
 import { JwtAuthGuard } from './user/guards/jwt-auth.guard';
 import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper';
 import { AccountancyModule } from './accountancy/accountancy.module';
+import { AppController } from './app.controller';
+
 
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(config),
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    TypeOrmModule.forRoot(),
     UserModule,
     AccountancyModule,
-    MailModule,
+    MailModule
   ],
-  controllers: [],
+  controllers: [AppController,],
   providers: [
     {
       provide: APP_FILTER,

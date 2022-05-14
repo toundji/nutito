@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import { IsString } from 'class-validator';
 import { IsPositive } from 'class-validator';
@@ -26,4 +27,9 @@ export class UpdateFileDto{
    
     @IsPositive()
     user_id ? : number;
+=======
+
+export class UpdateFileDto {
+
+>>>>>>> dev
 }

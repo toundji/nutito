@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import {IsString,IsPositive } from "class-validator";
 
@@ -36,4 +37,9 @@ export class UpdateCompanyDto{
     
     @IsPositive()
     companies_workfields ? : number
+=======
+
+export class UpdateCompanyDto {
+
+>>>>>>> dev
 }

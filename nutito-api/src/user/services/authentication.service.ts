@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
+=======
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+>>>>>>> dev
 import { JwtService } from '@nestjs/jwt'
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
 import { User } from '../entities/user.entity';
+import { SigninResponseDto } from '../dtos/signin-response.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -12,19 +17,35 @@ export class AuthenticationService {
     private jwtService: JwtService,
   ) {}
 
-  async login(user: User) {
+  async signin(user: User): Promise<SigninResponseDto> {
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
-    return { access_token: access_token };
+    return { 
+      status: "success",
+      access_token: access_token,
+      type: "Bearer"
+    };
   }
 
   async validateUser(email: string, password: string) {
-    const user = await this.userservice.findOneByEmail(email);
-    const doesMatch = await bcrypt.compare(password, user.password);
-    if (doesMatch) {
-      const { password, verification_token, ...rest } = user;
-      return rest
+
+    let user: User;
+    
+    let invalidCredentialsMessage = "Invalid credentials !"
+
+    try {
+      user = await this.userservice.findOneByEmail(email);
+    } catch(error) {
+      throw new BadRequestException(invalidCredentialsMessage);
     }
-    return null;
+
+    const doesMatch = await bcrypt.compare(password, user.password);
+
+    if (doesMatch) {
+      const {id, password, verification_token, ...rest } = user;
+      return rest;
+    } else {
+      throw new BadRequestException(invalidCredentialsMessage);
+    }
   }
 }

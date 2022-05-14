@@ -1,21 +1,20 @@
-/* eslint-disable prettier/prettier */
-import { Column, Entity } from 'typeorm';
-import { Audit } from './audit.entity';
+import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BaseEntity } from './base.entity';
 @Entity()
-export class Account extends Audit {
+export class Account extends BaseEntity {
 
     @Column()
     code: string;
     
     // Cet attribut représente le solde du compte
-    @Column()
+    @Column('float')
     amount: number;
 
 
-    @Column()
+    @Column('float', { default: 0 })
     amount_in: number;
 
-    @Column()
+    @Column('float', { default: 0 })
     amount_out: number;
 
 }

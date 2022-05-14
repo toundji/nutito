@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import { IsDate } from 'class-validator';
 import { IsNumber } from 'class-validator';
@@ -29,5 +30,9 @@ export class UpdateLicenceDto{
     company_id ? : number;
 
     
+=======
+
+export class UpdateLicenceDto {
+>>>>>>> dev
 
 }

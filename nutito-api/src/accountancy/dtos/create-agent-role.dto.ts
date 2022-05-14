@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 import { IsString } from 'class-validator';
 import {  IsNotEmpty } from "class-validator";
@@ -12,5 +13,9 @@ export class CreateAgentRoleDto{
     description: string;
 
     
+=======
+
+export class CreateAgentRoleDto {
+>>>>>>> dev
     
 }

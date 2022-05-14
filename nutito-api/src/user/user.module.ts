@@ -9,15 +9,19 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './authstrategies/local.strategy';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './authstrategies/jwt.strategy';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
 import { AuthorisationFactory } from './services/authorisation.factory';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 
 @Module({
     imports: [
+        TypeOrmModule.forFeature([
+            User
+        ]),
         PassportModule,
         JwtModule.registerAsync({
             useFactory: async (configService: ConfigService) => ({
@@ -31,7 +35,6 @@ import { SessionSerializer } from './serializers/session.serializer';
     exports: [
         UserService,
         AuthenticationService,
-        Slugger,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,
@@ -45,7 +48,6 @@ import { SessionSerializer } from './serializers/session.serializer';
     providers: [
         UserService,
         AuthenticationService,
-        Slugger,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,

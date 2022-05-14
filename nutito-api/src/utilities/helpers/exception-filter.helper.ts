@@ -25,7 +25,6 @@ export class AppExceptionFilter implements ExceptionFilter {
                 message = this.getErrorsMessages(exception);
                 break;
             case UnauthorizedException:
-                console.log("thrown");
                 status = (exception as HttpException).getStatus();
                 message = this.getErrorsMessages(exception);
                 code = (exception as any).code;
@@ -53,7 +52,7 @@ export class AppExceptionFilter implements ExceptionFilter {
             case Error: 
                 if ((exception as any).code === "ENOENT") {
                     status = HttpStatus.NOT_FOUND
-                    message = `Cannot find such endpoint through the api ! Please refer to the api docs which is located at http://${os.hostname()}:3000/api/v1/docs`;
+                    message = "Cannot find such endpoint through the api ! Please refer to the api documentation";
                     code = (exception as any).code;
                 }
                 break;
