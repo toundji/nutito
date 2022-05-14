@@ -1,8 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { AuditUpdateDto } from './../dtos/update-audit.dto';
-import { UpdateResult } from 'typeorm';
 import { AuditDto } from './../dtos/create-audit.dto';
-import { Slugger } from './../../utilities/helpers/slugger.helper';
 import { Repository, DeleteResult } from 'typeorm';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,9 +10,7 @@ import { Audit } from '../entities/audit.entity';
 export class auditService{
     constructor(
         @InjectRepository(Audit)
-
         private readonly audiRepository: Repository<Audit>,
-        private readonly slug: Slugger
      ){}
 
      async findAll(): Promise<Audit[]>{
