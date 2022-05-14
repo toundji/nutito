@@ -20,6 +20,6 @@ export class ClientOperationType extends BaseEntity {
     type: string;
 
     @OneToMany(type => Operation, operation => operation.client_operation_type, { onDelete: "NO ACTION" })
-    operations: Operation[];
+    operations?: Operation[];
 
 }

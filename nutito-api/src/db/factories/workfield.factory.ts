@@ -1,8 +1,5 @@
-import { Factory, FactorizedAttrs, Subfactory } from "@jorgebodega/typeorm-seeding"
+import { Factory, FactorizedAttrs } from "@jorgebodega/typeorm-seeding"
 import { faker } from "@faker-js/faker"
-import { Operation } from "../../accountancy/entities/operation.entity";
-import { OperationTypeFactory } from "./operation-type.factory";
-import { ClientOperationTypeFactory } from './client-operation-type.factory';
 import { Workfield } from "../../accountancy/entities/workfield.entity";
 
 export class WorkfieldFactory extends Factory<Workfield> {

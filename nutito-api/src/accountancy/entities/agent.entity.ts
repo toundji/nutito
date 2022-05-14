@@ -9,9 +9,8 @@ export class Agent extends BaseEntity {
 
     @OneToOne(() => User)
     @JoinColumn({ name: "user_id" })
-    user: User;
+    user!: User;
 
     @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
-    careers: Career[]
-
+    careers?: Career[]
 }

@@ -12,6 +12,6 @@ export class AgentRole extends BaseEntity {
     description: string;
 
     @OneToMany(type => Career, career => career.role, { onDelete: "NO ACTION" })
-    careers: Career[]
+    careers?: Career[]
 
 }

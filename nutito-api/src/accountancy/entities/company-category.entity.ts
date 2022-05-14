@@ -9,10 +9,10 @@ export class CompanyCategory extends BaseEntity {
     @Column({nullable: false})
     name: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     description: string;
 
     @OneToMany(type => Company, company => company.category, { onDelete: "NO ACTION" })
-    companies: Company[]
+    companies?: Company[]
 
 }

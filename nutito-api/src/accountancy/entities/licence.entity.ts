@@ -8,8 +8,8 @@ export class Licence extends BaseEntity {
     @Column()
     expiry_date: Date;
 
-    @Column()
-    amount: string;
+    @Column('float')
+    amount: number;
 
     @Column()
     code: string;
@@ -21,14 +21,14 @@ export class Licence extends BaseEntity {
     })
     payment_type: string
 
-    @Column()
-    transaction_id: string;
+    @Column('integer')
+    transaction_id: number;
 
     @Column()
     transaction_info: string;
 
-    @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE", nullable: false })
+    @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "company_id" })
-    company: Company;
+    company!: Company;
 
 }

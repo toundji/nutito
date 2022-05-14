@@ -10,10 +10,10 @@ export class OperationFactory extends Factory<Operation> {
     protected attrs: FactorizedAttrs<Operation> = {
         name: faker.word.noun(),
         date: faker.date.past(),
-        amount: ((faker.finance.amount()) as any) as number,
-        amount_in: ((faker.finance.amount()) as any) as number,
-        amount_out: ((faker.finance.amount()) as any) as number,
-        balance: ((faker.finance.amount()) as any) as number,
+        amount: Number(faker.finance.amount()),
+        amount_in: Number(faker.finance.amount()),
+        amount_out: Number(faker.finance.amount()),
+        balance: Number(faker.finance.amount()),
         description: faker.lorem.lines(3),
         operation_type: new Subfactory(OperationTypeFactory),
         client_operation_type: new Subfactory(ClientOperationTypeFactory)

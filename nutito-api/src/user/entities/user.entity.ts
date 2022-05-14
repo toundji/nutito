@@ -48,7 +48,7 @@ export class User extends BaseEntity {
     active: boolean;
 
     @OneToMany(type => File, file => file, { onDelete: "CASCADE" })
-    profile_pictures: File[]; 
+    profile_pictures?: File[]; 
 
     get profile(): File {
         return this.profile_pictures[this.profile_pictures.length - 1];

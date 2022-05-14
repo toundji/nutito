@@ -14,15 +14,15 @@ export class File extends BaseEntity {
     @Column()
     mimetype: string;
 
-    @Column()
-    entity_id: string;
+    @Column('integer')
+    entity_id: number;
     
-    @ManyToOne(type => Operation, operation => operation.documents, { onDelete: "CASCADE", nullable: true })
+    @ManyToOne(type => Operation, operation => operation.documents, { onDelete: "CASCADE" })
     @JoinColumn({ name: "operation_id" })
-    operation: Operation
+    operation!: Operation
 
-    @ManyToOne(type => User, user => user.profile_pictures, { onDelete: "CASCADE", nullable: true })
+    @ManyToOne(type => User, user => user.profile_pictures, { onDelete: "CASCADE" })
     @JoinColumn({ name: "user_id" })
-    user: User;
+    user!: User;
 
 }

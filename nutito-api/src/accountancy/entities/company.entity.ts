@@ -35,21 +35,22 @@ export class Company extends BaseEntity {
     rccm: string;
 
     @OneToMany(type => Career, career => career.company, { onDelete: "NO ACTION" })
-    careers: Career[]
+    careers?: Career[]
 
-    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL", nullable: true })
+    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL" })
     @JoinColumn({ name: "company_category_id" })
-    category: CompanyCategory;
+    category!: CompanyCategory;
 
     @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
-    licences: Licence[];
+    licences?: Licence[];
 
-    @OneToOne(() => Account)
-    account: Account;
+    @OneToOne(() => Account, { nullable: true })
+    @JoinColumn({ name: "account_id" })
+    account!: Account;
 
     @ManyToMany(type => Workfield, workfield => workfield.companies, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
-    workfields: Workfield[]; 
+    workfields?: Workfield[]; 
 
     get license(): Licence {
         return this.licences[this.licences.length - 1];

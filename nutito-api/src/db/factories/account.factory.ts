@@ -6,9 +6,9 @@ export class AccountFactory extends Factory<Account> {
     protected entity = Account
     protected attrs: FactorizedAttrs<Account> = {
       code: faker.unique.name,
-      amount: Number((faker.finance.amount())),
+      amount: Number(faker.finance.amount()),
       amount_in: new InstanceAttribute(
-          (instance) => Number(instance.amount)
+          (instance) => instance.amount
       ),
     }
 }

@@ -7,11 +7,11 @@ export class Workfield extends BaseEntity {
     @Column({nullable: false})
     name: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     description: string;
 
-    @ManyToMany(type => Company, company => company.workfields, { onDelete: "NO ACTION" })
+    @ManyToMany(type => Company, company => company.workfields, { onDelete: "NO ACTION", nullable: true })
     @JoinTable({ name: "companies_workfields" })
-    companies: Company[];
+    companies?: Company[];
 
 }

@@ -7,14 +7,14 @@ export class Account extends BaseEntity {
     code: string;
     
     // Cet attribut représente le solde du compte
-    @Column()
-    amount: string;
+    @Column('float')
+    amount: number;
 
 
-    @Column({ nullable: true })
-    amount_in: string;
+    @Column('float', { default: 0 })
+    amount_in: number;
 
-    @Column({ nullable: true })
-    amount_out: string;
+    @Column('float', { default: 0 })
+    amount_out: number;
 
 }
