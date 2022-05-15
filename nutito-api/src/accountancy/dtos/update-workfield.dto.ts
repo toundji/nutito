@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-export class UpdateWorkFieldDto{
+export class UpdateWorkfieldDto{
     @IsNotEmpty()
     @IsString()
     name: string;
