@@ -1,4 +1,12 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+export class CreateWorkFieldDto{
+    @IsNotEmpty()
+    @IsString()
+    name: string;
 
-export class CreateWorkfieldDto {
-    
+    @IsNotEmpty()
+    @IsString()
+    description: string;
+
+
 }
