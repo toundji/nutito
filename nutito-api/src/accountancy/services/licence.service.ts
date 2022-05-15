@@ -1,12 +1,8 @@
-/* eslint-disable prettier/prettier */
-import { Company } from './../entities/company.entity';
 import { CompanySerice } from './company.service';
 import { CreateLicenceDto } from './../dtos/create-licence.dto';
-import { UpdateLicenceDto } from './../dtos/update-Licence.dto';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { Licence } from './../entities/Licence.entity';
-import { Injectable, NotFoundException, Catch } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
+import { Licence } from './../entities/licence.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 @Injectable()
@@ -14,7 +10,6 @@ export class LicenceService{
     constructor(
         @InjectRepository(Licence)
         private readonly licenceRepository : Repository<Licence>,
-        private readonly slugger: Slugger,
         private readonly companySerice: CompanySerice
     ){}
 
@@ -48,10 +43,5 @@ export class LicenceService{
         
 
     }
-
-    // async update(updateLicenceDto: UpdateLicenceDto, id:number):Promise<UpdateResult>{
-    //     return await this.licenceRepository.update(updateLicenceDto,id);
-    // }
-   
 
 }

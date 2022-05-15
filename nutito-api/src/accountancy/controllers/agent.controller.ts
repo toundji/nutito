@@ -1,11 +1,9 @@
 import { updateAccountDto } from './../dtos/update-account.dto';
 import { Delete, Param, Post, Put } from '@nestjs/common';
-/* eslint-disable prettier/prettier */
 import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { AgentService } from './../services/agent.service';
 import { Body, Controller, Get } from "@nestjs/common";
 import { Agent } from '../entities/agent.entity';
-import { get } from 'http';
 
 @Controller('agents')
 export class AgentController{
@@ -31,10 +29,5 @@ export class AgentController{
     @Delete(':id')
     async deleteAgent(@Param('id') id){
         return await this.agentservice.delete(id);
-    }
-
-    @Put()
-    async updateAgent(@Param('id') id, @Body() updateagentdto : updateAccountDto): Promise<Agent>{
-        return await this.agentservice.delete(updateagentdto, id);
     }
 }

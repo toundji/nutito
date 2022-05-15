@@ -2,8 +2,8 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from 'ormconfig';
 import { join } from 'path';
+import config from '../ormconfig';
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';

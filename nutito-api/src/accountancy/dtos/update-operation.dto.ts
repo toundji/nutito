@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
 import { IsNumber } from 'class-validator';
 import { IsDate } from 'class-validator';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 export class UpdateOperationDto{
     @IsString()
     name ? : string;
@@ -24,9 +22,5 @@ export class UpdateOperationDto{
 
     @IsNumber()
     client_opration_type_id ? : number;
-=======
-
-export class UpdateOperationDto {
->>>>>>> dev
 
 }

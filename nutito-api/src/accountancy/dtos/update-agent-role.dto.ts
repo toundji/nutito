@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
 import { IsString } from 'class-validator';
 
 export class UpdateAgentRoleDto{
@@ -9,9 +7,4 @@ export class UpdateAgentRoleDto{
     @IsString()
     description? : string;
     
-=======
-
-export class UpdateAgentRoleDto {
-
->>>>>>> dev
 }

@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-=======
 import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
->>>>>>> dev
 import { File } from '../../accountancy/entities/file.entity';
 import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';

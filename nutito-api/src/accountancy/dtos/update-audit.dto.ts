@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { IsDate, IsNotEmpty, IsString,IsPositive } from "class-validator";
 
 export class AuditUpdateDto{

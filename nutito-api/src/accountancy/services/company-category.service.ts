@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { UpdateCompanyCategoryDto } from './../dtos/update-company-category.dto';
-import { CreateCompanyCategoryDto } from './../dtos/create-company-category.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
@@ -26,10 +25,6 @@ export class CompanyCategoryService{
           throw new HttpException('Company Category not found', HttpStatus.NOT_FOUND);
            
     }
-    async create(createCompanyCategoryDto: CreateCompanyCategoryDto): Promise<CompanyCategory>{
-        const newCompanyCategory = await this.companyCategoryRepository.create(createCompanyCategoryDto);
-        return await this.companyCategoryRepository.save(newCompanyCategory);
-    }
 
     async delete(companyCategory: number): Promise<DeleteResult>{
         return this.companyCategoryRepository.delete(companyCategory);
@@ -39,7 +34,4 @@ export class CompanyCategoryService{
         return this.companyCategoryRepository.update(companyCategory,updateCompanyCategoryDto);
     }
 
-    
-
-    
 }

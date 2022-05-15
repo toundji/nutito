@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 export class UpdateOperationTypeDto{
     @IsString()
     name ? : string;
@@ -10,9 +8,5 @@ export class UpdateOperationTypeDto{
 
     @IsString()
     type ? : string;
-=======
-
-export class UpdateOperationTypeDto {
->>>>>>> dev
 
 }

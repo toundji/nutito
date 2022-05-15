@@ -1,19 +1,15 @@
-/* eslint-disable prettier/prettier */
 import { CreateOperationTypeDto } from './../dtos/create-operation-type.dto';
 import { OperationType } from './../entities/operation-type.entity';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Injectable, NotFoundException, Catch } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { retry } from 'rxjs';
 import { UpdateOperationTypeDto } from '../dtos/update-operation-type.dto';
 @Injectable()
 export class OperationTypeService{
     constructor(
         @InjectRepository(OperationType)
-        private readonly OperationTypeRepository : Repository<OperationType>,
-        private readonly slugger: Slugger
+        private readonly OperationTypeRepository : Repository<OperationType>
     ){}
 
     async findAll(): Promise<OperationType[]>{

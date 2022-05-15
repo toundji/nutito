@@ -2,7 +2,6 @@
 import { CompanyCategoryService } from './company-category.service';
 import { UpdateCompanyDto } from './../dtos/update-company.dto';
 import { CreateCompanyDto } from './../dtos/create-company.dto';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Company } from './../entities/company.entity';
 import { Injectable, NotFoundException, Catch } from '@nestjs/common';
@@ -15,7 +14,6 @@ export class CompanySerice{
         @InjectRepository(Company)
         private readonly companyRepository : Repository<Company>,
         private readonly companyCategoryService : CompanyCategoryService,
-        private readonly slugger: Slugger
     ){}
 
     async findAll(): Promise<Company[]>{

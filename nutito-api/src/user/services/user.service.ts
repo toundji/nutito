@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
-/* eslint-disable prefer-const */
-import { BadRequestException, Injectable } from '@nestjs/common';
-=======
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
->>>>>>> dev
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
-import { hashPassword } from '../../utilities/helpers/functions.helper';
 
 @Injectable()
 export class UserService {

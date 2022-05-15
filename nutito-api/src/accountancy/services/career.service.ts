@@ -1,16 +1,13 @@
-/* eslint-disable prettier/prettier */
-import { updateAgentDto } from './../dtos/update-agent.dto';
 import { AgentRoleService } from './agent-role.service';
 import { AgentService } from './agent.service';
 import { CompanySerice } from './company.service';
 import { UpdateCareerDto } from './../dtos/update-career.dto';
-
 import { Career } from './../entities/career.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCareerDto } from './../dtos/create-career.dto';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
-import { Agent } from '../entities/agent.entity';
+
 @Injectable()
 export class careerService{
     constructor(

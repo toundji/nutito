@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
 import { IsString } from 'class-validator';
 export class UpdateCompanyCategoryDto{
     @IsString()
@@ -7,9 +5,5 @@ export class UpdateCompanyCategoryDto{
 
     @IsString()
     description ? : string;
-=======
-
-export class UpdateCompanyCategoryDto {
->>>>>>> dev
 
 }

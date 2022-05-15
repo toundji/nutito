@@ -4,8 +4,7 @@ import { UserService } from './../../user/services/user.service';
 import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { Slugger } from 'src/utilities/helpers/slugger.helper';
+import { DeleteResult, Repository } from 'typeorm';
 import { Agent } from '../entities/agent.entity';
 
 
@@ -14,7 +13,6 @@ export class AgentService{
     constructor(
         @InjectRepository(Agent)
         private readonly agentrepository: Repository<Agent>,
-        private readonly slugger: Slugger,
         private userService: UserService
       ) { }
 

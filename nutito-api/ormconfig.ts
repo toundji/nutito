@@ -1,7 +1,5 @@
-import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
-
 const ormconfig: any = {
-    type: 'postgres',
+    type: 'mysql',
     url: process.env.DB_URL,
     host: process.env.DATABASE_HOST,
     port: (process.env.DATABASE_PORT as any) as number,

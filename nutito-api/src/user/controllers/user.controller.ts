@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-=======
 import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
->>>>>>> dev
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { MailService } from 'src/mail/mail.service';

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
 import { IsDate } from 'class-validator';
 import { IsNumber } from 'class-validator';
 import { IsString } from 'class-validator';
@@ -34,11 +32,4 @@ export class CreateLicenceDto{
     @IsNotEmpty()
     @IsPositive()
     company_id: number;
-
-
-=======
-
-export class CreateLicenceDto {
-    
->>>>>>> dev
 }

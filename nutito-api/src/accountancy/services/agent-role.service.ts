@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { UpdateAgentRoleDto } from './../dtos/update-agent-role.dto';
-import { createAccountDto } from './../dtos/create-account.dto';
 import { CreateAgentRoleDto } from './../dtos/create-agent-role.dto';
-import { HttpException, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
