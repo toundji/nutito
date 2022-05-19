@@ -1,4 +1,4 @@
-import { updateAccountDto } from './../dtos/update-account.dto';
+/* eslint-disable prettier/prettier */
 import { Delete, Param, Post, Put } from '@nestjs/common';
 import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { AgentService } from './../services/agent.service';

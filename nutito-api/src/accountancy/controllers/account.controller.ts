@@ -8,7 +8,7 @@ import { Controller, Get, Param, Post } from "@nestjs/common";
 
 @Controller('acccouts')
 export class AccoutController{
-    constructor(private readonly accountservice: AccountService,){}
+    constructor(private readonly accountservice: AccountService){}
     @Get()
     async getAccounts(): Promise<Account[]>{
         return await this.accountservice.findAll();
@@ -16,23 +16,23 @@ export class AccoutController{
 
     @Get(':code')
     async getAccountOnlyById(@Param('code') code): Promise<Account>{
-        return await this.accountservice.findOneBySlug(code);
+        return await this.accountservice.findOneById(code);
     }
 
-    @Post()
+    @Post('create/')
     async addAccount(@Body() createaccountdto : CreateAccountDto): Promise<Account>{
         return await this.accountservice.create(createaccountdto);
     }
 
-    // @Put('update/:code')
-    // async updateAccount(@Param('code') code, @Body() updateaccountdto : updateAccountDto): Promise<Account>{
-    //     return await this.accountservice.update(code, updateaccountdto);
-    // }
+    @Put('update/:code')
+    async updateAccount(@Param('code') code, @Body() updateaccountdto : updateAccountDto){
+        return await this.accountservice.update(code, updateaccountdto);
+    }
 
-    // @Delete('delete/:code')
-    // async deleteAccount(@Param('code') code){
-    //     return await this.accountservice.deleteAccount(code);
-    // }
+    @Delete('delete/:code')
+    async deleteAccount(@Param('code') code){
+        return await this.accountservice.deleteAccount(code);
+    }
 
 
 }
