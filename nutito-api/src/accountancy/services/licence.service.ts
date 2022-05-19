@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import { UpdateLicenceDto } from './../dtos/update-licence.dto';
 import { CompanySerice } from './company.service';
 import { CreateLicenceDto } from './../dtos/create-licence.dto';
 import { DeleteResult } from 'typeorm';
@@ -17,24 +19,24 @@ export class LicenceService{
         return await this.licenceRepository.find();
     }
 
-    async findOnById(id: number): Promise<Licence>{
+    async findOnById(id: number): Promise<any>{
       
 
-         const companny = await this.licenceRepository.findOneOrFail({where : { id : id}}).catch(
+         const licence = await this.licenceRepository.findOneOrFail({where : { id : id}}).catch(
             (error)=> {
                 throw new NotFoundException(`Licence with id ${id} is not found`);
             }
          )
-         return companny;
+         return licence;
 
     }
 
     async delete(id :number): Promise<DeleteResult>{
-        return  this.licenceRepository.softDelete(id);
+        return  await this.licenceRepository.delete(id);
 
     }
 
-    async create(licenceCreateDto : CreateLicenceDto): Promise< any >{
+    async create(licenceCreateDto : CreateLicenceDto): Promise< Licence >{
         const newLicence= new Licence();
         const company = await this.companySerice.findOnById(licenceCreateDto.company_id);
         newLicence.company.id = company.id;
@@ -43,5 +45,15 @@ export class LicenceService{
         
 
     }
+
+    async update(updateLicenceDto: UpdateLicenceDto, id:number):Promise<Licence>{
+      
+        const licence = await this.findOnById(id);
+
+        licence.company.id = updateLicenceDto.company_id ? updateLicenceDto.company_id : undefined;
+
+        return await this.licenceRepository.save(licence)
+    }
+   
 
 }

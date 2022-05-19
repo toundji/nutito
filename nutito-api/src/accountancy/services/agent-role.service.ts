@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { UpdateAgentRoleDto } from './../dtos/update-agent-role.dto';
 import { CreateAgentRoleDto } from './../dtos/create-agent-role.dto';
 import { NotFoundException } from '@nestjs/common';
@@ -33,7 +34,13 @@ export class AgentRoleService{
     }
 
     async delete(id: number): Promise<DeleteResult>{
-        return await this.agentRoleRepository.delete(id);
+        const agentRole = await this.findOneById(id);
+        if(agentRole.id){
+            return this.agentRoleRepository.delete(agentRole);
+        }
+        throw new NotFoundException(`Agent Role id ${id} not found`);
+
+
     }
     async update(id: number,updateAccountDto: UpdateAgentRoleDto): Promise<UpdateResult>{
         return await this.agentRoleRepository.update(id,updateAccountDto);

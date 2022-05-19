@@ -1,3 +1,4 @@
+import { CreateCompanyCategory } from './../dtos/create-company-category.dto';
 /* eslint-disable prettier/prettier */
 import { UpdateCompanyCategoryDto } from './../dtos/update-company-category.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
@@ -30,6 +31,11 @@ export class CompanyCategoryService{
         return this.companyCategoryRepository.delete(companyCategory);
     }
 
+    async create(createCompanyCategory : CreateCompanyCategory): Promise<CompanyCategory>{
+        const newCompanyCategory = await this.companyCategoryRepository.create(createCompanyCategory);
+        return await this.companyCategoryRepository.save(newCompanyCategory);
+    }
+    
     async update(companyCategory: number, updateCompanyCategoryDto: UpdateCompanyCategoryDto): Promise<UpdateResult>{
         return this.companyCategoryRepository.update(companyCategory,updateCompanyCategoryDto);
     }

@@ -43,8 +43,11 @@ export class OperationService{
         return newOPeration.save()
     }
 
-    async update(id: number, updateOperationDto: UpdateOperationDto): Promise<UpdateResult>{
-        return await this.operationRepository.update(id,updateOperationDto);
+    async update(id: number, updateOperationDto: UpdateOperationDto): Promise<Operation>{
+        const operation = await this.findOneById(id);
+        operation.client_operation_type.id = updateOperationDto.client_opration_type_id ? updateOperationDto.client_opration_type_id : undefined;
+        operation.operation_type.id = updateOperationDto.operation_type_id ? updateOperationDto.operation_type_id : undefined ;
+        return await this.operationRepository.save(operation);
     }
 
     async delete(id : number):Promise<DeleteResult>{

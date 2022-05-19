@@ -27,7 +27,8 @@ export class ClientOpationTypeService{
 
      async create(createClientOperationTypeDto  : CreateClientOperationDto): Promise<ClientOperationType>{
         
-        return await this.clientOperationTypeRepository.create(createClientOperationTypeDto);
+        const newClientOperationType = await this.clientOperationTypeRepository.create(createClientOperationTypeDto);
+        return this.clientOperationTypeRepository.save(newClientOperationType);
 
      }
 

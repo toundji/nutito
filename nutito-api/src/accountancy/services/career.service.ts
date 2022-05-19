@@ -37,13 +37,12 @@ export class careerService{
         const company  = await this.companyService.findOnById(createCarrerDto.company_id);
         const agent = await this.agentService.findOneById(createCarrerDto.agent_role_id);
         const agent_role_id = await this.agentRoleService.findOneById(createCarrerDto.agent_role_id);
-        newCarrer.agent = agent;
-        newCarrer.company = company;
-        newCarrer.role = agent_role_id;
+        newCarrer.agent.id = agent.id;
+        newCarrer.company.id = company.id;
+        newCarrer.role.id = agent_role_id.id;
 
-        newCarrer.save();
-
-        return newCarrer;
+        const nv =await this.carrerrRepository.create(newCarrer);
+        return this.carrerrRepository.save(nv);
     }
 
     async update(career_id : number, updateCarrerDto : UpdateCareerDto): Promise<Career>{
