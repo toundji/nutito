@@ -39,7 +39,7 @@ export class FileService{
         const newFile= new File()
         newFile.name= createFileDto.name;
         newFile.location= createFileDto.location;
-        newFile.mimetype= createFileDto.minetype;
+        newFile.mimetype= createFileDto.mimetype;
         newFile.entity_id= createFileDto.entity_id  ;
         newFile.operation.id = await (await this.companySerice.findOnById(createFileDto.operation_id)).id;
         newFile.user= await this.userService.findOneById(createFileDto.user_id)

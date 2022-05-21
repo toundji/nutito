@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from '../../user/entities/user.entity';
 import { Entity, JoinColumn, ManyToOne, Column } from 'typeorm';
 import { BaseEntity } from './base.entity';
@@ -16,6 +17,7 @@ export class File extends BaseEntity {
 
     @Column('integer')
     entity_id: number;
+
     
     @ManyToOne(type => Operation, operation => operation.documents, { onDelete: "CASCADE" })
     @JoinColumn({ name: "operation_id" })

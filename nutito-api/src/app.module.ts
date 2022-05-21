@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { UserService } from './user/services/user.service';
+import { UserController } from './user/controllers/user.controller';
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,7 +20,16 @@ import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(config),
+    TypeOrmModule.forRoot({
+      "type": "mysql",
+      "host": "localhost",
+      "port": 3306,
+      "username": "root",
+      "password":null,
+      "database": "nuititodb",
+      "entities": ["dist/**/*.entity{.ts,.js}"],
+      "synchronize": true
+    }),
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
@@ -29,7 +40,8 @@ import { AppController } from './app.controller';
     AccountancyModule,
     MailModule
   ],
-  controllers: [AppController,],
+  exports: [],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_FILTER,

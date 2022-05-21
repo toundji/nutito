@@ -20,7 +20,7 @@ export class FileController{
     }
   
     @Get('/:id')
-    async getCarrerById(
+    async getFileById(
         @Param('id') id :number
     ): Promise<File>{
         return await this.fileService.findOnById(id);

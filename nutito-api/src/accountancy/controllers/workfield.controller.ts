@@ -16,24 +16,24 @@ export class WorkfieldController{
     }
   
     @Get()
-    async getAllLicence(): Promise<Workfield[]>{
+    async getAll(): Promise<Workfield[]>{
         return await this.workfieldService.findAll();
     }
   
     @Get('/:id')
-    async getCarrerById(
+    async getById(
         @Param('id') id :number
     ): Promise<Workfield>{
         return await this.workfieldService.findOneById(id);
     } 
     
     @Put('update/:id')
-    async updateAccount(@Param('id') id : number, @Body() updateWorkfieldDto : UpdateWorkfieldDto){
+    async update(@Param('id') id : number, @Body() updateWorkfieldDto : UpdateWorkfieldDto){
         return await this.workfieldService.update(id,updateWorkfieldDto);
     }
   
     @Delete('delete/:id')
-    async deleteAccount(@Param('id') id : number){
+    async delete(@Param('id') id : number){
         return await this.workfieldService.delete(id);
     }
 }

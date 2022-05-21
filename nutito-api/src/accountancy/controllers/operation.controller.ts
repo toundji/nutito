@@ -7,7 +7,7 @@ import { Operation } from '../entities/operation.entity';
 import { UpdateOperationDto } from '../dtos/update-operation.dto';
 
 @Controller('operations')
-export class OperationTypeController{
+export class OperationController{
     constructor(private operationService : OperationService){}
 
     
@@ -17,24 +17,24 @@ export class OperationTypeController{
     }
   
     @Get()
-    async getAllLicence(): Promise<OperationType[]>{
+    async getAll(): Promise<OperationType[]>{
         return await this.operationService.findAll();
     }
   
     @Get('/:id')
-    async getCarrerById(
+    async getById(
         @Param('id') id :number
     ): Promise<OperationType>{
         return await this.operationService.findOneById(id);
     } 
     
     @Put('update/:id')
-    async updateAccount(@Param('id') id : number, @Body() updateOperationDto : UpdateOperationDto){
+    async update(@Param('id') id : number, @Body() updateOperationDto : UpdateOperationDto){
         return await this.operationService.update(id,updateOperationDto);
     }
   
     @Delete('delete/:id')
-    async deleteAccount(@Param('id') id : number){
+    async delete(@Param('id') id : number){
         return await this.operationService.delete(id);
     }
 }

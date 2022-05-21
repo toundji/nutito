@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { updateAgentDto } from './../dtos/update-agent.dto';
 import { Delete, Param, Post, Put } from '@nestjs/common';
 import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { AgentService } from './../services/agent.service';
@@ -21,10 +22,15 @@ export class AgentController{
         return await this.agentservice.findOneById(id);
     }
 
-    @Post()
+    @Post('/create')
     async createAgent(@Body() createagentdto: CreateAgentDto): Promise<Agent>{
         return await this.agentservice.create(createagentdto)
     }
+    @Put('update/:id')
+    async UpdateAgentROle(@Body() updateagentDto: updateAgentDto, @Param('id') id: number): Promise<any>{
+        return await this.agentservice.update(id,updateagentDto)
+    }
+
 
     @Delete(':id')
     async deleteAgent(@Param('id') id){

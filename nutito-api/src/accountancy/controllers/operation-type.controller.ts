@@ -16,24 +16,24 @@ export class OperationTypeController{
     }
   
     @Get()
-    async getAllLicence(): Promise<OperationType[]>{
+    async getAllOperationType(): Promise<OperationType[]>{
         return await this.operationTypeService.findAll();
     }
   
     @Get('/:id')
-    async getCarrerById(
+    async getOperationTypeById(
         @Param('id') id :number
     ): Promise<OperationType>{
         return await this.operationTypeService.findOnById(id);
     } 
     
     @Put('update/:id')
-    async updateAccount(@Param('id') id : number, @Body() updateLicenceDto : UpdateOperationTypeDto){
+    async update(@Param('id') id : number, @Body() updateLicenceDto : UpdateOperationTypeDto){
         return await this.operationTypeService.update(updateLicenceDto, id);
     }
   
     @Delete('delete/:id')
-    async deleteAccount(@Param('id') id : number){
+    async delete(@Param('id') id : number){
         return await this.operationTypeService.delete(id);
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { IsString } from "class-validator";
 
 
@@ -9,6 +10,6 @@ export class UpdateClientOperationTypeDto{
     description ? : string;
 
     @IsString()
-    OperationTypeEnum ? : string;
+    type ? : string;
 
 }

@@ -11,7 +11,7 @@ export class CompanyController {
   constructor(private readonly companySerice : CompanySerice) { }
 
   @Post('/create')
-  async createCarrer(@Body() createCompanyDto : CreateCompanyDto): Promise<Company>{
+  async createCompany(@Body() createCompanyDto : CreateCompanyDto): Promise<Company>{
       return await this.companySerice.create(createCompanyDto);
   }
 
@@ -21,19 +21,19 @@ export class CompanyController {
   }
 
   @Get('/:id')
-  async getCarrerById(
+  async getCompanyById(
       @Param('id') id :number
   ): Promise<Company>{
       return await this.companySerice.findOnById(id);
   } 
   
   @Put('update/:id')
-  async updateAccount(@Param('id') id : number, @Body() updateCompanyDto : UpdateCompanyDto){
+  async updateCompany(@Param('id') id : number, @Body() updateCompanyDto : UpdateCompanyDto){
       return await this.companySerice.update(updateCompanyDto, id);
   }
 
   @Delete('delete/:id')
-  async deleteAccount(@Param('id') id : number){
+  async deleteCompany(@Param('id') id : number){
       return await this.companySerice.delete(id);
   }
 

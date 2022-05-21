@@ -10,13 +10,13 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
+    @Column({nullable: true, unique:true})
     email: string;
 
-    @Column()
+    @Column({nullable: true, unique:true})
     phone: string;
 
-    @Column()
+    @Column({unique:true})
     ifu: string;
 
     @Column({ nullable: true })

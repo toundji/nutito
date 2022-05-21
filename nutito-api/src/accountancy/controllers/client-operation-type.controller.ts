@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { CreateClientOperationDto } from './../dtos/create-client-operation-type.dto';
-import { Delete, Param, Post, Body } from '@nestjs/common';
+import { UpdateClientOperationTypeDto } from './../dtos/update-client-operation-type.dto';
+import { CreateClientOperationTypeDto } from './../dtos/create-client-operation-type.dto';
+import { Delete, Param, Post, Body, Put } from '@nestjs/common';
 import { ClientOperationType } from './../entities/client-operation-type.entity';
 import { ClientOpationTypeService } from './../services/client-operation-type.service';
 import { Controller, Get } from "@nestjs/common";
@@ -23,12 +24,16 @@ export class ClientOpationTypeController{
     }
 
     @Post("/create")
-    async createAgent(@Body() createClientOperationDto: CreateClientOperationDto): Promise<ClientOperationType>{
-        return await this.clientOpationTypeService.create(createClientOperationDto)
+    async createOperaType(@Body() createClientOperationTypeDto: CreateClientOperationTypeDto): Promise<ClientOperationType>{
+        return await this.clientOpationTypeService.create(createClientOperationTypeDto)
+    }
+    @Put("/update/:id")
+    async updateOperaType(@Body() updateClientOperationTypeDto: UpdateClientOperationTypeDto, id:number): Promise<any>{
+        return await this.clientOpationTypeService.update(id,updateClientOperationTypeDto)
     }
 
-    @Delete(':id')
-    async deleteAgent(@Param('id') id){
+    @Delete('/:id')
+    async deleteOpreaType(@Param('id') id : number){
         return await this.clientOpationTypeService.delete(id);
     }
 }

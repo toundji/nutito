@@ -20,19 +20,19 @@ export class CompanyCategoryController{
     }
 
     @Get('/:id')
-    async getCarrerById(
+    async getCompanyCateById(
         @Param('id') id :number
     ): Promise<CompanyCategory>{
         return await this.companyCategoryService.findOneById(id);
     } 
     
     @Put('update/:id')
-    async updateAccount(@Param('id') id : number, @Body() updateCompanyCategoryDto : UpdateCompanyCategoryDto){
+    async updateCompanyCate(@Param('id') id : number, @Body() updateCompanyCategoryDto : UpdateCompanyCategoryDto){
         return await this.companyCategoryService.update(id, updateCompanyCategoryDto);
     }
 
     @Delete('delete/:id')
-    async deleteAccount(@Param('id') id : number){
+    async deleteCompanyCate(@Param('id') id : number){
         return await this.companyCategoryService.delete(id);
     }
 }

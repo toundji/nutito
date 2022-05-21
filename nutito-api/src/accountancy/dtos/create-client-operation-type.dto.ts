@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { IsNotEmpty, IsString, IsPositive, IsEnum } from "class-validator";
 import { OperationTypeEnum } from '../../utilities/enums/operation-type.enum';
 
-export class CreateClientOperationDto {
+export class CreateClientOperationTypeDto {
 
     @IsNotEmpty()
     @IsString()
@@ -14,7 +15,5 @@ export class CreateClientOperationDto {
     @IsEnum(OperationTypeEnum)
     type: string;
 
-    @IsNotEmpty()
-    @IsPositive()
-    creator_id: number;
+    
 }

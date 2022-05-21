@@ -19,19 +19,19 @@ export class LicenceController{
     }
   
     @Get('/:id')
-    async getCarrerById(
+    async gtLicenceById(
         @Param('id') id :number
     ): Promise<Licence>{
         return await this.licenceService.findOnById(id);
     } 
     
     @Put('update/:id')
-    async updateAccount(@Param('id') id : number, @Body() updateLicenceDto : UpdateLicenceDto){
+    async update(@Param('id') id : number, @Body() updateLicenceDto : UpdateLicenceDto){
         return await this.licenceService.update(updateLicenceDto, id);
     }
   
     @Delete('delete/:id')
-    async deleteAccount(@Param('id') id : number){
+    async delete(@Param('id') id : number){
         return await this.licenceService.delete(id);
     }
 }

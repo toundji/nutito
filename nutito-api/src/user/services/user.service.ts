@@ -33,6 +33,7 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     let user: User = new User();
+    
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
     );
