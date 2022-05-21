@@ -2,7 +2,7 @@ import "dotenv/config"
 
 const ormconfig: any = {
     type: 'postgres',
-    //url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL,
     host: process.env.DATABASE_HOST,
     port: (process.env.DATABASE_PORT as any) as number,
     username: process.env.DATABASE_USER,
