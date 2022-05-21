@@ -1,5 +1,5 @@
-import { hashPassword } from './../../utilities/helpers/functions.helper';
 /* eslint-disable prettier/prettier */
+import { hashPassword } from './../../utilities/helpers/functions.helper';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
