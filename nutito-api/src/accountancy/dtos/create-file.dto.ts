@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { IsNotEmpty, IsString, IsPositive, IsNumber } from 'class-validator';
 
 export class CreateFileDto {
@@ -8,14 +9,22 @@ export class CreateFileDto {
     @IsNotEmpty()
     @IsNumber()
     @IsPositive()
-    entity_id: string;
+    entity_id: number;
+
+    @IsNotEmpty()
+    @IsString()
+    location: string;
+
+    @IsNotEmpty()
+    @IsString()
+    mimetype: string;
 
     @IsNumber()
     @IsPositive()
-    operation_id: string;
+    operation_id: number;
 
     @IsNumber()
     @IsPositive()
-    user_id: string;
+    user_id: number;
 
 }

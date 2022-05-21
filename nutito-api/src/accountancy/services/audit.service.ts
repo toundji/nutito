@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Audit } from '../entities/audit.entity';
 
 @Injectable()
-export class auditService{
+export class AuditService{
     constructor(
         @InjectRepository(Audit)
         private readonly audiRepository: Repository<Audit>,
@@ -25,7 +25,7 @@ export class auditService{
         throw new HttpException('Audit not found', HttpStatus.NOT_FOUND);
      }
 
-     async delete(id:number, audifordelete: AuditDto):Promise<DeleteResult>{
+     async delete(id:number):Promise<DeleteResult>{
         const audit= await this.audiRepository.findOneOrFail(id);
         if(audit){
             await this.audiRepository.softDelete(id);

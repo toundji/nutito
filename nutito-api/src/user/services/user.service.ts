@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import { hashPassword } from './../../utilities/helpers/functions.helper';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -41,7 +43,10 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    let user: User = new User();
+    createUserDto.password= await hashPassword(createUserDto.password);
+    createUserDto.phone= createUserDto.phone ? createUserDto.phone : undefined;
+    const user: User = new User();
+
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
     );

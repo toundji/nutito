@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { CreateClientOperationTypeDto } from './../dtos/create-client-operation-type.dto';
 import { UpdateClientOperationTypeDto } from './../dtos/update-client-operation-type.dto';
-import { CreateClientOperationDto } from './../dtos/create-client-operation-type.dto';
 import { ClientOperationType } from './../entities/client-operation-type.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -25,10 +25,10 @@ export class ClientOpationTypeService{
         throw new HttpException('clientoprationtype not found', HttpStatus.NOT_FOUND);
      }
 
-     async create(createClientOperationTypeDto  : CreateClientOperationDto): Promise<ClientOperationType>{
+     async create(createClientOperationTypeDto  : CreateClientOperationTypeDto): Promise<ClientOperationType>{
         
-        return await this.clientOperationTypeRepository.create(createClientOperationTypeDto);
-
+        const newClientOperationType = await this.clientOperationTypeRepository.create(createClientOperationTypeDto);
+        return this.clientOperationTypeRepository.save(newClientOperationType);
      }
 
      async delete(id: number):Promise<DeleteResult>{

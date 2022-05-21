@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* eslint-disable prettier/prettier */
+>>>>>>> 8e221fab06d8f4d8daab9d86e3e36eafd046b2d5
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MinLength } from 'class-validator';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 export class CreateUserDto {

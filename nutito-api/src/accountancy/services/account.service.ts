@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, HttpException, HttpStatus, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Account } from '../entities/account.entity';
@@ -25,6 +25,24 @@ export class AccountService {
         return account;
     }
 
+    // async update(code: any, account: UpdateAccountDto ): Promise<UpdateResult>{
+    //     // this.accountRepository.update(account, code);
+    //     const updateAccount = await this.accountsRepository.findOne(code);
+    //     if(updateAccount){
+    //         return await  this.accountsRepository.update(account,code);
+    //     }
+    //     throw new HttpException('Account not Account not found', HttpStatus.NOT_FOUND); 
+    
+    // }
+
+    async deleteAccount(code: string): Promise<any> {
+        const deleteAccount = await this.accountsRepository.findOne(code);
+        if(!deleteAccount){
+            throw new HttpException('Account not Account not found', HttpStatus.NOT_FOUND); 
+        }
+       return await this.accountsRepository.delete(code);
+
+    }
     async findOneBySlug(slug: string): Promise<Account> {
         const account = await this.accountsRepository.findOneOrFail({ where: { slug: slug } }).catch(
           (error) => {
@@ -36,7 +54,7 @@ export class AccountService {
 
 
     async create(createAccountDto: CreateAccountDto): Promise<Account> {
-        let account = new Account();
+        let account : Account = new Account();
         Object.keys(createAccountDto).forEach(
           attribute => account[attribute] = createAccountDto[attribute]
         );
