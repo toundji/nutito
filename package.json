@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@faker-js/faker": "^6.3.1",
-    "@jorgebodega/typeorm-seeding": "^4.0.0"
-  }
-}
