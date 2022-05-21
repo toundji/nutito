@@ -5,7 +5,7 @@ import { AgentRole } from './../entities/agent-role.entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('agent-role')
+@Controller('agent-roles')
 @ApiTags('agent-roles')
 export class AgentRoleController{
     constructor(
