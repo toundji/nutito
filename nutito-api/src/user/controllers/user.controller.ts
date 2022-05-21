@@ -46,7 +46,6 @@ export class UserController {
   @DoesNotRequireAuthorisations()
   @UseGuards(LocalAuthGuard)
   async signin(@Body() body: AuthenticateUserDto, @Request() request): Promise<SigninResponseDto> {
-    console.log(request.user);
     return this.authenticationservice.signin(request.user);
   }
 

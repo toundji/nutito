@@ -50,7 +50,6 @@ export class UserService {
     const newUser = this.usersrepository.create(user);
     let returnValue = this.usersrepository.save(newUser).catch(
       (error) => {
-        console.log(error);
         throw new BadRequestException(`Email or phone is already taken !`);
       }
     );

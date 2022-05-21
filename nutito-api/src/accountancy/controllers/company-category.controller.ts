@@ -6,7 +6,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { UpdateCompanyCategoryDto } from '../dtos/update-company-category.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('compananies-categories')
+@Controller('companies-categories')
 @ApiTags("companies-category")
 export class CompanyCategoryController{
     constructor(private readonly companyCategoryService: CompanyCategoryService){}
