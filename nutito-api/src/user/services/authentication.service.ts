@@ -15,9 +15,11 @@ export class AuthenticationService {
   async signin(user: User): Promise<SigninResponseDto> {
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
+    const { password, ...rest } = user;
     return { 
       status: "success",
       access_token: access_token,
+      user_data: rest,
       type: "Bearer"
     };
   }
@@ -47,9 +49,7 @@ export class AuthenticationService {
   async validateUserWithPhone(phone: string, password: string) {
 
     let user: User;
-    
     let invalidCredentialsMessage = "Invalid credentials !"
-
     try {
       user = await this.userservice.findOneByPhone(phone);
     } catch(error) {

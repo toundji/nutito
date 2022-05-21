@@ -13,8 +13,6 @@ export class FileFactory extends Factory<File> {
         name: faker.word.noun(),
         location: faker.image.imageUrl(),
         mimetype: faker.helpers.arrayElement(["jpg", "png", "img", "pdf", "docx", "odt"]),
-        entity_id: faker.datatype.number(),
-        operation: new Subfactory(OperationFactory),
-        user: new Subfactory(UserFactory)
+        entity_name: faker.datatype.string(),
     }
 }

@@ -11,8 +11,10 @@ import { DoesNotRequireAuthentication } from '../../utilities/decorators/does-no
 import { DoesNotRequireAuthorisations } from '../../utilities/decorators/does-not-require-authorisations.decorator';
 import { SigninResponseDto } from '../dtos/signin-response.dto';
 import { SignupResponseDto } from '../dtos/signup-response.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 
+@ApiTags('auth')
 @Controller('users')
 export class UserController {
 
@@ -32,11 +34,10 @@ export class UserController {
   @DoesNotRequireAuthorisations()
   async signup(@Body() body: CreateUserDto): Promise<SignupResponseDto> {
     const user = await this.userservice.create(body);
-    console.log(user);
     const token = Math.floor(10000000 + Math.random() * 90000000).toString();
     user.verification_token = token;
     await this.userservice.set_verification_token(user, token);
-    this.mailservice.sendMailConfirmation(user, token);
+    //this.mailservice.sendMailConfirmation(user, token);
     return {"message": "User Successfully Created"};
   }
 
@@ -63,8 +64,15 @@ export class UserController {
   @Get('auth/check-email-existence/:email')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
-  async checkIfEmailExists(@Param('email') email: string): Promise<boolean> {
-    return await this.userservice.checkUserExistence(email);
+  async checkIfEmailExists(@Param('email') email: string): Promise<any> {
+    return await this.userservice.checkUserExistenceByEmail(email);
+  }
+
+  @Get('auth/check-phone-existence/:phone')
+  @DoesNotRequireAuthentication()
+  @DoesNotRequireAuthorisations()
+  async checkIfPhoneExists(@Param('phone') phone: string): Promise<any> {
+    return await this.userservice.checkUserExistenceByPhone(phone);
   }
 
 }

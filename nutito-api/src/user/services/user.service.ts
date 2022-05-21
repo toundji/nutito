@@ -34,7 +34,7 @@ export class UserService {
   }
 
   async findOneByPhone(phone: string): Promise<User> {
-    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone } }).catch(
+    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture"] }).catch(
       (error) => {
         throw new NotFoundException(`User with phone ${phone} is not found`);
       }
@@ -43,10 +43,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    createUserDto.password= await hashPassword(createUserDto.password);
-    createUserDto.phone= createUserDto.phone ? createUserDto.phone : undefined;
     const user: User = new User();
-
     Object.keys(createUserDto).forEach(
       attribute => user[attribute] = createUserDto[attribute]
     );
@@ -70,11 +67,18 @@ export class UserService {
     this.usersrepository.save(user);
   }
 
-  async checkUserExistence(email: string): Promise<any> {
+  async checkUserExistenceByEmail(email: string): Promise<any> {
     let userExists = this.findOneByEmail(email)
       .then((result) => true)
       .catch((error) => false); 
-    return (await userExists) ? new BadRequestException({ detail: "User exists !" }) : { detail: "User does not exist !" }
+    return (await userExists) ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+  }
+
+  async checkUserExistenceByPhone(phone: string): Promise<any> {
+    let userExists = await this.findOneByPhone(phone)
+      .then((result) => true)
+      .catch((error) => false); 
+    return userExists ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
   }
 
 }

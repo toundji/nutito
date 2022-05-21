@@ -2,31 +2,36 @@ import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MinLe
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 export class CreateUserDto {
 
+    @IsOptional()
+    firstname?: string;
+
+    @IsOptional()
+    lastname?: string;
+
     @IsEmail()
     @IsOptional()
-    email: string;
+    email?: string;
 
     @IsPhoneNumber()
-    @IsOptional()
     phone: string;
 
     @IsOptional()
-    ifu: string;
+    ifu?: string;
     
     @IsOptional()
-    birth_date: string;
+    birth_date?: string;
 
     @IsString()
     @IsOptional()
-    birth_place: string;
+    birth_place?: string;
 
-    @IsOptional()
     @IsString()
-    address: string;
+    @IsOptional()
+    address?: string;
 
-    @IsOptional()
     @IsString()
-    country: string;
+    @IsOptional()
+    country?: string;
 
     @MinLength(8)
     @IsString()
@@ -35,6 +40,6 @@ export class CreateUserDto {
 
     @IsEnum(UserTypeEnum)
     @IsOptional()
-    user_type: string;
+    user_type?: string;
     
 }

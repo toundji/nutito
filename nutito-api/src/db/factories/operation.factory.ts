@@ -15,7 +15,7 @@ export class OperationFactory extends Factory<Operation> {
         amount_out: Number(faker.finance.amount()),
         balance: Number(faker.finance.amount()),
         description: faker.lorem.lines(3),
-        operation_type: new Subfactory(OperationTypeFactory),
-        client_operation_type: new Subfactory(ClientOperationTypeFactory)
+        operationType: new Subfactory(OperationTypeFactory),
+        clientOperationType: new Subfactory(ClientOperationTypeFactory)
     }
 }

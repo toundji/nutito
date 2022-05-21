@@ -1,8 +1,9 @@
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
 import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { hashPassword } from "../../utilities/helpers/functions.helper";
+import { Agent } from "../../accountancy/entities/agent.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -10,13 +11,19 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({nullable: true, unique:true})
+    @Column({ nullable: true })
+    firstname: string;
+
+    @Column({ nullable: true })
+    lastname: string;
+
+    @Column({ nullable: true })
     email: string;
 
-    @Column({nullable: true, unique:true})
+    @Column({ nullable: true })
     phone: string;
 
-    @Column({ nullable: true, unique: true })
+    @Column({ nullable: true })
     ifu: string;
 
     @Column({ nullable: true })
@@ -30,6 +37,9 @@ export class User extends BaseEntity {
 
     @Column({ nullable: true })
     country: string;
+
+    @Column({ nullable: true })
+    city: string;
 
     @Column()
     password: string;
@@ -47,11 +57,15 @@ export class User extends BaseEntity {
     @Column('boolean', { default: false })
     active: boolean;
 
-    @OneToMany(type => File, file => file, { onDelete: "CASCADE" })
-    profile_pictures?: File[]; 
+    @OneToOne(type => File, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "profile_picture_id" })
+    profile_picture?: File; 
+
+    @OneToMany(type => Agent, agent => agent.user, { onDelete: "CASCADE" })
+    agents: Agent[];
 
     get profile(): File {
-        return this.profile_pictures[this.profile_pictures.length - 1];
+        return this.profile_picture;
     }
 
     @BeforeInsert()

@@ -31,32 +31,32 @@ export class AgentService{
          
       }
 
-      async create(createAgentDto: CreateAgentDto): Promise<Agent> {
-        const agent = new Agent();
-        Object.keys(createAgentDto).forEach(
-          attribute => agent[attribute] = createAgentDto[attribute]
-        );
-        const  user = await this.userService.findOneById(createAgentDto.user_id); 
-        agent.user = user;
-        const newAgent = agent.save().catch(
-          (error) => {
-            throw new BadRequestException({ error: `${error}` });
-          }
-        );
-        return newAgent;
-      }
+      // async create(createAgentDto: CreateAgentDto): Promise<Agent> {
+      //   const agent = new Agent();
+      //   Object.keys(createAgentDto).forEach(
+      //     attribute => agent[attribute] = createAgentDto[attribute]
+      //   );
+      //   const  user = await this.userService.findOneById(createAgentDto.user_id); 
+      //   agent.user = user;
+      //   const newAgent = agent.save().catch(
+      //     (error) => {
+      //       throw new BadRequestException({ error: `${error}` });
+      //     }
+      //   );
+      //   return newAgent;
+      // }
 
       async delete(id: number): Promise<DeleteResult>{
           return await this.agentsRepository.softDelete(id);
       }
 
-      async update(agentId: number, updateAgentDto: UpdateAgentDto): Promise<Agent>{
-        const agent =  await this.findOneById(agentId);
-        const user = updateAgentDto.user_id ? await this.userService.findOneById(updateAgentDto.user_id) : undefined;
-        agent.user = user ? user : agent.user;
-        agent.save();
-        return agent;
-      }
+      // async update(agentId: number, updateAgentDto: UpdateAgentDto): Promise<Agent>{
+      //   const agent =  await this.findOneById(agentId);
+      //   const user = updateAgentDto.agent_id ? await this.userService.findOneById(updateAgentDto.) : undefined;
+      //   agent.user = user ? user : agent.user;
+      //   agent.save();
+      //   return agent;
+      // }
 
     
 

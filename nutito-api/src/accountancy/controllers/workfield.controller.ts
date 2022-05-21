@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Workfield } from './../entities/workfield.entity';
 import { UpdateWorkfieldDto } from './../dtos/update-workfield.dto';
 import { CreateWorkfieldDto } from './../dtos/create-workfield.dto';

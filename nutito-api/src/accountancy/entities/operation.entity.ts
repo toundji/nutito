@@ -1,4 +1,4 @@
-import { Column, JoinColumn, ManyToOne, OneToMany, Entity } from 'typeorm';
+import { Column, JoinColumn, ManyToOne, OneToMany, Entity, OneToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { File } from '../entities/file.entity';
 import { OperationType } from './operation-type.entity';
@@ -29,23 +29,24 @@ export class Operation extends BaseEntity {
     @Column()
     description: string;
 
-    @OneToMany(type => File, file => file.operation, { onDelete: "CASCADE" })
-    documents?: File[]; 
+    @OneToOne(() => File)
+    @JoinColumn({ name: "document_id" })
+    document?: File; 
 
-    @ManyToOne(type => OperationType, operation_type => operation_type.operations, { onDelete: "SET NULL" })
+    @ManyToOne(type => OperationType, operationType => operationType.operations, { onDelete: "SET NULL" })
     @JoinColumn({ name: "operation_type_id" })
-    operation_type!: OperationType;
+    operationType!: OperationType;
 
-    @ManyToOne(type => ClientOperationType, client_operation_type => client_operation_type.operations, { onDelete: "SET NULL" })
+    @ManyToOne(type => ClientOperationType, clientOperationType => clientOperationType.operations, { onDelete: "SET NULL" })
     @JoinColumn({ name: "client_operation_type_id" })
-    client_operation_type!: ClientOperationType;
+    clientOperationType!: ClientOperationType;
 
     get month() {
         return this.date.getMonth();
     }
 
     get type(): string {
-        return this.operation_type.type;
+        return this.operationType.type;
     }
 
 }

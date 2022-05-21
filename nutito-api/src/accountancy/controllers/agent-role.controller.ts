@@ -1,11 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { UpdateAgentRoleDto } from './../dtos/update-agent-role.dto';
 import { CreateAgentRoleDto } from './../dtos/create-agent-role.dto';
 import { AgentRoleService } from './../services/agent-role.service';
 import { AgentRole } from './../entities/agent-role.entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('agent-role')
+@ApiTags('agent-roles')
 export class AgentRoleController{
     constructor(
        private readonly agentRoleService: AgentRoleService

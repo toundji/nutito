@@ -1,17 +1,22 @@
-/* eslint-disable prettier/prettier */
-import { User } from './../../user/entities/user.entity';
-import { JoinColumn, Entity, OneToMany, OneToOne } from 'typeorm';
-import { Career } from './career.entity';
+import { Company } from './company.entity';
+import { JoinColumn, ManyToOne, Entity, OneToOne } from 'typeorm';
+import { AgentRole } from './agent-role.entity';
 import { BaseEntity } from './base.entity';
-
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Agent extends BaseEntity {
 
-    @OneToOne(() => User)
-    @JoinColumn({ name: "user_id" })
+    @ManyToOne(type => User, user => user.agents, { onDelete: "NO ACTION" })
+    @JoinColumn({ name: "agent_id" })
     user!: User;
 
-    @OneToMany(type => Career, career => career.agent, { onDelete: "NO ACTION" })
-    careers?: Career[]
+    @ManyToOne(type => Company, company => company.agents, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "company_id" })
+    company!: Company;
+
+    @OneToOne(type => AgentRole)
+    @JoinColumn({ name: "agent_role_id" })
+    role!: AgentRole
+
 }

@@ -3,7 +3,6 @@ import { Connection } from "typeorm";
 import { AccountSeeder } from "./account.seeder";
 import { AgentRoleSeeder } from "./agent-role.factory";
 import { AgentSeeder } from "./agent.seeder";
-import { CareerSeeder } from "./career.seeder";
 import { ClientOperationTypeSeeder } from "./client-operation-type.seeder";
 import { UserSeeder } from './user.seeder';
 import { CompanyCategorySeeder } from './company-category.seeder';
@@ -21,7 +20,6 @@ export class RootSeeder extends Seeder {
             AccountSeeder,
             AgentRoleSeeder,
             AgentSeeder,
-            CareerSeeder,
             ClientOperationTypeSeeder,
             CompanyCategorySeeder,
             CompanySeeder,

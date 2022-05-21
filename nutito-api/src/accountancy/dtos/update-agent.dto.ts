@@ -1,5 +1,12 @@
 import { IsPositive } from 'class-validator';
-export class UpdateAgentDto {
+export class UpdateAgentDto{
     @IsPositive()
-    user_id?: number;
+    agent_id?: number;
+
+    @IsPositive()
+    company_id?: number;
+
+    @IsPositive()
+    agent_role_id?: number;
+
 }

@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { Career } from './career.entity';
 import { BaseEntity } from './base.entity';
+import { Agent } from './agent.entity';
 
 @Entity()
 export class AgentRole extends BaseEntity {
@@ -11,7 +11,7 @@ export class AgentRole extends BaseEntity {
     @Column('text')
     description: string;
 
-    @OneToMany(type => Career, career => career.role, { onDelete: "NO ACTION" })
-    careers?: Career[]
+    @OneToMany(type => Agent, agent => agent.role, { onDelete: "NO ACTION" })
+    agents?: Agent[]
 
 }

@@ -1,6 +1,4 @@
-/* eslint-disable prettier/prettier */
 import { OperationService } from './../services/operation.service';
-import { OperationType } from './../entities/operation-type.entity';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { CreateOperationDto } from '../dtos/create-operation.dto';
 import { Operation } from '../entities/operation.entity';
@@ -17,19 +15,19 @@ export class OperationController{
     }
   
     @Get()
-    async getAll(): Promise<OperationType[]>{
+    async getAll(): Promise<Operation[]> {
         return await this.operationService.findAll();
     }
   
     @Get('/:id')
     async getById(
         @Param('id') id :number
-    ): Promise<OperationType>{
+    ): Promise<Operation> {
         return await this.operationService.findOneById(id);
     } 
     
     @Put('update/:id')
-    async update(@Param('id') id : number, @Body() updateOperationDto : UpdateOperationDto){
+    async update(@Param('id') id : number, @Body() updateOperationDto : UpdateOperationDto) {
         return await this.operationService.update(id,updateOperationDto);
     }
   

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Entity, Column, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { Career } from './career.entity';
+import { Agent } from './agent.entity';
 import { CompanyCategory } from './company-category.entity';
 import { BaseEntity } from './base.entity';
 import { Licence } from './licence.entity';
@@ -35,8 +35,8 @@ export class Company extends BaseEntity {
     @Column()
     rccm: string;
 
-    @OneToMany(type => Career, career => career.company, { onDelete: "NO ACTION" })
-    careers?: Career[]
+    @OneToMany(type => Agent, agent => agent.company, { onDelete: "NO ACTION" })
+    agents?: Agent[];
 
     @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL" })
     @JoinColumn({ name: "company_category_id" })
@@ -51,8 +51,8 @@ export class Company extends BaseEntity {
 
     @ManyToMany(type => Workfield, workfield => workfield.companies, { onDelete: "NO ACTION" })
     @JoinTable({ name: "companies_workfields" })
-    workfields?: Workfield[]; 
-
+    workfields?: Workfield[];
+    
     get license(): Licence {
         return this.licences[this.licences.length - 1];
     }

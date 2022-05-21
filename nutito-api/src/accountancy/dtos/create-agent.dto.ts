@@ -1,7 +1,17 @@
-import { IsNotEmpty, IsPositive } from "class-validator";
+import { IsPositive } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateAgentDto {
     @IsNotEmpty()
     @IsPositive()
-    user_id: number;
+    agent_id: number;
+
+    @IsPositive()
+    @IsNotEmpty()
+    company_id: number;
+
+    @IsNotEmpty()
+    @IsPositive()
+    agent_role_id: number;
+
 }

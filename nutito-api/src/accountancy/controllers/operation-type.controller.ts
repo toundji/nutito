@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { OperationType } from './../entities/operation-type.entity';
 import { OperationTypeService } from './../services/operation-type.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";

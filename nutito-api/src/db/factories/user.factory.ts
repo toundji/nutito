@@ -1,8 +1,9 @@
-import { Factory, FactorizedAttrs } from "@jorgebodega/typeorm-seeding"
+import { Factory, FactorizedAttrs, Subfactory } from '@jorgebodega/typeorm-seeding';
 import { faker } from "@faker-js/faker"
 import { User } from '../../user/entities/user.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { uuid } from "../../utilities/helpers/functions.helper";
+import { FileFactory } from './file.factory';
 
 
 export class UserFactory extends Factory<User> {
@@ -18,6 +19,7 @@ export class UserFactory extends Factory<User> {
       password: faker.word.verb(),
       user_type: faker.helpers.arrayElement(Object.values(UserTypeEnum)),
       verification_token: faker.hacker.ingverb(),
-      active: faker.datatype.boolean()
+      active: faker.datatype.boolean(),
+      profile_picture: new Subfactory(FileFactory)
     }
 }
