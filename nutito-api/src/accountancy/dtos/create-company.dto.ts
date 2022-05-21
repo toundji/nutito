@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsPositive, IsArray, IsEmail, IsPhoneNumber } from "class-validator";
+import { IsNotEmpty, IsString, IsPositive, IsArray, IsEmail, IsPhoneNumber, IsOptional } from "class-validator";
 
 export class CreateCompanyDto {
     
@@ -8,6 +8,7 @@ export class CreateCompanyDto {
 
     @IsNotEmpty()
     @IsString()
+    @IsOptional()
     description: string;
 
     @IsNotEmpty()
@@ -15,7 +16,13 @@ export class CreateCompanyDto {
     city: string;
 
     @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    country: string;
+
+    @IsNotEmpty()
     @IsEmail()
+    @IsOptional()
     email: string;
 
     @IsNotEmpty()
@@ -24,19 +31,22 @@ export class CreateCompanyDto {
 
     @IsNotEmpty()
     @IsString()
+    @IsOptional()
     adress: string;
 
     @IsNotEmpty()
     @IsString()
+    @IsOptional()
     ifu: string;
 
     @IsNotEmpty()
     @IsString()
+    @IsOptional()
     rccm: string;
 
     @IsNotEmpty()
     @IsPositive()
-    company_category_id: number;
+    companyCategoryId: number;
 
     @IsNotEmpty()
     @IsArray()

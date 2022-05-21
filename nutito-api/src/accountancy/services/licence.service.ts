@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { UpdateLicenceDto } from './../dtos/update-licence.dto';
-import { CompanySerice } from './company.service';
+import { CompanyService } from './company.service';
 import { CreateLicenceDto } from './../dtos/create-licence.dto';
 import { DeleteResult } from 'typeorm';
 import { Licence } from './../entities/licence.entity';
@@ -12,7 +12,7 @@ export class LicenceService{
     constructor(
         @InjectRepository(Licence)
         private readonly licenceRepository : Repository<Licence>,
-        private readonly companySerice: CompanySerice
+        private readonly companySerice: CompanyService
     ){}
 
     async findAll(): Promise<Licence[]>{

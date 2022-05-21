@@ -1,14 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { UpdateCompanyDto } from './../dtos/update-company.dto';
 import { CreateCompanyDto } from './../dtos/create-company.dto';
-import { CompanySerice } from './../services/company.service';
+import { CompanyService } from './../services/company.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Company } from '../entities/company.entity';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('companies')
+@ApiTags("companies")
 export class CompanyController {
 
-  constructor(private readonly companySerice : CompanySerice) { }
+  constructor(private readonly companySerice : CompanyService) { }
 
   @Post('/create')
   async createCompany(@Body() createCompanyDto : CreateCompanyDto): Promise<Company>{

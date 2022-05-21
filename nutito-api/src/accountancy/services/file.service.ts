@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { UserService } from './../../user/services/user.service';
-import { CompanySerice } from './company.service';
+import { CompanyService } from './company.service';
 import { CreateFileDto } from './../dtos/create-file.dto';
 import { UpdateFileDto } from './../dtos/update-file.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -13,7 +13,7 @@ export class FileService{
     constructor(
         @InjectRepository(File)
         private readonly FileRepository : Repository<File>,
-        private readonly companySerice: CompanySerice,
+        private readonly companySerice: CompanyService,
         private readonly userService: UserService
     ){}
 

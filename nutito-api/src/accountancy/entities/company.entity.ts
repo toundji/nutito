@@ -29,6 +29,9 @@ export class Company extends BaseEntity {
     @Column()
     address: string;
 
+    @Column({ nullable: true })
+    country: string;
+
     @Column()
     ifu: string;
 
@@ -49,12 +52,12 @@ export class Company extends BaseEntity {
     @JoinColumn({ name: "account_id" })
     account!: Account;
 
-    @ManyToMany(type => Workfield, workfield => workfield.companies, { onDelete: "NO ACTION" })
+    @ManyToMany(type => Workfield)
     @JoinTable({ name: "companies_workfields" })
     workfields?: Workfield[];
     
     get license(): Licence {
-        return this.licences[this.licences.length - 1];
+        return this.licences.find((licence) => licence.expiry_date < new Date())
     }
 
 }

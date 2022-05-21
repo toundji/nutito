@@ -3,8 +3,10 @@ import { UpdateWorkfieldDto } from './../dtos/update-workfield.dto';
 import { CreateWorkfieldDto } from './../dtos/create-workfield.dto';
 import { WorkfieldService } from './../services/workfield.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('workfields')
+@ApiTags("workfields")
 export class WorkfieldController{
     constructor(private workfieldService : WorkfieldService){}
 

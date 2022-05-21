@@ -17,6 +17,12 @@ import { AgentService } from './services/agent.service';
 import { AgentController } from './controllers/agent.controller';
 import { UserModule } from '../user/user.module';
 import { Agent } from './entities/agent.entity';
+import { CompanyController } from './controllers/company.controller';
+import { CompanyService } from './services/company.service';
+import { CompanyCategoryService } from './services/company-category.service';
+import { CompanyCategoryController } from './controllers/company-category.controller';
+import { WorkfieldController } from './controllers/workfield.controller';
+import { WorkfieldService } from './services/workfield.service';
 @Module({
     imports: [
        TypeOrmModule.forFeature([
@@ -36,15 +42,24 @@ import { Agent } from './entities/agent.entity';
     ],
     exports: [
         AccountService,
-        AgentService
+        AgentService,
+        CompanyService,
+        CompanyCategoryService,
+        WorkfieldService
     ],
     controllers: [
         AccountController,
-        AgentController
+        AgentController,
+        CompanyController,
+        CompanyCategoryController,
+        WorkfieldController
     ],
     providers: [
        AccountService,
-       AgentService
+       AgentService,
+       CompanyService,
+       CompanyCategoryService,
+       WorkfieldService
     ],
 })
 export class AccountancyModule {}
