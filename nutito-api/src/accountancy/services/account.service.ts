@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Account } from '../entities/account.entity';
 import { CreateAccountDto } from '../dtos/create-account.dto';
+import { UpdateAccountDto } from "../dtos/update-account.dto";
 
 export class AccountService {
 
@@ -47,5 +48,20 @@ export class AccountService {
         );
         return accountObject;
       }
+
+    async update(accountId: number, updateAccountDto: UpdateAccountDto): Promise<Account> {
+      let account = await this.findOneById(accountId);
+      Object.keys(updateAccountDto).forEach(
+        attribute => account[attribute] = updateAccountDto[attribute]
+      );
+      let updated = await account.save();
+      return updated;
+    }
+
+    async delete(accountId: number): Promise<any> {
+      let account = await this.findOneById(accountId);
+      Account.softRemove(account);
+      return;
+    }
 
 }

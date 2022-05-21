@@ -22,7 +22,7 @@ export class AuthenticationService {
     };
   }
 
-  async validateUser(email: string, password: string) {
+  async validateUserWithEmail(email: string, password: string) {
 
     let user: User;
     
@@ -43,4 +43,28 @@ export class AuthenticationService {
       throw new BadRequestException(invalidCredentialsMessage);
     }
   }
+
+  async validateUserWithPhone(phone: string, password: string) {
+
+    let user: User;
+    
+    let invalidCredentialsMessage = "Invalid credentials !"
+
+    try {
+      user = await this.userservice.findOneByPhone(phone);
+    } catch(error) {
+      throw new BadRequestException(invalidCredentialsMessage);
+    }
+
+    const doesMatch = await bcrypt.compare(password, user.password);
+
+    if (doesMatch) {
+      const {id, password, verification_token, ...rest } = user;
+      return rest;
+    } else {
+      throw new BadRequestException(invalidCredentialsMessage);
+    }
+  }
 }
+
+

@@ -9,7 +9,7 @@ export class MailService {
     async sendMailConfirmation(user: User, token: string) {
         const url = `localhost:4200/auth/confirm?token=${token}`;
         await this.mailerservice.sendMail({
-            to: user.email,
+            to: user.email ? user.email : "user@email.com",
             subject: 'Inscription sur la plateforme Adecko',
             template: 'mailconfirmation',
             context: { 

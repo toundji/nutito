@@ -1,4 +1,4 @@
-import { updateAccountDto } from './../dtos/update-account.dto';
+import { UpdateAccountDto } from './../dtos/update-account.dto';
 import { Delete, Param, Post, Put } from '@nestjs/common';
 import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { AgentService } from './../services/agent.service';
@@ -17,13 +17,13 @@ export class AgentController{
     }
 
     @Get(':id')
-    async getOnlyAgentById(@Param('id') id): Promise<Agent>{
+    async getAgentById(@Param('id') id: number): Promise<Agent>{
         return await this.agentservice.findOneById(id);
     }
 
     @Post()
-    async createAgent(@Body() createagentdto: CreateAgentDto): Promise<Agent>{
-        return await this.agentservice.create(createagentdto)
+    async createAgent(@Body() createAgentDto: CreateAgentDto): Promise<Agent>{
+        return await this.agentservice.create(createAgentDto)
     }
 
     @Delete(':id')

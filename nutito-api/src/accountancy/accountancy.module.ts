@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from './entities/account.entity';
@@ -14,6 +13,12 @@ import { Licence } from './entities/licence.entity';
 import { OperationType } from './entities/operation-type.entity';
 import { Operation } from './entities/operation.entity';
 import { Workfield } from './entities/workfield.entity';
+import { AccountController } from './controllers/account.controller';
+import { AccountService } from './services/account.service';
+import { AgentService } from './services/agent.service';
+import { AgentController } from './controllers/agent.controller';
+import { UserModule } from '../user/user.module';
+import { UserService } from '../user/services/user.service';
 @Module({
     imports: [
        TypeOrmModule.forFeature([
@@ -29,16 +34,20 @@ import { Workfield } from './entities/workfield.entity';
            OperationType,
            Operation,
            Workfield
-       ])
+       ]),
+       UserModule
     ],
     exports: [
-        
+        AccountService,
+        AgentService
     ],
     controllers: [
-        
+        AccountController,
+        AgentController
     ],
     providers: [
-       
+       AccountService,
+       AgentService
     ],
 })
 export class AccountancyModule {}

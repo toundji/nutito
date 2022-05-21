@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { extname } from "path";
 import { diskStorage } from 'multer';
 import { MulterOptions } from "@nestjs/platform-express/multer/interfaces/multer-options.interface";

@@ -1,5 +1,7 @@
+import "dotenv/config"
+
 const ormconfig: any = {
-    type: 'mysql',
+    type: 'postgres',
     url: process.env.DB_URL,
     host: process.env.DATABASE_HOST,
     port: (process.env.DATABASE_PORT as any) as number,
@@ -8,7 +10,7 @@ const ormconfig: any = {
     database: process.env.DATABASE_NAME,
     // ssl: { rejectUnauthorized: false },
     synchronize: false,
-    entities: ["src/**/*.entity{.ts,.js}"],
+    entities: ["dist/src/**/*.entity{.ts,.js}"],
     migrations: ["dist/src/db/migrations/*.js"],
     cli: {  
         migrationsDir: "src/db/migrations",
@@ -17,5 +19,6 @@ const ormconfig: any = {
     factories: ["src/db/factories/**/*{.ts,.js}"],
     seeders: ["src/db/seeders/**/*{.ts,.js}"],
     defaultSeeder: "RootSeeder",
-}
+};
+
 export default ormconfig;

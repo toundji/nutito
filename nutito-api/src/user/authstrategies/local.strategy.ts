@@ -7,12 +7,12 @@ import { AuthenticationService } from '../services/authentication.service';
 export class LocalStrategy extends PassportStrategy(Strategy) {
     constructor(private readonly authservice: AuthenticationService) {
         super({
-            usernameField: 'email'
+            usernameField: 'phone'
         });
     }
 
-    async validate(email: string, password: string): Promise<any> {
-        const user = await this.authservice.validateUser(email, password);
+    async validate(phone: string, password: string): Promise<any> {
+        const user = await this.authservice.validateUserWithPhone(phone, password);
         return user;
     }
 }

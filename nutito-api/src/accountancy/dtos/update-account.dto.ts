@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 
-export class updateAccountDto{
+export class UpdateAccountDto {
   
     @IsString()
     code ? : string;

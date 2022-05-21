@@ -10,13 +10,13 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     email: string;
 
     @Column()
     phone: string;
 
-    @Column()
+    @Column({ nullable: true })
     ifu: string;
 
     @Column({ nullable: true })
@@ -28,7 +28,7 @@ export class User extends BaseEntity {
     @Column({ nullable: true })
     address: string;
 
-    @Column()
+    @Column({ nullable: true })
     country: string;
 
     @Column()

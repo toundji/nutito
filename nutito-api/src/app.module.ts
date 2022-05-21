@@ -14,8 +14,6 @@ import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper'
 import { AccountancyModule } from './accountancy/accountancy.module';
 import { AppController } from './app.controller';
 
-
-
 @Module({
   imports: [
     TypeOrmModule.forRoot(config),

@@ -31,6 +31,15 @@ export class UserService {
     return user;
   }
 
+  async findOneByPhone(phone: string): Promise<User> {
+    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone } }).catch(
+      (error) => {
+        throw new NotFoundException(`User with phone ${phone} is not found`);
+      }
+    );
+    return user;
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
     let user: User = new User();
     Object.keys(createUserDto).forEach(
@@ -39,6 +48,7 @@ export class UserService {
     const newUser = this.usersrepository.create(user);
     let returnValue = this.usersrepository.save(newUser).catch(
       (error) => {
+        console.log(error);
         throw new BadRequestException(`Email or phone is already taken !`);
       }
     );

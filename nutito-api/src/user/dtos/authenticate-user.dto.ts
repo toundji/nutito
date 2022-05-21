@@ -1,4 +1,4 @@
 export class AuthenticateUserDto {
-    email: string;
+    phone: string;
     password: string;
 }
