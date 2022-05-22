@@ -6,7 +6,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { JwtModule } from '@nestjs/jwt';
 import { MailModule } from '../mail/mail.module';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategyUsingEmail, LocalStrategyUsingPhone } from './authstrategies/local.strategy';
+import { LocalStrategy } from './authstrategies/local.strategy';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './authstrategies/jwt.strategy';
 import { AuthorisationFactory } from './services/authorisation.factory';
@@ -36,8 +36,7 @@ import { User } from './entities/user.entity';
         UserService,
         AuthenticationService,
         SessionSerializer,
-        LocalStrategyUsingEmail,
-        LocalStrategyUsingPhone,
+        LocalStrategy,
         JwtStrategy,
         LocalAuthGuard,
         AuthorisationsGuard,
@@ -50,8 +49,7 @@ import { User } from './entities/user.entity';
         UserService,
         AuthenticationService,
         SessionSerializer,
-        LocalStrategyUsingEmail,
-        LocalStrategyUsingPhone,
+        LocalStrategy,
         JwtStrategy,
         JwtAuthGuard,
         LocalAuthGuard,
