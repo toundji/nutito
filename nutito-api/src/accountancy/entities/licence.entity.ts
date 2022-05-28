@@ -21,10 +21,10 @@ export class Licence extends BaseEntity {
     })
     payment_type: string
 
-    @Column('integer')
-    transaction_id: number;
+    @Column({ nullable: true })
+    transaction_id: string;
 
-    @Column()
+    @Column({ nullable: false })
     transaction_info: string;
 
     @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE" })
