@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { UpdateLicenceDto } from './../dtos/update-licence.dto';
 import { CreateLicenceDto } from './../dtos/create-licence.dto';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
