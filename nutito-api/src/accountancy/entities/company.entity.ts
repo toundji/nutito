@@ -14,10 +14,10 @@ export class Company extends BaseEntity {
     @Column({nullable: false})
     name: string;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
-    @Column()
+    @Column({ nullable: true })
     city: string;
 
     @Column()
@@ -26,16 +26,16 @@ export class Company extends BaseEntity {
     @Column()
     phone: string;
 
-    @Column()
+    @Column({ nullable: true })
     address: string;
 
     @Column({ nullable: true })
     country: string;
 
-    @Column()
+    @Column({ nullable: true })
     ifu: string;
 
-    @Column()
+    @Column({ nullable: true })
     rccm: string;
 
     @OneToMany(type => Agent, agent => agent.company, { onDelete: "NO ACTION" })
