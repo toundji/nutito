@@ -4,6 +4,7 @@ import {
     BeforeInsert, 
     Column, 
     CreateDateColumn, 
+    DeleteDateColumn, 
     PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from 'typeorm';
@@ -20,6 +21,10 @@ export abstract class BaseEntity extends TypeOrmBaseEntity  {
     @Column({ nullable: true })
     @UpdateDateColumn()
     updated_at: Date ;
+
+    @Column({ nullable: true })
+    @DeleteDateColumn()
+    deleted_at: Date ;
 
     @Column({ nullable: true })
     creator_id: number;

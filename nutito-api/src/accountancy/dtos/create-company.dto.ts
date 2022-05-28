@@ -6,21 +6,18 @@ export class CreateCompanyDto {
     @IsString()
     name: string;
 
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     description: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     city: string;
 
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     country: string;
 
-    @IsNotEmpty()
     @IsEmail()
     @IsOptional()
     email: string;
@@ -29,17 +26,14 @@ export class CreateCompanyDto {
     @IsPhoneNumber()
     phone: string;
 
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     adress: string;
 
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     ifu: string;
 
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     rccm: string;

@@ -17,8 +17,8 @@ export class AccountController{
     }
 
     @Get(':code')
-    async getAccountById(@Param('code') code: string): Promise<Account> {
-        return await this.accountservice.findOneBySlug(code);
+    async getAccountByCode(@Param('code') code: string): Promise<Account> {
+        return await this.accountservice.findOneByCode(code);
     }
 
     @Post()
@@ -27,7 +27,10 @@ export class AccountController{
     }
 
     @Put('update/:id')
-    async updateAccount(@Param('id') accountId: number, @Body() updateaccountdto: UpdateAccountDto): Promise<Account>{
+    async updateAccount(
+        @Param('id') accountId: number, 
+        @Body() updateaccountdto: UpdateAccountDto
+    ): Promise<Account>{
         return await this.accountservice.update(accountId, updateaccountdto);
     }
 

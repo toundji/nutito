@@ -13,11 +13,11 @@ export class AccountService {
     ) {}
 
     findAll(): Promise<Account[]> {
-        return this.accountsRepository.find({ relations: ["company"] });
+        return this.accountsRepository.find({  });
     }
 
     async findOneById(accountId: number): Promise<Account> {
-        const account = await this.accountsRepository.findOneOrFail({ where: { id: accountId }, relations: ["company"] }).catch(
+        const account = await this.accountsRepository.findOneOrFail({ where: { id: accountId } }).catch(
             (error) => {
                 throw new NotFoundException({ error: `Account matching id ${accountId} has not been found` });
             }
@@ -43,10 +43,10 @@ export class AccountService {
        return await this.accountsRepository.delete(code);
 
     }
-    async findOneBySlug(slug: string): Promise<Account> {
-        const account = await this.accountsRepository.findOneOrFail({ where: { slug: slug } }).catch(
+    async findOneByCode(code: string): Promise<Account> {
+        const account = await this.accountsRepository.findOneOrFail({ where: { code: code } }).catch(
           (error) => {
-            throw new NotFoundException(`Account matching slug ${slug} has not been found`);
+            throw new NotFoundException(`Account matching code ${code} has not been found`);
           }
         );
         return account;
