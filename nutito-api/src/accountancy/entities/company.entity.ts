@@ -38,6 +38,9 @@ export class Company extends BaseEntity {
     @Column({ nullable: true })
     rccm: string;
 
+    @Column({ nullable: true })
+    agent_number: number;
+
     @OneToMany(type => Agent, agent => agent.company, { onDelete: "NO ACTION" })
     agents?: Agent[];
 
