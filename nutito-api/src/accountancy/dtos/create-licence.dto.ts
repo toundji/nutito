@@ -8,20 +8,9 @@ import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
 
 export class CreateLicenceDto{
 
-    @IsOptional()
-    @IsDate()
-    expiryDate: Date;
-
     @IsNumber()
-    @IsOptional()
-    amount: number;
-
-    @IsOptional()
-    @IsString()
-    code: string;
-
-    @IsEnum(LicenceTypeEnum)
-    licenceType: string;
+    @IsNotEmpty()
+    monthsNumber: number;
     
     @IsOptional()
     @IsEnum(PaymentTypeEnum)

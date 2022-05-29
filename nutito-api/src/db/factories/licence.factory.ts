@@ -14,7 +14,6 @@ export class LicenceFactory extends Factory<Licence> {
         paymentType: faker.helpers.arrayElement(Object.values(PaymentTypeEnum)),
         transactionId: faker.datatype.string(),
         transactionInfo: faker.random.alphaNumeric(),
-        licenceType: faker.helpers.arrayElement(Object.values(LicenceTypeEnum)),
         company: new Subfactory(CompanyFactory),
     }
 }

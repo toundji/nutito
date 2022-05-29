@@ -15,13 +15,8 @@ export class Licence extends BaseEntity {
     @Column({ nullable: true })
     code: string;
 
-    @Column({
-        type: "enum",
-        enum: LicenceTypeEnum,
-        default: LicenceTypeEnum.MONTHLY,
-        nullable: true
-    })
-    licenceType: string;
+    @Column('integer', { nullable: true })
+    monthsNumber: number
 
     @Column({
         type: "enum",

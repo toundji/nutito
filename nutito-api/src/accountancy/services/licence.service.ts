@@ -7,7 +7,7 @@ import { Licence } from './../entities/licence.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { uuid } from '../../utilities/helpers/functions.helper';
+import { uuid, addMonths } from '../../utilities/helpers/functions.helper';
 import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
 @Injectable()
 export class LicenceService {
@@ -35,20 +35,15 @@ export class LicenceService {
   }
 
   async create(createLicenceDto: CreateLicenceDto): Promise<Licence> {
+    const PRICE_PER_MONTH: number = 1000;
     const newLicence = new Licence();
     const company = await this.companySerice.findOneById(
-        createLicenceDto.companyId,
+      createLicenceDto.companyId,
     );
     newLicence.company = company;
     newLicence.code = uuid();
-    if (createLicenceDto.licenceType === LicenceTypeEnum.MONTHLY) {
-        const now = new Date();
-        newLicence.expiryDate = new Date(now.setMonth(now.getMonth() + 1))
-    } 
-    if (createLicenceDto.licenceType === LicenceTypeEnum.YEARLY) {
-        const now = new Date();
-        newLicence.expiryDate = new Date(now.setMonth(now.getMonth() + 12))
-    }
+    newLicence.expiryDate = addMonths(new Date(), createLicenceDto.monthsNumber);
+    newLicence.amount = PRICE_PER_MONTH * createLicenceDto.monthsNumber;
     newLicence.save();
     return newLicence;
   }
