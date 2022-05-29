@@ -3,16 +3,18 @@ import { faker } from "@faker-js/faker"
 import { Licence } from "../../accountancy/entities/licence.entity";
 import { PaymentTypeEnum } from '../../utilities/enums/payment-type.enum';
 import { CompanyFactory } from "./company.factory";
+import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
 
 export class LicenceFactory extends Factory<Licence> {
     protected entity = Licence;
     protected attrs: FactorizedAttrs<Licence> = {
-        expiry_date: faker.date.future(),
+        expiryDate: faker.date.future(),
         amount: Number(faker.finance.amount()),
         code: faker.random.alphaNumeric(),
-        payment_type: faker.helpers.arrayElement(Object.values(PaymentTypeEnum)),
-        transaction_id: faker.datatype.string(),
-        transaction_info: faker.random.alphaNumeric(),
+        paymentType: faker.helpers.arrayElement(Object.values(PaymentTypeEnum)),
+        transactionId: faker.datatype.string(),
+        transactionInfo: faker.random.alphaNumeric(),
+        licenceType: faker.helpers.arrayElement(Object.values(LicenceTypeEnum)),
         company: new Subfactory(CompanyFactory),
     }
 }

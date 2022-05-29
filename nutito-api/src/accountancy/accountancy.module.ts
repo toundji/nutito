@@ -27,6 +27,9 @@ import { AgentRoleController } from './controllers/agent-role.controller';
 import { AgentRoleService } from './services/agent-role.service';
 import { LicenceController } from './controllers/licence.controller';
 import { LicenceService } from './services/licence.service';
+import { ConstantController } from './controllers/constant.controller';
+import { ConstantService } from './services/constant.service';
+import { Constant } from './entities/constant.entity';
 @Module({
     imports: [
        TypeOrmModule.forFeature([
@@ -40,7 +43,8 @@ import { LicenceService } from './services/licence.service';
            Licence,
            OperationType,
            Operation,
-           Workfield
+           Workfield,
+           Constant
        ]),
        UserModule
     ],
@@ -51,7 +55,8 @@ import { LicenceService } from './services/licence.service';
         CompanyCategoryService,
         WorkfieldService,
         AgentRoleService,
-        LicenceService
+        LicenceService,
+        ConstantService
     ],
     controllers: [
         AccountController,
@@ -60,7 +65,8 @@ import { LicenceService } from './services/licence.service';
         CompanyCategoryController,
         WorkfieldController,
         AgentRoleController,
-        LicenceController
+        LicenceController,
+        ConstantController
     ],
     providers: [
        AccountService,
@@ -69,7 +75,8 @@ import { LicenceService } from './services/licence.service';
        CompanyCategoryService,
        WorkfieldService,
        AgentRoleService,
-       LicenceService
+       LicenceService,
+       ConstantService
     ],
 })
 export class AccountancyModule {}

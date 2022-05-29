@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { AuditUpdateDto } from './../dtos/update-audit.dto';
 import { AuditDto } from './../dtos/create-audit.dto';
 import { Repository, DeleteResult } from 'typeorm';
@@ -16,6 +15,10 @@ export class AuditService{
      async findAll(): Promise<Audit[]>{
          return await this.audiRepository.find();
      }
+
+     async findAllByAgent(): Promise<Audit[]>{
+        return await this.audiRepository.find();
+    }
 
      async findOneById(id:number):Promise<Audit>{
         const audit= await this.audiRepository.findOneOrFail(id);

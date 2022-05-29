@@ -7,6 +7,12 @@ import { Company } from './../entities/company.entity';
 import { Injectable, NotFoundException, Catch } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/services/user.service';
+import { CreateAgentDto } from '../dtos/create-agent.dto';
+import { AgentRoleService } from './agent-role.service';
+import { AgentRole } from '../entities/agent-role.entity';
+import { ActionEnum } from '../../utilities/enums/actions.enum';
+import { AgentService } from './agent.service';
 
 @Injectable()
 export class CompanyService {
@@ -14,19 +20,29 @@ export class CompanyService {
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
     private readonly companyCategoryService: CompanyCategoryService,
+    private readonly userService: UserService,
+    private readonly agentRoleService: AgentRoleService,
+    private readonly agentService: AgentService
   ) {}
 
   async findAll(): Promise<Company[]> {
     return await this.companyRepository.find();
   }
 
-  async findOnById(id: number): Promise<Company> {
-    const companny = await this.companyRepository
+
+  async findAllByUser(phone: string): Promise<Company[]> {
+    const user =  await this.userService.findOneByPhone(phone);
+    return user.companies;
+  }
+
+
+  async findOneById(id: number): Promise<Company> {
+    const company = await this.companyRepository
       .findOneOrFail({ where: { id: id } })
       .catch((error) => {
         throw new NotFoundException(`Company with id ${id} is not found`);
       });
-    return companny;
+    return company;
   }
 
   async delete(id: number): Promise<DeleteResult> {
@@ -38,13 +54,24 @@ export class CompanyService {
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
+    const user = await this.userService.findOneByPhone(createCompanyDto.user_phone);
+    const agentRole: AgentRole = await this.agentRoleService.findOneByName("Directeur");
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];
         }
     );
     newCompany.category = categoryType;
-    return newCompany.save();
+    newCompany.owner = user;
+    let savedCompany = await newCompany.save();
+    let createAgentDto: CreateAgentDto = {
+      user_id: user.id,
+      company_id: savedCompany.id,
+      agent_role_id: agentRole.id,
+      abilities: Object.values(ActionEnum)
+    }
+    this.agentService.create(createAgentDto);
+    return savedCompany;
   }
 
   async update(

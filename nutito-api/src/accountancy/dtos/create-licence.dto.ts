@@ -1,35 +1,41 @@
-import { IsDate } from 'class-validator';
+import { IsDate, IsEnum, IsOptional } from 'class-validator';
 import { IsNumber } from 'class-validator';
 import { IsString } from 'class-validator';
 import { IsNotEmpty } from 'class-validator';
 import { IsPositive } from 'class-validator';
+import { PaymentTypeEnum } from 'src/utilities/enums/payment-type.enum';
+import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
 
 export class CreateLicenceDto{
-    @IsNotEmpty()
+
+    @IsOptional()
     @IsDate()
     expiryDate: Date;
 
-    @IsNotEmpty()
     @IsNumber()
+    @IsOptional()
     amount: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    conde: string;
+    code: string;
 
-    @IsNotEmpty()
-    @IsString()
-    payement_type: string;
+    @IsEnum(LicenceTypeEnum)
+    licenceType: string;
     
-    @IsNotEmpty()
+    @IsOptional()
+    @IsEnum(PaymentTypeEnum)
+    paymentType: string;
+    
+    @IsOptional()
     @IsPositive()
-    transaction_id: number;
+    transactionId: number;
+
+    @IsOptional()
+    @IsPositive()
+    transactionInfo: number;
 
     @IsNotEmpty()
     @IsPositive()
-    transaction_info: number;
-
-    @IsNotEmpty()
-    @IsPositive()
-    company_id: number;
+    companyId: number;
 }

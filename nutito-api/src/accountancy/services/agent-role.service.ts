@@ -33,6 +33,15 @@ export class AgentRoleService{
         throw new NotFoundException(`Agent Role id ${id} not found`);
     }
 
+    async findOneByName(name: string): Promise<AgentRole>{
+        const result = await this.agentRoleRepository.findOneOrFail( {where : { name: name }}).catch(
+            (error) => {
+                throw new NotFoundException(`Agent Role with name ${name} was not found`);
+            }
+        );
+        return result;
+    }
+
     async delete(id: number): Promise<DeleteResult>{
         const agentRole = await this.findOneById(id);
         if(agentRole.id){

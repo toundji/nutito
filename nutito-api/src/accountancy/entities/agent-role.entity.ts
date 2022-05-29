@@ -11,7 +11,4 @@ export class AgentRole extends BaseEntity {
     @Column('text')
     description: string;
 
-    @OneToMany(type => Agent, agent => agent.role, { onDelete: "NO ACTION" })
-    agents?: Agent[]
-
 }

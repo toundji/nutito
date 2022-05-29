@@ -4,6 +4,7 @@ import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { hashPassword } from "../../utilities/helpers/functions.helper";
 import { Agent } from "../../accountancy/entities/agent.entity";
+import { Company } from "src/accountancy/entities/company.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -63,6 +64,9 @@ export class User extends BaseEntity {
 
     @OneToMany(type => Agent, agent => agent.user, { onDelete: "CASCADE" })
     agents: Agent[];
+
+    @OneToMany(type => Company, company => company.owner, { onDelete: "CASCADE" })
+    companies: Company[];
 
     get profile(): File {
         return this.profile_picture;

@@ -7,53 +7,62 @@ import { Licence } from './../entities/licence.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { uuid } from '../../utilities/helpers/functions.helper';
+import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
 @Injectable()
-export class LicenceService{
-    constructor(
-        @InjectRepository(Licence)
-        private readonly licenceRepository : Repository<Licence>,
-        private readonly companySerice: CompanyService
-    ){}
+export class LicenceService {
+  constructor(
+    @InjectRepository(Licence)
+    private readonly licenceRepository: Repository<Licence>,
+    private readonly companySerice: CompanyService,
+  ) {}
 
-    async findAll(): Promise<Licence[]>{
-        return await this.licenceRepository.find();
+  async findAll(): Promise<Licence[]> {
+    return await this.licenceRepository.find();
+  }
+
+  async findOnById(id: number): Promise<any> {
+    const licence = await this.licenceRepository
+      .findOneOrFail({ where: { id: id } })
+      .catch((error) => {
+        throw new NotFoundException(`Licence with id ${id} is not found`);
+      });
+    return licence;
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    return await this.licenceRepository.delete(id);
+  }
+
+  async create(createLicenceDto: CreateLicenceDto): Promise<Licence> {
+    const newLicence = new Licence();
+    const company = await this.companySerice.findOneById(
+        createLicenceDto.companyId,
+    );
+    newLicence.company = company;
+    newLicence.code = uuid();
+    if (createLicenceDto.licenceType === LicenceTypeEnum.MONTHLY) {
+        const now = new Date();
+        newLicence.expiryDate = new Date(now.setMonth(now.getMonth() + 1))
+    } 
+    if (createLicenceDto.licenceType === LicenceTypeEnum.YEARLY) {
+        const now = new Date();
+        newLicence.expiryDate = new Date(now.setMonth(now.getMonth() + 12))
     }
+    newLicence.save();
+    return newLicence;
+  }
 
-    async findOnById(id: number): Promise<any>{
-      
+  async update(
+    updateLicenceDto: UpdateLicenceDto,
+    id: number,
+  ): Promise<Licence> {
+    const licence = await this.findOnById(id);
 
-         const licence = await this.licenceRepository.findOneOrFail({where : { id : id}}).catch(
-            (error)=> {
-                throw new NotFoundException(`Licence with id ${id} is not found`);
-            }
-         )
-         return licence;
+    licence.company.id = updateLicenceDto.company_id
+      ? updateLicenceDto.company_id
+      : undefined;
 
-    }
-
-    async delete(id :number): Promise<DeleteResult>{
-        return  await this.licenceRepository.delete(id);
-
-    }
-
-    async create(licenceCreateDto : CreateLicenceDto): Promise< Licence >{
-        const newLicence= new Licence();
-        const company = await this.companySerice.findOnById(licenceCreateDto.company_id);
-        newLicence.company.id = company.id;
-        newLicence.save();
-       return newLicence;
-        
-
-    }
-
-    async update(updateLicenceDto: UpdateLicenceDto, id:number):Promise<Licence>{
-      
-        const licence = await this.findOnById(id);
-
-        licence.company.id = updateLicenceDto.company_id ? updateLicenceDto.company_id : undefined;
-
-        return await this.licenceRepository.save(licence)
-    }
-   
-
+    return await this.licenceRepository.save(licence);
+  }
 }

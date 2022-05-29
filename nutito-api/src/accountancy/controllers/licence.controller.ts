@@ -10,7 +10,7 @@ export class LicenceController{
     constructor(private licenceService: LicenceService){}
 
     @Post('/create')
-    async create(@Body() createLicenceDto : CreateLicenceDto): Promise<any>{
+    async create(@Body() createLicenceDto : CreateLicenceDto): Promise<Licence>{
         return await this.licenceService.create(createLicenceDto);
     }
   

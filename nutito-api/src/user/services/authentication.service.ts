@@ -25,21 +25,19 @@ export class AuthenticationService {
   }
 
   async validateUserWithEmail(email: string, password: string) {
-
+    console.log(password)
     let user: User;
-    
     let invalidCredentialsMessage = "Invalid credentials !"
-
     try {
       user = await this.userservice.findOneByEmail(email);
-    } catch(error) {
+      console.log(user)
+    } catch(error) { 
       throw new BadRequestException(invalidCredentialsMessage);
     }
-
     const doesMatch = await bcrypt.compare(password, user.password);
-
+    console.log(doesMatch)
     if (doesMatch) {
-      const {id, password, verification_token, ...rest } = user;
+      const { id, password, verification_token, ...rest } = user;
       return rest;
     } else {
       throw new BadRequestException(invalidCredentialsMessage);
