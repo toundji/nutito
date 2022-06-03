@@ -10,14 +10,14 @@ const ormconfig: any = {
     database: process.env.DATABASE_NAME,
     ssl: { rejectUnauthorized: false },
     synchronize: false,
-    //entities: ["dist/src/**/*.entity{.ts,.js}"],
+    entities: ["dist/src/**/*.entity{.ts,.js}"],
     migrations: ["dist/src/db/migrations/*.js"],
     cli: {  
         migrationsDir: "src/db/migrations",
         entitiesDir: "src/**/*"
     },
     //Seeder configs uncomment this to seed the database
-    entities: ["src/**/*.entity{.ts,.js}"],
+    //entities: ["src/**/*.entity{.ts,.js}"],
     factories: ["src/db/factories/**/*{.ts,.js}"],
     seeders: ["src/db/seeders/**/*{.ts,.js}"],
     defaultSeeder: "RootSeeder",
