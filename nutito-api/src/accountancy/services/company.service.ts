@@ -55,7 +55,7 @@ export class CompanyService {
       createCompanyDto.companyCategoryId,
     );
     const user = await this.userService.findOneByPhone(createCompanyDto.user_phone);
-    const agentRole: AgentRole = await this.agentRoleService.findOneByName("Directeur Général");
+    const agentRole: AgentRole = await this.agentRoleService.findOneByName("DIRECTEUR GÉNÉRAL");
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];

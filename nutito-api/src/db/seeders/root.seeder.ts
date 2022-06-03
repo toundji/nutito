@@ -1,7 +1,7 @@
 import { Seeder } from "@jorgebodega/typeorm-seeding";
 import { Connection } from "typeorm";
 import { AccountSeeder } from "./account.seeder";
-import { AgentRoleSeeder } from "./agent-role.factory";
+import { AgentRoleSeeder } from "./agent-role.seeder";
 import { AgentSeeder } from "./agent.seeder";
 import { ClientOperationTypeSeeder } from "./client-operation-type.seeder";
 import { UserSeeder } from './user.seeder';
