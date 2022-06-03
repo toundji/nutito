@@ -4,7 +4,7 @@ import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { hashPassword } from "../../utilities/helpers/functions.helper";
 import { Agent } from "../../accountancy/entities/agent.entity";
-import { Company } from "src/accountancy/entities/company.entity";
+import { Company } from "../../accountancy/entities/company.entity";
 
 @Entity()
 export class User extends BaseEntity {
