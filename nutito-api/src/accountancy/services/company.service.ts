@@ -35,7 +35,6 @@ export class CompanyService {
     return user.companies;
   }
 
-
   async findOneById(id: number): Promise<Company> {
     const company = await this.companyRepository
       .findOneOrFail({ where: { id: id } })
