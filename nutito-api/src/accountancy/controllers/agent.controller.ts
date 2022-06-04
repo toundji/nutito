@@ -4,9 +4,11 @@ import { Body, Controller, Get } from "@nestjs/common";
 import { Agent } from '../entities/agent.entity';
 import { CreateAgentDto } from '../dtos/create-agent.dto';
 import { UpdateAgentDto } from '../dtos/update-agent.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('agents')
+@ApiTags("Agents")
 export class AgentController{
     constructor(
         private readonly agentservice : AgentService
