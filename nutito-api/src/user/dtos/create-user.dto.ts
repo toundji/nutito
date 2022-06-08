@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MinLength } from 'class-validator';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 export class CreateUserDto {
@@ -12,7 +13,7 @@ export class CreateUserDto {
     @IsOptional()
     email?: string;
 
-    @IsPhoneNumber()
+    @IsString()
     phone: string;
 
     @IsOptional()

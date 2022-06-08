@@ -48,11 +48,11 @@ export class UserService {
       attribute => user[attribute] = createUserDto[attribute]
     );
     const newUser = this.usersrepository.create(user);
-    let returnValue = this.usersrepository.save(newUser).catch(
-      (error) => {
-        throw new BadRequestException(`Email or phone is already taken !`);
-      }
-    );
+    console.log(newUser);
+    
+    const returnValue = this.usersrepository.save(newUser);
+    console.log(returnValue);
+    
     return returnValue;
   }
 
