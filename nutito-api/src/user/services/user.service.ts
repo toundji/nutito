@@ -34,7 +34,7 @@ export class UserService {
   }
 
   async findOneByPhone(phone: string): Promise<User> {
-    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture"] }).catch(
+    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture", "agents"] }).catch(
       (error) => {
         throw new NotFoundException(`User with phone ${phone} is not found`);
       }
@@ -79,6 +79,10 @@ export class UserService {
       .then((result) => true)
       .catch((error) => false); 
     return userExists ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+  }
+
+  async getUserAgents(phone: string): Promise<any> {
+    return (await this.findOneByPhone(phone)).agents
   }
 
 }

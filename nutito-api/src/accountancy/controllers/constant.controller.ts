@@ -15,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ConstantService } from '../services/constant.service';
 import { CreateConstantDto } from '../dtos/create-constant.dto';
 import { Constant } from '../entities/constant.entity';
+import { Agent } from '../entities/agent.entity';
 
 @Controller('constants')
 @ApiTags('constants')
