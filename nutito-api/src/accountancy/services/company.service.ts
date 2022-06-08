@@ -13,6 +13,7 @@ import { AgentRoleService } from './agent-role.service';
 import { AgentRole } from '../entities/agent-role.entity';
 import { ActionEnum } from '../../utilities/enums/actions.enum';
 import { AgentService } from './agent.service';
+import { Agent } from '../entities/agent.entity';
 
 @Injectable()
 export class CompanyService {
@@ -34,7 +35,6 @@ export class CompanyService {
     const user =  await this.userService.findOneByPhone(phone);
     return user.companies;
   }
-
 
   async findOneById(id: number): Promise<Company> {
     const company = await this.companyRepository
@@ -79,5 +79,9 @@ export class CompanyService {
     id: number,
   ): Promise<UpdateResult> {
     return await this.companyRepository.update(id, updateCompanyDto);
+  }
+
+  async getCompanyAgents(id: number): Promise<Agent[]> {
+    return (await this.findOneById(id)).agents;
   }
 }

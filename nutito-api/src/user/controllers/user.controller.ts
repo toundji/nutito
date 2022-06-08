@@ -12,6 +12,7 @@ import { DoesNotRequireAuthorisations } from '../../utilities/decorators/does-no
 import { SigninResponseDto } from '../dtos/signin-response.dto';
 import { SignupResponseDto } from '../dtos/signup-response.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Agent } from '../../accountancy/entities/agent.entity';
 
 
 @ApiTags('auth')
@@ -72,6 +73,11 @@ export class UserController {
   @DoesNotRequireAuthorisations()
   async checkIfPhoneExists(@Param('phone') phone: string): Promise<any> {
     return await this.userservice.checkUserExistenceByPhone(phone);
+  }
+
+  @Get(':phone/agents')
+  async getUserAgents(@Param('phone') phone: string): Promise<Agent[]> {
+    return await this.userservice.getUserAgents(phone);
   }
 
 }

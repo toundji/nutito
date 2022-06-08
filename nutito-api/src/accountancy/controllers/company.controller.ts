@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { Company } from '../entities/company.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { Agent } from '../entities/agent.entity';
 
 @Controller('companies')
 @ApiTags('companies')
@@ -54,4 +55,11 @@ export class CompanyController {
   async deleteCompany(@Param('id') id: number) {
     return await this.companySerice.delete(id);
   }
+
+
+  @Get(':id/agents')
+  async getCompanyAgents(@Param('id') id: number): Promise<Agent[]> {
+    return await this.companySerice.getCompanyAgents(id);
+  }
+
 }
