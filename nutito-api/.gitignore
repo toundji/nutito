@@ -4,6 +4,9 @@
 .vscode
 .env
 
+# orm
+myorm.ts
+
 # Logs
 logs
 *.log
