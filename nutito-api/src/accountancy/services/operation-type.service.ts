@@ -5,6 +5,9 @@ import { Injectable, NotFoundException, Catch } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateOperationTypeDto } from '../dtos/update-operation-type.dto';
+import { faker } from "@faker-js/faker"
+import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
+
 @Injectable()
 export class OperationTypeService{
     constructor(
@@ -42,6 +45,43 @@ export class OperationTypeService{
 
     async update(updateOperationTypeDto: UpdateOperationTypeDto, id:number):Promise<UpdateResult>{
         return await this.OperationTypeRepository.update(id,updateOperationTypeDto);
+    }
+
+
+    init(): Promise<OperationType[]>{
+        return this.OperationTypeRepository.find().then((olds)=>{
+            if(olds && olds.length > 0){
+                console.log(olds);
+
+                return olds;
+              }
+        
+                const fields = [
+                    {
+                        type: OperationTypeEnum.OUT,
+                        name:"Payement du loyer",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        type: OperationTypeEnum.OUT,
+                        name: "Payement de l'électricité",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        type: OperationTypeEnum.OUT,
+                        name:"Payement de l'eau",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        type: OperationTypeEnum.IN,
+                        name: "Vente",
+                        description: faker.lorem.lines(3),
+                    },
+                ];
+                const l =  this.OperationTypeRepository.create(fields);
+                return this.OperationTypeRepository.save(l);
+            
+        })
     }
 
 }

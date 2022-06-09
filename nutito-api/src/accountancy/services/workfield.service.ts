@@ -5,6 +5,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from "@nestjs/common";
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { faker } from "@faker-js/faker"
 
 @Injectable()
 export class WorkfieldService{
@@ -37,6 +38,43 @@ export class WorkfieldService{
 
     async delete(id : number):Promise<DeleteResult>{
         return await this.WorkfieldRepository.delete(id);
+    }
+
+
+    init():Promise<Workfield[]>{
+        return this.WorkfieldRepository.find().then((olds)=>{
+            if(olds && olds.length > 0){
+                console.log(olds);
+                
+                return olds;
+              }
+                        const fields = [
+                    {
+                        name: "Informaticien",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        name: "Restauration",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        name: "Pharmaticien",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        name: "Commerçante",
+                        description: faker.lorem.lines(3),
+                    },
+                    {
+                        name: "Transport",
+                        description: faker.lorem.lines(3),
+                    },
+                ];
+                const l =  this.WorkfieldRepository.create(fields);
+                return this.WorkfieldRepository.save(l);
+            
+        })
+        
     }
 }
    

@@ -10,6 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from "@nestjs/common";
 import { DeleteResult, Repository } from 'typeorm';
 import { Operation } from '../entities/operation.entity';
+import { faker } from "@faker-js/faker"
+
 
 
 @Injectable()
