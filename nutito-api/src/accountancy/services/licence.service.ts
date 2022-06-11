@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { uuid, addMonths } from '../../utilities/helpers/functions.helper';
 import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
+import { Company } from '../entities/company.entity';
 @Injectable()
 export class LicenceService {
   constructor(
@@ -44,8 +45,11 @@ export class LicenceService {
     newLicence.code = uuid();
     newLicence.expiryDate = addMonths(new Date(), createLicenceDto.monthsNumber);
     newLicence.amount = PRICE_PER_MONTH * createLicenceDto.monthsNumber;
-    newLicence.save();
-    return newLicence;
+   const licence = await  newLicence.save();
+   company.licence = licence;
+   Company.save(company);
+   licence.company.licence = null;
+    return licence;
   }
 
   async update(

@@ -30,6 +30,9 @@ import { LicenceService } from './services/licence.service';
 import { ConstantController } from './controllers/constant.controller';
 import { ConstantService } from './services/constant.service';
 import { Constant } from './entities/constant.entity';
+import { SeederService } from './services/seeder.service';
+import { SeederController } from './controllers/seeder.controller';
+import { OperationTypeService } from './services/operation-type.service';
 @Module({
     imports: [
        TypeOrmModule.forFeature([
@@ -66,7 +69,8 @@ import { Constant } from './entities/constant.entity';
         WorkfieldController,
         AgentRoleController,
         LicenceController,
-        ConstantController
+        ConstantController,
+        SeederController
     ],
     providers: [
        AccountService,
@@ -76,7 +80,9 @@ import { Constant } from './entities/constant.entity';
        WorkfieldService,
        AgentRoleService,
        LicenceService,
-       ConstantService
+       ConstantService,
+       SeederService,
+       OperationTypeService,
     ],
 })
 export class AccountancyModule {}

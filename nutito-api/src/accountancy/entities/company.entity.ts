@@ -55,6 +55,10 @@ export class Company extends BaseEntity {
     @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
     licences?: Licence[];
 
+    @ManyToOne(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
+    @JoinColumn({ name: "licence_id"})
+    licence?: Licence;
+
     @OneToOne(() => Account, { nullable: true })
     @JoinColumn({ name: "account_id" })
     account!: Account;

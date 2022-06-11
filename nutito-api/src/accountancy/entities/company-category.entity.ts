@@ -9,6 +9,9 @@ import { OperationType } from './operation-type.entity';
 export class CompanyCategory extends BaseEntity {
 
     @Column({nullable: false})
+    short: string;
+
+    @Column({nullable: false})
     name: string;
 
     @Column({nullable: true})

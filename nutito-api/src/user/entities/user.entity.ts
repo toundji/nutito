@@ -55,7 +55,7 @@ export class User extends BaseEntity {
     @Column({ nullable: true })
     verification_token: string;
 
-    @Column('boolean', { default: false })
+    @Column('boolean', { default: true })
     active: boolean;
 
     @OneToOne(type => File, { onDelete: "CASCADE" })

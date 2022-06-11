@@ -1,4 +1,4 @@
 export enum OperationTypeEnum {
-    IN = "entrée",
-    OUT = "sortie"
+    IN = "REVENUE",
+    OUT = "DEPENSE"
 }

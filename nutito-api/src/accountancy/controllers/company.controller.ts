@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { Company } from '../entities/company.entity';
 import { ApiTags } from '@nestjs/swagger';
@@ -22,8 +23,10 @@ export class CompanyController {
   @Post('/create')
   async createCompany(
     @Body() createCompanyDto: CreateCompanyDto,
+    @Req() req,
   ): Promise<Company> {
-    return await this.companySerice.create(createCompanyDto);
+    const user = req['user'];
+    return await this.companySerice.create(createCompanyDto, user);
   }
 
   @Get()
@@ -31,11 +34,20 @@ export class CompanyController {
     return await this.companySerice.findAll();
   }
 
-  @Get()
+  @Get("for-phone/:phone")
   async getAllCompaniesByUser(
     @Param('phone') phone: string,
   ): Promise<Company[]> {
     return await this.companySerice.findAllByUser(phone);
+  }
+
+
+  @Get("create/by/me")
+  async getCreateByUser(
+    @Req() req,
+  ): Promise<Company[]> {
+    const user = req['user'];
+    return await this.companySerice.myCompanies(user.id);
   }
 
   @Get('/:id')
