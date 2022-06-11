@@ -55,7 +55,7 @@ export class CompanyService {
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
-    const agentRole: AgentRole = await this.agentRoleService.findOneByName("Créateur sur Nutito");
+    const agentRole: AgentRole = await this.agentRoleService.findOneByName("CREATEUR SUR NUTITO");
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];

@@ -63,4 +63,12 @@ export class AgentService{
           });
       }
 
+      ofCompny(id:number): Promise<Agent[]> {
+        const company:Company = Company.create({id:id});
+        return this.agentsRepository.find({where:{company:company}}).catch((error)=>{
+            console.log("Erreur ", error);
+            throw new NotFoundException();
+          });
+      }
+
 }

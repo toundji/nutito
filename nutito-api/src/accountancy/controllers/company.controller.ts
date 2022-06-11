@@ -34,7 +34,7 @@ export class CompanyController {
     return await this.companySerice.findAll();
   }
 
-  @Get()
+  @Get("for-phone/:phone")
   async getAllCompaniesByUser(
     @Param('phone') phone: string,
   ): Promise<Company[]> {

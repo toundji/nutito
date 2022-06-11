@@ -40,6 +40,13 @@ export class AgentController{
     return await this.agentservice.agentThatIsMe(user.id);
   }
 
+  @Get("of/company/:id")
+  async ofCompny(
+    @Param('id') id: number
+  ): Promise<Agent[]> {
+    return await this.agentservice.ofCompny(id);
+  }
+
     @Delete(':id')
     async deleteAgent(@Param('id') id){
         return await this.agentservice.delete(id);

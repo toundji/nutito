@@ -83,7 +83,12 @@ export class AgentRoleService{
                     {
                         name:  "DIRECTEUR GÉNÉRAL",
                         description: faker.lorem.lines(3),
+                    },
+                    {
+                        name:  "CREATEUR SUR NUTITO",
+                        description: faker.lorem.lines(3),
                     }
+
                 ];
                 const agents :AgentRole[] = this.agentRoleRepository.create(agentData);
                 return this.agentRoleRepository.save(agents);
