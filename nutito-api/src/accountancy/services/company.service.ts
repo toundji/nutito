@@ -64,13 +64,16 @@ export class CompanyService {
     newCompany.category = categoryType;
     newCompany.owner = user;
     let savedCompany = await newCompany.save();
-    let createAgentDto: CreateAgentDto = {
-      user_id: user.id,
-      company_id: savedCompany.id,
-      agent_role_id: agentRole.id,
-      abilities: Object.values(ActionEnum)
-    }
-    this.agentService.create(createAgentDto);
+
+    const agent:Agent = Agent.create({
+      user: user,
+      role:agentRole,
+      company:savedCompany,
+      abilities: Object.values(ActionEnum),
+
+    });
+   const agentCreated :Agent = await Agent.save(agent);
+   savedCompany.agents = [agentCreated];
     return savedCompany;
   }
 

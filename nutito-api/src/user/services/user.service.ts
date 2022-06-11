@@ -116,13 +116,13 @@ export class UserService {
         },
     
         {
-          email: "baba1@gmail.com",
+          email: "baba0@gmail.com",
           phone: "+22994851780",
           password: "gggggggg",
           user_type: UserTypeEnum.USER,
         },
         {
-          email: "baba2@gmail.com",
+          email: "baba1@gmail.com",
           phone: "+22994851781",
           ifu: "12345678",
           birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
