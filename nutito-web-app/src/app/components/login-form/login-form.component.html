@@ -1,0 +1,69 @@
+<div class="main-wrapper login-body">
+  <div class="login-wrapper">
+    <div class="container">
+      <h2 class="text-center">NUTITO</h2>
+      <div class="loginbox">
+        <div class="login-right">
+          <div class="login-right-wrap">
+            <h1>CONNEXION</h1>
+            <p class="account-subtitle">Accéder Au Dashboard</p>
+            <form
+              novalidate
+              [formGroup]="formGroup"
+              (ngSubmit)="submitForm()"
+            >
+              <div class="form-group">
+                <label class="form-control-label">Adresse Email</label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="form-control"
+                />
+                <ul
+                  class="error-color list-unstyled mt-1"
+                  *ngIf="(formSubmitted || formGroup.controls['email'].dirty) && formGroup.controls['email'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('email')">{{error}}</li>
+                </ul>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Mot de passe</label>
+                <div class="pass-group">
+                  <input
+                    type="password"
+                    formControlName="password"
+                    class="form-control pass-input"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted || formGroup.controls['password'].dirty) && formGroup.controls['password'].invalid">
+                    <li *ngFor="let error of formGroup.getValidationMessages('password')">{{error}}</li>
+                  </ul>
+                  <!-- <span class="fas fa-eye toggle-password"></span> -->
+                </div>
+              </div>
+              <div class="flex justify-center mt-1">
+                <div class="w-8/12 p-2 rounded-lg">
+                  <div class="flex justify-center text-center">
+                    <ul class="error-color list-unstyled mt-1">
+                      <li style="font-size: 12px">
+                        {{ this.loginFailureMsg }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <button
+                  class="btn text-light btn-lg btn-block btn-primary w-100"
+                  type="submit"
+                  [disabled]="formSubmitted && formGroup.invalid"
+                  [class.btn-secondary]="formSubmitted && formGroup.invalid"
+                >Login
+                <span id="loader" class="" role="status"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
