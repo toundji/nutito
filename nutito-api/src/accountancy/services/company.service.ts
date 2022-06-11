@@ -14,6 +14,7 @@ import { AgentRole } from '../entities/agent-role.entity';
 import { ActionEnum } from '../../utilities/enums/actions.enum';
 import { AgentService } from './agent.service';
 import { Agent } from '../entities/agent.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class CompanyService {
@@ -49,13 +50,12 @@ export class CompanyService {
     return this.companyRepository.softDelete(id);
   }
 
-  async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
+  async create(createCompanyDto: CreateCompanyDto, user: User): Promise<Company> {
     const newCompany = new Company();
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
-    const user = await this.userService.findOneByPhone(createCompanyDto.user_phone);
-    const agentRole: AgentRole = await this.agentRoleService.findOneByName("Président Directeur Général");
+    const agentRole: AgentRole = await this.agentRoleService.findOneByName("Créateur sur Nutito");
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];
@@ -72,6 +72,15 @@ export class CompanyService {
     }
     this.agentService.create(createAgentDto);
     return savedCompany;
+  }
+
+  myCompanies(id:number){
+    const user:User = User.create({id:id});
+   return this.companyRepository.find({where:{owner:user}}).catch((error)=>{
+      console.log("Erreur ");
+      throw new NotFoundException();
+      
+    });
   }
 
   async update(

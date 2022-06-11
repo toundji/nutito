@@ -70,17 +70,27 @@ export class UserService {
   }
 
   async checkUserExistenceByEmail(email: string): Promise<any> {
-    let userExists = this.findOneByEmail(email)
-      .then((result) => true)
-      .catch((error) => false); 
-    return (await userExists) ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+    return this.usersrepository.count({email:email})
+    .then((result) =>{
+      console.log(result);
+      
+      if(result && result>0){
+        throw new BadRequestException({ detail: "L'utilisateur existe" }); 
+      }else return  { detail: "L'utilisateur n'existe pas" };
+    })
+    .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
   }
 
   async checkUserExistenceByPhone(phone: string): Promise<any> {
-    let userExists = await this.findOneByPhone(phone)
-      .then((result) => true)
-      .catch((error) => false); 
-    return userExists ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+    return await this.usersrepository.count({phone:phone})
+      .then((result) => {
+        console.log(result);
+
+        if(result && result>0){
+          throw new BadRequestException({ detail: "L'utilisateur existe" }); 
+        }else return  { detail: "L'utilisateur n'existe pas" };
+       })
+      .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
   }
 
   async getUserAgents(phone: string): Promise<any> {
@@ -111,7 +121,6 @@ export class UserService {
           password: "gggggggg",
           user_type: UserTypeEnum.USER,
         },
-    
         {
           email: "baba2@gmail.com",
           phone: "+22994851781",

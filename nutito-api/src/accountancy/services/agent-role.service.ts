@@ -87,7 +87,6 @@ export class AgentRoleService{
                 ];
                 const agents :AgentRole[] = this.agentRoleRepository.create(agentData);
                 return this.agentRoleRepository.save(agents);
-            
         })
     }
 }

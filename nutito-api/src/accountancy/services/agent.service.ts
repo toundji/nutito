@@ -6,6 +6,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { Agent } from '../entities/agent.entity';
 import { CreateAgentDto } from '../dtos/create-agent.dto';
 import { Company } from '../entities/company.entity';
+import { User } from 'src/user/entities/user.entity';
 
 
 @Injectable()
@@ -54,7 +55,12 @@ export class AgentService{
         return
       }
 
-      init(){
-        
+      agentThatIsMe(id:number): Promise<Agent[]> {
+        const user:User = User.create({id:id});
+        return this.agentsRepository.find({where:{user:user}}).catch((error)=>{
+            console.log("Erreur ");
+            throw new NotFoundException();
+          });
       }
+
 }
