@@ -13,7 +13,7 @@ export class CreateUserDto {
     @IsOptional()
     email?: string;
 
-    @IsString()
+    @IsPhoneNumber()
     phone: string;
 
     @IsOptional()

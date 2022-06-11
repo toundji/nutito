@@ -1,3 +1,4 @@
+import { WorkfieldService } from './workfield.service';
 /* eslint-disable prettier/prettier */
 import { CompanyCategoryService } from './company-category.service';
 import { UpdateCompanyDto } from './../dtos/update-company.dto';
@@ -14,6 +15,7 @@ export class CompanyService {
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
     private readonly companyCategoryService: CompanyCategoryService,
+    private readonly workfieldService: WorkfieldService
   ) {}
 
   async findAll(): Promise<Company[]> {
@@ -38,6 +40,7 @@ export class CompanyService {
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
+    // const wordkfield = await this.workfieldService.findOneById(createCompanyDto.workfields);
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];

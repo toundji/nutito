@@ -29,7 +29,8 @@ export class CompanyCategoryController{
     } 
     
     @Put('update/:id')
-    async updateCompanyCate(@Param('id') id : number, @Body() updateCompanyCategoryDto : UpdateCompanyCategoryDto){
+    async updateCompanyCate(@Param('id') id : number,
+     @Body() updateCompanyCategoryDto : UpdateCompanyCategoryDto){
         return await this.companyCategoryService.update(id, updateCompanyCategoryDto);
     }
 
