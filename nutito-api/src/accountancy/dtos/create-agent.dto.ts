@@ -1,10 +1,10 @@
-import { IsPositive } from 'class-validator';
+import { IsArray, IsPositive } from 'class-validator';
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateAgentDto {
     @IsNotEmpty()
     @IsPositive()
-    agent_id: number;
+    user_id: number;
 
     @IsPositive()
     @IsNotEmpty()
@@ -13,5 +13,9 @@ export class CreateAgentDto {
     @IsNotEmpty()
     @IsPositive()
     agent_role_id: number;
+
+    @IsNotEmpty()
+    @IsArray()
+    abilities: string[]
 
 }

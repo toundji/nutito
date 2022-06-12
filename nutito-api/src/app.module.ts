@@ -6,6 +6,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import config from '../ormconfig';
+import myormconfig from '../myorm';
+
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
@@ -18,7 +20,7 @@ import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(config),
+    TypeOrmModule.forRoot(myormconfig),
     ConfigModule.forRoot({
       isGlobal: true, 
     }),

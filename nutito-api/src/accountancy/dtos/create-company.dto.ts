@@ -10,6 +10,10 @@ export class CreateCompanyDto {
     @IsOptional()
     description: string;
 
+    @IsPhoneNumber()
+    @IsNotEmpty()
+    user_phone: string;
+
     @IsOptional()
     @IsString()
     city: string;

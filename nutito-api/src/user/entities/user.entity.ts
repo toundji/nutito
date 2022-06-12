@@ -4,6 +4,7 @@ import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { hashPassword } from "../../utilities/helpers/functions.helper";
 import { Agent } from "../../accountancy/entities/agent.entity";
+import { Company } from "../../accountancy/entities/company.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -54,7 +55,7 @@ export class User extends BaseEntity {
     @Column({ nullable: true })
     verification_token: string;
 
-    @Column('boolean', { default: false })
+    @Column('boolean', { default: true })
     active: boolean;
 
     @OneToOne(type => File, { onDelete: "CASCADE" })
@@ -63,6 +64,9 @@ export class User extends BaseEntity {
 
     @OneToMany(type => Agent, agent => agent.user, { onDelete: "CASCADE" })
     agents: Agent[];
+
+    @OneToMany(type => Company, company => company.owner, { onDelete: "CASCADE" })
+    companies: Company[];
 
     get profile(): File {
         return this.profile_picture;

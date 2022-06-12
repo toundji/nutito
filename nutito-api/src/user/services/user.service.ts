@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
+import { DateTime, Duration } from 'luxon';
+import { UserTypeEnum } from 'src/utilities/enums/user-type.enum';
 
 @Injectable()
 export class UserService {
@@ -34,7 +36,7 @@ export class UserService {
   }
 
   async findOneByPhone(phone: string): Promise<User> {
-    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture"] }).catch(
+    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture", "agents"] }).catch(
       (error) => {
         throw new NotFoundException(`User with phone ${phone} is not found`);
       }
@@ -48,11 +50,20 @@ export class UserService {
       attribute => user[attribute] = createUserDto[attribute]
     );
     const newUser = this.usersrepository.create(user);
+<<<<<<< HEAD
     console.log(newUser);
     
     const returnValue = this.usersrepository.save(newUser);
     console.log(returnValue);
     
+=======
+    let returnValue = this.usersrepository.save(newUser).catch(
+      (error) => {
+        console.log(error)
+        throw new BadRequestException(`Email or phone is already taken !`);
+      }
+    );
+>>>>>>> f79b8cb1ae2e884cd9eafa2f718a02bdb8efb8c1
     return returnValue;
   }
 
@@ -67,17 +78,77 @@ export class UserService {
   }
 
   async checkUserExistenceByEmail(email: string): Promise<any> {
-    let userExists = this.findOneByEmail(email)
-      .then((result) => true)
-      .catch((error) => false); 
-    return (await userExists) ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+    return this.usersrepository.count({email:email})
+    .then((result) =>{
+      console.log(result);
+      
+      if(result && result>0){
+        throw new BadRequestException({ detail: "L'utilisateur existe" }); 
+      }else return  { detail: "L'utilisateur n'existe pas" };
+    })
+    .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
   }
 
   async checkUserExistenceByPhone(phone: string): Promise<any> {
-    let userExists = await this.findOneByPhone(phone)
-      .then((result) => true)
-      .catch((error) => false); 
-    return userExists ? new BadRequestException({ detail: "L'utilisateur existe" }) : { detail: "L'utilisateur n'existe pas" }
+    return await this.usersrepository.count({phone:phone})
+      .then((result) => {
+        console.log(result);
+
+        if(result && result>0){
+          throw new BadRequestException({ detail: "L'utilisateur existe" }); 
+        }else return  { detail: "L'utilisateur n'existe pas" };
+       })
+      .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
+  }
+
+  async getUserAgents(phone: string): Promise<any> {
+    return (await this.findOneByPhone(phone)).agents
+  }
+
+  init(){
+    return this.usersrepository.find().then((olds)=>{
+      if(olds && olds.length > 0){
+        return olds;
+      }
+
+        const user =[ {
+          email: "baba@gmail.com",
+          phone: "+22994851785",
+          ifu: "12345678",
+          birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
+          birth_place: "Doumè",
+          address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
+          country: "Country",
+          password: "gggggggg",
+          user_type: UserTypeEnum.ADMIN,
+        },
+    
+        {
+          email: "baba0@gmail.com",
+          phone: "+22994851780",
+          password: "gggggggg",
+          user_type: UserTypeEnum.USER,
+        },
+        {
+          email: "baba1@gmail.com",
+          phone: "+22994851781",
+          ifu: "12345678",
+          birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
+          birth_place: "Doumè",
+          address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
+          country: "Country",
+          password: "gggggggg",
+          user_type: UserTypeEnum.USER,
+        },
+      ];
+    
+       const user_: User[] = this.usersrepository.create(user);
+    
+       return this.usersrepository.save(user_);
+    
+      
+    });
+   
   }
 
 }

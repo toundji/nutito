@@ -27,9 +27,18 @@ export const formatTimeDifference = (date1: Date, date2: Date): string => {
 }
 
 export const hashPassword = async (plainPassword: string): Promise<string> => {
-  const saltOrRounds = 10;
-  const hashedPassword = await bcrypt.hash(plainPassword, saltOrRounds);
+  const salt = await bcrypt.genSalt(15);
+  const hashedPassword = await bcrypt.hash(plainPassword, salt);
   return hashedPassword;
+}
+
+export const addMonths = (date, months) => {
+  var d = date.getDate();
+  date.setMonth(date.getMonth() + +months);
+  if (date.getDate() != d) {
+    date.setDate(0);
+  }
+  return date;
 }
 
 

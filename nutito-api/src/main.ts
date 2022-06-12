@@ -42,6 +42,9 @@ async function bootstrap() {
         new BadRequestException(errors),
     }),
   );
-  (await createApiDocumentation(app)).listen(process.env.PORT || 3000, '0.0.0.0');
+  (await createApiDocumentation(app)).listen(
+    process.env.PORT || 3000,
+    '0.0.0.0',
+  );
 }
 bootstrap();

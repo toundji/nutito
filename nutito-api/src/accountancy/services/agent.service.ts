@@ -1,11 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { UpdateAgentDto } from './../dtos/update-agent.dto';
 import { UserService } from './../../user/services/user.service';
-import { CreateAgentDto } from './../dtos/create-agent.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
 import { Agent } from '../entities/agent.entity';
+import { CreateAgentDto } from '../dtos/create-agent.dto';
+import { Company } from '../entities/company.entity';
+import { User } from 'src/user/entities/user.entity';
 
 
 @Injectable()
@@ -13,7 +14,6 @@ export class AgentService{
     constructor(
         @InjectRepository(Agent)
         private readonly agentsRepository: Repository<Agent>,
-        private userService: UserService
       ) { }
 
       findAll(): Promise<Agent[]> {
@@ -31,34 +31,44 @@ export class AgentService{
          
       }
 
-      // async create(createAgentDto: CreateAgentDto): Promise<Agent> {
-      //   const agent = new Agent();
-      //   Object.keys(createAgentDto).forEach(
-      //     attribute => agent[attribute] = createAgentDto[attribute]
-      //   );
-      //   const  user = await this.userService.findOneById(createAgentDto.user_id); 
-      //   agent.user = user;
-      //   const newAgent = agent.save().catch(
-      //     (error) => {
-      //       throw new BadRequestException({ error: `${error}` });
-      //     }
-      //   );
-      //   return newAgent;
-      // }
+      async create(createAgentDto: CreateAgentDto): Promise<Agent> {
+        const agent = new Agent();
+        Object.keys(createAgentDto).forEach(
+          attribute => agent[attribute] = createAgentDto[attribute]
+        );
+        // const  user = await this.userService.findOneById(createAgentDto.user_id); 
+        // agent.user = user;
+        const newAgent = agent.save().catch(
+          (error) => {
+            throw new BadRequestException({ error: `${error}` });
+          }
+        );
+        return newAgent;
+        return
+      }
 
       async delete(id: number): Promise<DeleteResult>{
           return await this.agentsRepository.softDelete(id);
       }
 
-      // async update(agentId: number, updateAgentDto: UpdateAgentDto): Promise<Agent>{
-      //   const agent =  await this.findOneById(agentId);
-      //   const user = updateAgentDto.agent_id ? await this.userService.findOneById(updateAgentDto.) : undefined;
-      //   agent.user = user ? user : agent.user;
-      //   agent.save();
-      //   return agent;
-      // }
+      async update(agentId: number, updateAgentDto: UpdateAgentDto): Promise<Agent>{
+        return
+      }
 
-    
+      agentThatIsMe(id:number): Promise<Agent[]> {
+        const user:User = User.create({id:id});
+        return this.agentsRepository.find({where:{user:user}}).catch((error)=>{
+            console.log("Erreur ");
+            throw new NotFoundException();
+          });
+      }
 
-    
+      ofCompny(id:number): Promise<Agent[]> {
+        const company:Company = Company.create({id:id});
+        return this.agentsRepository.find({where:{company:company}}).catch((error)=>{
+            console.log("Erreur ", error);
+            throw new NotFoundException();
+          });
+      }
+
 }

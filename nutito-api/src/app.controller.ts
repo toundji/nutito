@@ -5,7 +5,8 @@ import { DoesNotRequireAuthorisations } from './utilities/decorators/does-not-re
 
 @Controller()
 export class AppController {
-  constructor() {}
+  constructor(
+  ) {}
 
   @Get('/')
   @DoesNotRequireAuthentication()
@@ -14,4 +15,5 @@ export class AppController {
   async home() {
     return { data: "" }
   }
+
 }

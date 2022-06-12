@@ -1,5 +1,5 @@
 import { Company } from './company.entity';
-import { JoinColumn, ManyToOne, Entity, OneToOne } from 'typeorm';
+import { JoinColumn, ManyToOne, Entity, OneToOne, Column } from 'typeorm';
 import { AgentRole } from './agent-role.entity';
 import { BaseEntity } from './base.entity';
 import { User } from '../../user/entities/user.entity';
@@ -15,8 +15,11 @@ export class Agent extends BaseEntity {
     @JoinColumn({ name: "company_id" })
     company!: Company;
 
-    @OneToOne(type => AgentRole)
+    @ManyToOne(type => AgentRole)
     @JoinColumn({ name: "agent_role_id" })
-    role!: AgentRole
+    role!: AgentRole;
+
+    @Column("simple-array", { nullable: true })
+    abilities: string[];
 
 }

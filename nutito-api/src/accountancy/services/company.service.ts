@@ -8,6 +8,14 @@ import { Company } from './../entities/company.entity';
 import { Injectable, NotFoundException, Catch } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/services/user.service';
+import { CreateAgentDto } from '../dtos/create-agent.dto';
+import { AgentRoleService } from './agent-role.service';
+import { AgentRole } from '../entities/agent-role.entity';
+import { ActionEnum } from '../../utilities/enums/actions.enum';
+import { AgentService } from './agent.service';
+import { Agent } from '../entities/agent.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class CompanyService {
@@ -15,39 +23,68 @@ export class CompanyService {
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
     private readonly companyCategoryService: CompanyCategoryService,
-    private readonly workfieldService: WorkfieldService
+    private readonly userService: UserService,
+    private readonly agentRoleService: AgentRoleService,
+    private readonly agentService: AgentService
   ) {}
 
   async findAll(): Promise<Company[]> {
     return await this.companyRepository.find();
   }
 
-  async findOnById(id: number): Promise<Company> {
-    const companny = await this.companyRepository
+
+  async findAllByUser(phone: string): Promise<Company[]> {
+    const user =  await this.userService.findOneByPhone(phone);
+    return user.companies;
+  }
+
+  async findOneById(id: number): Promise<Company> {
+    const company = await this.companyRepository
       .findOneOrFail({ where: { id: id } })
       .catch((error) => {
         throw new NotFoundException(`Company with id ${id} is not found`);
       });
-    return companny;
+    return company;
   }
 
   async delete(id: number): Promise<DeleteResult> {
     return this.companyRepository.softDelete(id);
   }
 
-  async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
+  async create(createCompanyDto: CreateCompanyDto, user: User): Promise<Company> {
     const newCompany = new Company();
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
-    // const wordkfield = await this.workfieldService.findOneById(createCompanyDto.workfields);
+    const agentRole: AgentRole = await this.agentRoleService.findOneByName("CREATEUR SUR NUTITO");
     Object.keys(createCompanyDto).forEach(
         (key) => {
             newCompany[key] = createCompanyDto[key];
         }
     );
     newCompany.category = categoryType;
-    return newCompany.save();
+    newCompany.owner = user;
+    let savedCompany = await newCompany.save();
+
+    const agent:Agent = Agent.create({
+      user: user,
+      role:agentRole,
+      company:savedCompany,
+      abilities: Object.values(ActionEnum),
+
+    });
+   const agentCreated :Agent = await Agent.save(agent);
+   savedCompany.agents = [agentCreated];
+    return savedCompany;
+  }
+
+  myCompanies(id:number){
+    const user:User = User.create({id:id});
+   return this.companyRepository.find({where:{owner:user}}).catch((error)=>{
+      console.log("Erreur ");
+      throw new NotFoundException();
+      
+    });
   }
 
   async update(
@@ -55,5 +92,9 @@ export class CompanyService {
     id: number,
   ): Promise<UpdateResult> {
     return await this.companyRepository.update(id, updateCompanyDto);
+  }
+
+  async getCompanyAgents(id: number): Promise<Agent[]> {
+    return (await this.findOneById(id)).agents;
   }
 }

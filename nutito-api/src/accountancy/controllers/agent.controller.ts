@@ -1,12 +1,12 @@
-import { Delete, Param, Post, Put } from '@nestjs/common';
+import { Delete, Param, Post, Put, Req } from '@nestjs/common';
 import { AgentService } from './../services/agent.service';
 import { Body, Controller, Get } from "@nestjs/common";
 import { Agent } from '../entities/agent.entity';
-import { CreateAgentDto } from '../dtos/create-agent.dto';
-import { UpdateAgentDto } from '../dtos/update-agent.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('agents')
+@ApiTags("Agents")
 export class AgentController{
     constructor(
         private readonly agentservice : AgentService
@@ -32,6 +32,20 @@ export class AgentController{
     //     return await this.agentservice.update(id,updateagentDto)
     // }
 
+    @Get("that/is/me")
+  async getThatIsMe(
+    @Req() req,
+  ): Promise<Agent[]> {
+    const user = req['user'];
+    return await this.agentservice.agentThatIsMe(user.id);
+  }
+
+  @Get("of/company/:id")
+  async ofCompny(
+    @Param('id') id: number
+  ): Promise<Agent[]> {
+    return await this.agentservice.ofCompny(id);
+  }
 
     @Delete(':id')
     async deleteAgent(@Param('id') id){
