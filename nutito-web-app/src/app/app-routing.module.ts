@@ -8,6 +8,7 @@ import { MainComponent } from './components/main/main.component';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { MainPage } from './pages/main/main.page';
 import { PasswordResetPage } from './pages/reset-password/reset-password.page';
+import { AgentRole } from './pages/agent-role/agent-role.page';
 
 const routes: Routes = [
   {
@@ -32,9 +33,15 @@ const routes: Routes = [
     canActivate: [DashboardGuard]
   },
   {
+    path: "agent-role",
+    component: AgentRole,
+    canActivate: [AuthGuard]
+  },
+  {
     path: "**",
     redirectTo: "/dashboard"
   },
+
 ];
 
 @NgModule({

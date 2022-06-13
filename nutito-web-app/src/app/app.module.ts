@@ -1,3 +1,9 @@
+import { OperationCategoryFormComponent } from './components/company-category-form/company-category.form.component';
+import { CompanyCategory } from './pages/company-category/company-category';
+import { OperationType } from './pages/operation-type/operation-type';
+import { Operation } from './pages/operation/operation';
+import { Company } from './pages/company/company';
+import { AgentRole } from './pages/agent-role/agent-role.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID } from '@angular/core';
@@ -25,6 +31,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { PasswordResetFormComponent } from './components/reset-password-form/password-reset-form.component';
 import { PasswordResetPage } from './pages/reset-password/reset-password.page';
 import { MainPage } from './pages/main/main.page';
+import { AgentRoleFormComponent } from './components/agent-role-form/agent-role-form.component';
+import { CreateAdministratorFormComponent } from './components/create-administrator-form/create-administrator-form.component';
+import { OperationFormComponent } from './components/operation-form/operation-form.component';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -40,7 +49,18 @@ registerLocaleData(localeFr);
     LoginFormComponent,
     PasswordResetFormComponent,
     PasswordResetPage,
-    MainPage
+    MainPage,
+    AgentRole,
+    Company,
+    CompanyCategory,
+    Operation,
+    OperationType,
+    AgentRoleFormComponent,
+    CreateAdministratorFormComponent,
+    OperationCategoryFormComponent,
+    OperationCategoryFormComponent,
+    LoginFormComponent,
+    OperationFormComponent
   ],
   imports: [
     BrowserModule,

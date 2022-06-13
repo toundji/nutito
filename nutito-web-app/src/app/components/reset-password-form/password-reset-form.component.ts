@@ -11,7 +11,7 @@ import { PasswordResetFormGroup } from '../../forms-validation/password-reset-fo
 })
 
 export class PasswordResetFormComponent implements OnInit {
-  constructor(
+  constructor(    
     private router: Router,
     private loader: LoadingService,
     private authService: AuthenticationService
