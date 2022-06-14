@@ -10,10 +10,17 @@ import {
   Post,
   Put,
   Req,
+  Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Company } from '../entities/company.entity';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Agent } from '../entities/agent.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from 'src/utilities/utils';
+import { Fichier } from './../entities/fichier.entity';
 
 @Controller('companies')
 @ApiTags('companies')
@@ -63,6 +70,8 @@ export class CompanyController {
     return await this.companySerice.update(updateCompanyDto, id);
   }
 
+
+
   @Delete('delete/:id')
   async deleteCompany(@Param('id') id: number) {
     return await this.companySerice.delete(id);
@@ -72,6 +81,45 @@ export class CompanyController {
   @Get(':id/agents')
   async getCompanyAgents(@Param('id') id: number): Promise<Agent[]> {
     return await this.companySerice.getCompanyAgents(id);
+  }
+
+  @Post(":id/logo")
+  @UseInterceptors(
+    FileInterceptor('logo', {
+      storage: diskStorage({
+        destination: './files/logos',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  @ApiConsumes('multipart/form-data')
+ 
+  @ApiBody({
+    schema:{
+      type: 'object',
+      properties: {
+        logo:{
+          type: 'string',
+          format: 'binary'
+        }
+      }
+    }
+  })
+  updateProfile(@Param('id') id: number, @UploadedFile() logo, @Req() req): Promise<Company>{
+    const user = req['user'];
+    return this.companySerice.updateLogo(id, logo, user);
+  }
+
+  @ApiOkResponse({ schema:{
+        type: 'string',
+        format: 'binary'
+      }
+  })
+  @Get(":id/logo")
+  async getLogo(id:number, @Res() res){
+    const logo:Fichier = await this.companySerice.getLogo(id);
+    return res.sendFile(logo.location, { root: './' });
   }
 
 }

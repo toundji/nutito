@@ -6,7 +6,7 @@ import { BaseEntity } from './entities/base.entity';
 import { ClientOperationType } from './entities/client-operation-type.entity';
 import { CompanyCategory } from './entities/company-category.entity';
 import { Company } from './entities/company.entity';
-import { File } from './entities/file.entity';
+import { Fichier } from './entities/fichier.entity';
 import { Licence } from './entities/licence.entity';
 import { OperationType } from './entities/operation-type.entity';
 import { Operation } from './entities/operation.entity';
@@ -42,7 +42,7 @@ import { OperationTypeService } from './services/operation-type.service';
            ClientOperationType,
            CompanyCategory,
            Company,
-           File,
+           Fichier,
            Licence,
            OperationType,
            Operation,

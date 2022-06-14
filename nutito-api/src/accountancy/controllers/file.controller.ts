@@ -2,7 +2,7 @@ import { UpdateFileDto } from './../dtos/update-file.dto';
 import { FileService } from './../services/file.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { CreateFileDto } from '../dtos/create-file.dto';
-import { File } from '../entities/file.entity';
+import { Fichier } from '../entities/fichier.entity';
 
 @Controller('files')
 export class FileController{
@@ -14,14 +14,14 @@ export class FileController{
     // }
   
     @Get()
-    async getAllFile(): Promise<File[]>{
+    async getAllFile(): Promise<Fichier[]>{
         return await this.fileService.findAll();
     }
   
     @Get('/:id')
     async getFileById(
         @Param('id') id :number
-    ): Promise<File>{
+    ): Promise<Fichier>{
         return await this.fileService.findOnById(id);
     } 
     

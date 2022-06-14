@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { File } from '../../accountancy/entities/file.entity';
+import { Fichier } from '../../accountancy/entities/fichier.entity';
 import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
 import { hashPassword } from "../../utilities/helpers/functions.helper";
@@ -58,9 +58,9 @@ export class User extends BaseEntity {
     @Column('boolean', { default: true })
     active: boolean;
 
-    @OneToOne(type => File, { onDelete: "CASCADE" })
+    @OneToOne(type => Fichier, { onDelete: "CASCADE" })
     @JoinColumn({ name: "profile_picture_id" })
-    profile_picture?: File; 
+    profile_picture?: Fichier; 
 
     @OneToMany(type => Agent, agent => agent.user, { onDelete: "CASCADE" })
     agents: Agent[];
@@ -68,7 +68,7 @@ export class User extends BaseEntity {
     @OneToMany(type => Company, company => company.owner, { onDelete: "CASCADE" })
     companies: Company[];
 
-    get profile(): File {
+    get profile(): Fichier {
         return this.profile_picture;
     }
 

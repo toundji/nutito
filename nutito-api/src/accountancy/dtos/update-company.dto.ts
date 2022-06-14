@@ -1,38 +1,31 @@
-import {IsString,IsPositive } from "class-validator";
+import {IsString,IsPositive, IsOptional, IsArray } from "class-validator";
 
 export class UpdateCompanyDto{
     
     @IsString()
     name ? : string;
 
-    
     @IsString()
     description ? : string;
 
-    
     @IsString()
     city ? : string;
 
-    
     @IsString()
-    adress ? : string;
+    address ? : string;
 
-    
     @IsString()
     ifu ? : string;
 
-    
     @IsString()
     rccm ? : string;
 
     // careers ? : Career[]
-    
-    @IsPositive()
-    company_category_id ? : number
 
-    
-
-    
     @IsPositive()
-    companies_workfields ? : number
+    company_category_id? : number
+    
+    @IsPositive({each:true})
+    @IsOptional()
+    companies_workfields? : number[]
 }
