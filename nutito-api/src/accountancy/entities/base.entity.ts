@@ -11,7 +11,7 @@ import {
 
 export abstract class BaseEntity extends TypeOrmBaseEntity  {
 
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()

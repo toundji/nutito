@@ -50,12 +50,20 @@ export class UserService {
       attribute => user[attribute] = createUserDto[attribute]
     );
     const newUser = this.usersrepository.create(user);
+<<<<<<< HEAD
+    console.log(newUser);
+    
+    const returnValue = this.usersrepository.save(newUser);
+    console.log(returnValue);
+    
+=======
     let returnValue = this.usersrepository.save(newUser).catch(
       (error) => {
         console.log(error)
         throw new BadRequestException(`Email or phone is already taken !`);
       }
     );
+>>>>>>> f79b8cb1ae2e884cd9eafa2f718a02bdb8efb8c1
     return returnValue;
   }
 

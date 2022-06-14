@@ -1,6 +1,8 @@
-import 'dotenv/config';
+/* eslint-disable prettier/prettier */
+import "dotenv/config"
 
 const ormconfig: any = {
+<<<<<<< HEAD
   type: 'postgres',
   url: process.env.DATABASE_URL,
   host: process.env.DATABASE_HOST,
@@ -21,6 +23,26 @@ const ormconfig: any = {
   factories: ['src/db/factories/**/*{.ts,.js}'],
   seeders: ['src/db/seeders/**/*{.ts,.js}'],
   defaultSeeder: 'RootSeeder',
+=======
+    type: 'mysql',
+    url: process.env.DATABASE_URL,
+    host: process.env.DATABASE_HOST,
+    port: (process.env.DATABASE_PORT as any) as number,
+    username: process.env.DATABASE_USER,
+    password:null,
+    database: process.env.DATABASE_NAME,
+    // ssl: { rejectUnauthorized: false },
+    synchronize: false,
+    entities: ["dist/src/**/*.entity{.ts,.js}"],
+    migrations: ["dist/src/db/migrations/*.js"],
+    cli: {  
+        migrationsDir: "src/db/migrations",
+        entitiesDir: "src/**/*"
+    },
+    factories: ["src/db/factories/**/*{.ts,.js}"],
+    seeders: ["src/db/seeders/**/*{.ts,.js}"],
+    defaultSeeder: "RootSeeder",
+>>>>>>> 7bc23405d21641d6608ce31683db83a161d9aff2
 };
 
 export default ormconfig;
