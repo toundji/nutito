@@ -6,10 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { faker } from "@faker-js/faker"
-
-
 import { AgentRole } from '../entities/agent-role.entity';
-import { agent } from 'supertest';
 @Injectable()
 export class AgentRoleService{
     constructor(
