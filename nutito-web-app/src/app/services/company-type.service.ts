@@ -16,7 +16,7 @@ export class CompanyCategoryService{
         "description": description
       };
       var payload= JSON.stringify(data);
-      var url= environment.BASE_URL+"/agent-roles/create";
+      var url= environment.BASE_URL+"/company-category/create";
       return this.httpClient.post<any>(
         url,
         payload,{
