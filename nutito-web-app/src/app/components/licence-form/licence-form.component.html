@@ -4,49 +4,49 @@
       <div class="loginbox">
         <div class="login-right">
           <div class="login-right-wrap">
-            <h1>Create Company</h1>
+            <h1>Créer une licence </h1>
             <form
               novalidate
               [formGroup]="formGroup"
               (ngSubmit)="submitForm()"
             >
               <div class="form-group">
-                <label class="form-control-label">Nom</label>
+                <label class="form-control-label">Nombre de mois</label>
                 <input
-                  type="name"
-                  formControlName="name"
+                  type="numbermonth"
+                  formControlName="numbermonth"
                   class="form-control"
                 />
                 <ul
                   class="error-color list-unstyled mt-1"
-                  *ngIf="(formSubmitted || formGroup.controls['name'].dirty) && formGroup.controls['name'].invalid">
-                  <li *ngFor="let error of formGroup.getValidationMessages('name')">{{error}}</li>
+                  *ngIf="(formSubmitted || formGroup.controls['numbermonth'].dirty) && formGroup.controls['numbermonth'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('numbermonth')">{{error}}</li>
                 </ul>
               </div>
               <div class="form-group">
-                <label class="form-control-label">Prenom</label>
+                <label class="form-control-label">PaiementType</label>
                 <input
-                  type="lastname"
-                  formControlName="lastname"
+                  type="paiementtype"
+                  formControlName="paiementtype"
                   class="form-control"
                 />
                 <ul
                   class="error-color list-unstyled mt-1"
-                  *ngIf="(formSubmitted || formGroup.controls['lastname'].dirty) && formGroup.controls['lastname'].invalid">
-                  <li *ngFor="let error of formGroup.getValidationMessages('lastname')">{{error}}</li>
+                  *ngIf="(formSubmitted || formGroup.controls['paiementtype'].dirty) && formGroup.controls['paiementtype'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('paiementtype')">{{error}}</li>
                 </ul>
               </div>
               <div class="form-group">
-                <label class="form-control-label">Email</label>
+                <label class="form-control-label">companyid</label>
                 <input
-                  type="email"
-                  formControlName="email"
+                  type="companyid"
+                  formControlName="companyid"
                   class="form-control"
                 />
                 <ul
                   class="error-color list-unstyled mt-1"
-                  *ngIf="(formSubmitted || formGroup.controls['email'].dirty) && formGroup.controls['email'].invalid">
-                  <li *ngFor="let error of formGroup.getValidationMessages('email')">{{error}}</li>
+                  *ngIf="(formSubmitted || formGroup.controls['companyid'].dirty) && formGroup.controls['companyid'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('companyid')">{{error}}</li>
                 </ul>
               </div>
               <div class="flex justify-center mt-1">

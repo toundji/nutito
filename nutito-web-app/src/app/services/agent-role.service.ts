@@ -15,6 +15,8 @@ export class AgentRoleService{
         'name': name,
         "description": description
       };
+      console.log(data);
+      
       var payload= JSON.stringify(data);
       var url= environment.BASE_URL+"/agent-roles/create";
       return this.httpClient.post<any>(

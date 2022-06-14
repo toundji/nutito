@@ -1,25 +1,25 @@
-import { CreateAdminFormGroup } from './../../forms-validation/create-administrator.group';
-import { CreateAdministratorService } from './../../services/create-administrator.service';
+import { licenceFormGroup } from './../../forms-validation/licence.group';
+import { LicenceService } from './../../services/licence.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-create-administrator-form',
-  templateUrl: './create-administrator-form.component.html',
-  styleUrls: ['./create-administrator-form.component.css']
+  selector: 'app-licence-form',
+  templateUrl: './licence-form.component.html',
+  styleUrls: ['./licence-form.component.css']
 })
-export class CreateAdminFormComponent implements OnInit {
+export class LicenceFormComponent implements OnInit {
   constructor(
     private router: Router,
     private loader: LoadingService,
-    private createAdministratorService: CreateAdministratorService
+    private LicenceService: LicenceService
     ) { }
 
   loading$ = this.loader.loading$
   formSubmitted: boolean = false;
-  formGroup: CreateAdminFormGroup = new CreateAdminFormGroup();
+  formGroup: licenceFormGroup = new licenceFormGroup();
   loginFailureMsg = "";
   _loader: string;
 
@@ -27,22 +27,22 @@ export class CreateAdminFormComponent implements OnInit {
 
   submitForm() {
     this.formSubmitted = true;
-    var email = this.formGroup.controls['email'].value;
-    var firstname = this.formGroup.controls['firstname'].value;
-    var lastname = this.formGroup.controls['lastname'].value;
+    var numbermouth = this.formGroup.controls['numbermouth'].value;
+    var paiementtype = this.formGroup.controls['paiementtype'].value;
+    var companyid = this.formGroup.controls['companyid'].value;
 
-    if ((firstname as string).length !== 0 && (lastname as string).length !== 0 && (email as string).length !== 0) {
+    if ((paiementtype as string).length !== 0 && (companyid as string).length !== 0 && (numbermouth as string).length !== 0) {
       this._loader = this.loader.loader;
-      this.createAdmin(firstname, lastname, email,);
+      this.createAdmin(paiementtype, companyid, numbermouth,);
     } else {
       this.loginFailureMsg = "Les deux champs sont requis";
     }
   }
 
-  createAdmin(firstname: string, lastname: string, email: string) {
+  createAdmin(paiementtype: string, companyid: number, numbermouth: number) {
     let spinner = document.getElementById("loader")!
     spinner.className = "spinner-border spinner-border-sm me-2"
-    this.createAdministratorService.createAdmin(firstname, lastname, email).subscribe(
+    this.LicenceService.createLicence(numbermouth, paiementtype, companyid).subscribe(
       (response) => {
         spinner.className = ""
         var message = response['message'];
@@ -57,7 +57,7 @@ export class CreateAdminFormComponent implements OnInit {
         this.formSubmitted = false;
         this._loader = "";
         if (error.status === 400 || error.status === 404) {
-          this.loginFailureMsg = "Name ou lastname  incorrect";
+          this.loginFailureMsg = "Name ou companyid  incorrect";
         }
       }
     );

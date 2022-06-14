@@ -4,7 +4,7 @@
       <div class="loginbox">
         <div class="login-right">
           <div class="login-right-wrap">
-            <h1>Type D'opération</h1>
+            <h1>Create Company Category</h1>
             <form
               novalidate
               [formGroup]="formGroup"
@@ -23,7 +23,7 @@
                   <li *ngFor="let error of formGroup.getValidationMessages('name')">{{error}}</li>
                 </ul>
               </div>
-             
+
               <div class="form-group">
                 <label class="form-control-label">Description</label>
                 <div class="pass-group">
@@ -56,7 +56,7 @@
                   type="submit"
                   [disabled]="formSubmitted && formGroup.invalid"
                   [class.btn-secondary]="formSubmitted && formGroup.invalid"
-                >Login
+                >Enrégistré
                 <span id="loader" class="" role="status"></span>
               </button>
             </form>

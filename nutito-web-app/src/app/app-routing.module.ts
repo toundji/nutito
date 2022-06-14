@@ -1,3 +1,7 @@
+import { Licence } from './pages/licence/licence.page';
+import { Company } from './pages/company/company.page';
+import { CompanyCategory } from './pages/company-category/company-category.page';
+import { CreateAdministrator } from './pages/create-administrator/create-administrator.page';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardLandingComponent } from './components/dashboard-landing/dashboard-landing.component';
@@ -33,9 +37,40 @@ const routes: Routes = [
     canActivate: [DashboardGuard]
   },
   {
-    path: "agent-role",
+    path: "dashboard/agent-role",
     component: AgentRole,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/company",
+    component: Company,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/company-category",
+    component: CompanyCategory,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/create-admininistrator",
+    component: CreateAdministrator,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+
+  {
+    path: "dashboard/licences",
+    component: Licence,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
   },
   {
     path: "**",

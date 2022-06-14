@@ -1,8 +1,11 @@
-import { OperationCategoryFormComponent } from './components/company-category-form/company-category.form.component';
-import { CompanyCategory } from './pages/company-category/company-category';
-import { OperationType } from './pages/operation-type/operation-type';
+import { Licence } from './pages/licence/licence.page';
+import { LicenceFormComponent } from './components/licence-form/licence-form.component';
+import { CreateAdministrator } from './pages/create-administrator/create-administrator.page';
+import { CreateAdminFormComponent } from './components/create-administrator-form/create-administrator-form.component';
+import { CompanyCategoryFormComponent } from './components/company-category-form/company-category.form.component';
+import { CompanyCategory } from './pages/company-category/company-category.page';
 import { Operation } from './pages/operation/operation';
-import { Company } from './pages/company/company';
+import { Company } from './pages/company/company.page';
 import { AgentRole } from './pages/agent-role/agent-role.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,8 +35,9 @@ import { PasswordResetFormComponent } from './components/reset-password-form/pas
 import { PasswordResetPage } from './pages/reset-password/reset-password.page';
 import { MainPage } from './pages/main/main.page';
 import { AgentRoleFormComponent } from './components/agent-role-form/agent-role-form.component';
-import { CreateAdministratorFormComponent } from './components/create-administrator-form/create-administrator-form.component';
 import { OperationFormComponent } from './components/operation-form/operation-form.component';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { licenceFormGroup } from './forms-validation/licence.group';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -52,15 +56,18 @@ registerLocaleData(localeFr);
     MainPage,
     AgentRole,
     Company,
+    CompanyFormComponent,
     CompanyCategory,
     Operation,
-    OperationType,
+    CreateAdminFormComponent,
     AgentRoleFormComponent,
-    CreateAdministratorFormComponent,
-    OperationCategoryFormComponent,
-    OperationCategoryFormComponent,
+    CompanyCategoryFormComponent,
     LoginFormComponent,
-    OperationFormComponent
+    OperationFormComponent,
+    CreateAdministrator,
+    LicenceFormComponent,
+    Licence,
+    Operation,
   ],
   imports: [
     BrowserModule,

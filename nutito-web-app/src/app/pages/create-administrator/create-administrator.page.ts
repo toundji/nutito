@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-company-type',
-  templateUrl: './create-administrator.html',
-  styleUrls: ['./create-administrator.css']
+  selector: 'app-create-administrator',
+  templateUrl: './create-administrator.page.html',
+  styleUrls: ['./create-administrator.page.css']
 })
 export class CreateAdministrator implements OnInit {
 

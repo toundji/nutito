@@ -11,9 +11,6 @@ import { AgentRoleFormGroup } from 'src/app/forms-validation/agent-role.group.gr
   styleUrls: ['./agent-role-form.component.css']
 })
 export class AgentRoleFormComponent implements OnInit {
-
-
-
   constructor(
     private router: Router,
     private loader: LoadingService,
@@ -36,7 +33,7 @@ export class AgentRoleFormComponent implements OnInit {
       this._loader = this.loader.loader;
       this.createAgentRole(name, description);
     } else {
-      this.loginFailureMsg = "Veuillez entrer votre email et mot de passe";
+      this.loginFailureMsg = "Les deux champs sont requis";
     }
   }
 

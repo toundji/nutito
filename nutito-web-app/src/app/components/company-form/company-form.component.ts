@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './company-form.component.html',
   styleUrls: ['./company-form.component.css']
 })
-export class AgentRoleFormComponent implements OnInit {
+export class CompanyFormComponent implements OnInit {
 
 
 

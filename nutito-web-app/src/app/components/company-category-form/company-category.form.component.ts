@@ -8,14 +8,11 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoginFormGroup } from 'src/app/forms-validation/login-form.group';
 
 @Component({
-  selector: 'app-operation-type-form',
-  templateUrl: './company-category-form.component.css',
+  selector: 'app-operation-category-form',
+  templateUrl: './company-category.component.html',
   styleUrls: ['./company-category-form.component.css']
 })
-export class OperationCategoryFormComponent implements OnInit {
-
-
-
+export class CompanyCategoryFormComponent implements OnInit {
   constructor(
     private router: Router,
     private loader: LoadingService,
@@ -38,7 +35,7 @@ export class OperationCategoryFormComponent implements OnInit {
       this._loader = this.loader.loader;
       this.createAgentRole(name, description);
     } else {
-      this.loginFailureMsg = "Veuillez entrer votre email et mot de passe";
+      this.loginFailureMsg = "Les deux champs sont requis";
     }
   }
 
@@ -60,7 +57,7 @@ export class OperationCategoryFormComponent implements OnInit {
         this.formSubmitted = false;
         this._loader = "";
         if (error.status === 400 || error.status === 404) {
-          this.loginFailureMsg = "Role ou Description  incorrect";
+          this.loginFailureMsg = "Name ou Description  incorrect";
         }
       }
     );

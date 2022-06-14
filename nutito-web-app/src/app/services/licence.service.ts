@@ -10,13 +10,14 @@ import { Observable } from 'rxjs';
 export class LicenceService{
     constructor(private httpClient: HttpClient){}
 
-    createAgentRole(name: string, description:string):Observable<any>{
+    createLicence(numbermonth: number, paiementtype:string, companyid: number):Observable<any>{
       var data={
-        'name': name,
-        "description": description
+        'numbermonth': numbermonth,
+        "paiementtype": paiementtype,
+        "companyid": companyid
       };
       var payload= JSON.stringify(data);
-      var url= environment.BASE_URL+"/agent-roles/create";
+      var url= environment.BASE_URL+"/licences/create";
       return this.httpClient.post<any>(
         url,
         payload,{
@@ -27,10 +28,10 @@ export class LicenceService{
         )
     };
 
-    updateAgentRole(name: string, description:string, id: number):Observable<any>{
+    updateAgentRole(numbermonth: string, paiementtype:string, id: number):Observable<any>{
       var data={
-        'name': name,
-        "description": description,
+        'numbermonth': numbermonth,
+        "paiementtype": paiementtype,
         "id": id
       };
       var payload= JSON.stringify(data);

@@ -10,12 +10,11 @@ import { Observable } from 'rxjs';
 export class CreateAdministratorService{
     constructor(private httpClient: HttpClient){}
 
-    createAgentRole(firstname: string, lastname:string, email: string, password: string):Observable<any>{
+    createAdmin(firstname: string, lastname:string, email: string):Observable<any>{
       var data={
         'firstname': firstname,
         "lastname": lastname,
         "email" :email,
-        "password": password
       };
       var payload= JSON.stringify(data);
       var url= environment.BASE_URL+"/agent-roles/create";
