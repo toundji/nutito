@@ -6,7 +6,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import config from '../ormconfig';
-import myormconfig from '../myorm';
+
 
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
@@ -17,10 +17,11 @@ import { JwtAuthGuard } from './user/guards/jwt-auth.guard';
 import { AppExceptionFilter } from './utilities/helpers/exception-filter.helper';
 import { AccountancyModule } from './accountancy/accountancy.module';
 import { AppController } from './app.controller';
+import ormconfig from '../ormconfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(myormconfig),
+    TypeOrmModule.forRoot(config),
     ConfigModule.forRoot({
       isGlobal: true, 
     }),

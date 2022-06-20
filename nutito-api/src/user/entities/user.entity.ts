@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { File } from '../../accountancy/entities/file.entity';
 import { BaseEntity } from '../../accountancy/entities/base.entity';
 import { UserTypeEnum } from '../../utilities/enums/user-type.enum';
@@ -76,5 +76,4 @@ export class User extends BaseEntity {
     async setPassword() {
         this.password = await hashPassword(this.password!);
     }
-
 }

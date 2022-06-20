@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
 import { User } from '../entities/user.entity';
 import { SigninResponseDto } from '../dtos/signin-response.dto';
+import { ResetPasswordDto } from '../dtos/reset-password.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -24,18 +25,25 @@ export class AuthenticationService {
     };
   }
 
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    let user = await this.validateUserWithEmail(resetPasswordDto.email, resetPasswordDto.oldPassword)
+    let updatedUser = await this.userservice.update({
+      email: resetPasswordDto.email,
+      phone: user.phone,
+      password: resetPasswordDto.password
+    })
+    return updatedUser;
+  }
+
   async validateUserWithEmail(email: string, password: string) {
-    console.log(password)
     let user: User;
     let invalidCredentialsMessage = "Invalid credentials !"
     try {
       user = await this.userservice.findOneByEmail(email);
-      console.log(user)
     } catch(error) { 
       throw new BadRequestException(invalidCredentialsMessage);
     }
     const doesMatch = await bcrypt.compare(password, user.password);
-    console.log(doesMatch)
     if (doesMatch) {
       const { id, password, verification_token, ...rest } = user;
       return rest;
@@ -45,7 +53,6 @@ export class AuthenticationService {
   }
 
   async validateUserWithPhone(phone: string, password: string) {
-
     let user: User;
     let invalidCredentialsMessage = "Invalid credentials !"
     try {
@@ -57,7 +64,7 @@ export class AuthenticationService {
     const doesMatch = await bcrypt.compare(password, user.password);
 
     if (doesMatch) {
-      const {id, password, verification_token, ...rest } = user;
+      const { id, password, verification_token, ...rest } = user;
       return rest;
     } else {
       throw new BadRequestException(invalidCredentialsMessage);
