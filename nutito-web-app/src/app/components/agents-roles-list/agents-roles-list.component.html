@@ -1,0 +1,120 @@
+<div class="content container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-center table-hover datatable">
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Nom Du Rôle Agent</th>
+                  <th>Description Du Rôle Agent</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Directeur</td>
+                  <td>Description du rôle directeur</td>
+                  <td class="text-end">
+                    <a
+                      href="edit-customer.html"
+                      class="btn btn-sm btn-white text-success me-2"
+                      ><i class="far fa-edit me-1"></i> Edit</a
+                    >
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-white text-danger me-2"
+                      ><i class="far fa-trash-alt me-1"></i>Delete</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card invoices-tabs-card">
+    <div class="card-body card-body pt-0 pb-0">
+      <div class="invoices-main-tabs">
+        <div class="row align-items-center">
+          <div class="col-lg-4 col-md-4 offset-md-8">
+            <div class="invoices-settings-btn">
+              <a
+                data-bs-toggle="modal"
+                data-bs-target="#bank_details"
+                role="button" class="btn">
+                <i data-feather="plus-circle"></i> Enregister Un Rôle
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal custom-modal fade bank-details"
+  id="bank_details"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="form-header text-start mb-0">
+          <h4 class="mb-0">Enregistrer Un Rôle Agent</h4>
+        </div>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="bank-inner-details">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <label>Nom du rôle</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Entrer le nom du rôle"
+                />
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+              <div class="form-group">
+                <label>Description du rôle</label>
+                <textarea
+                  name="description"
+                  id="description"
+                  class="form-control">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="bank-details-btn">
+          <a
+            role="button"
+            data-bs-dismiss="modal"
+            class="btn bank-cancel-btn me-2"
+            >Annuler</a
+          >
+          <a role="button" class="btn bank-save-btn">Enregister</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

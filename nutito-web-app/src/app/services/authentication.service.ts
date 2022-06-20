@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +16,7 @@ export class AuthenticationService {
       "password": password
     };
     var payload = JSON.stringify(data);
-    var url = environment.BASE_URL + "/users/auth/signin";
+    var url = environment.LOCAL_BASE_URL + "/users/auth/signin";
     return this.http.post<any>(url, payload, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
@@ -24,14 +24,14 @@ export class AuthenticationService {
     });
   }
 
-  resetPassword(email: string, old_password: string, new_password: string): Observable<any> {
+  resetPassword(email: string, oldPassword: string, newPassword: string): Observable<any> {
     var data = {
       "email": email,
-      "old_password": old_password,
-      "new_password": new_password
+      "oldPassword": oldPassword,
+      "newPassword": newPassword
     };
     var payload = JSON.stringify(data);
-    var url = environment.BASE_URL + "auth/password/reset";
+    var url = environment.ONLINE_BASE_URL + "/users/auth/password/reset";
     return this.http.post<any>(url, payload, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"

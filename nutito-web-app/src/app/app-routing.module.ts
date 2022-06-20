@@ -1,23 +1,53 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardLandingComponent } from './components/dashboard-landing/dashboard-landing.component';
 import { LoginPage } from './pages/login/login.page';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardGuard } from './guards/dashboard.guard';
-import { MainComponent } from './components/main/main.component';
-import { DashboardPage } from './pages/dashboard/dashboard.page';
+import { DashboardLandingPage } from './pages/dashboard-landing/dashboard-landing.page';
 import { MainPage } from './pages/main/main.page';
 import { PasswordResetPage } from './pages/reset-password/reset-password.page';
+import { NutitoCapitalPage } from './pages/nutito-capital/nutito-capital.page';
+import { UsersPage } from './pages/users/users.page';
+import { CustomersPage } from './pages/customers/customers.page';
+import { LicensesPage } from './pages/licenses/licenses.page';
+import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admin.page';
+import { AgentsRolesPage } from './pages/agents-roles/agents-roles.page';
 
 const routes: Routes = [
   {
-    path: "",
+    path: "dashboard",
     component: MainPage,
     canActivate: [DashboardGuard],
     children: [
       {
-        path: "dashboard",
-        component: DashboardPage
+        path: "",
+        component: DashboardLandingPage
+      },
+      {
+        path: "capital",
+        component: NutitoCapitalPage
+      },
+      {
+        path: "users",
+        component: UsersPage
+      },
+      {
+        path: "customers",
+        component: CustomersPage
+      },
+      {
+        path: "licenses",
+        component: LicensesPage
+      },
+      {
+        path: "applicative-admin",
+        component: ApplicativeAdminPage,
+        children: [
+          {
+            path: "agents-roles",
+            component: AgentsRolesPage
+          },
+        ]
       },
     ]
   },

@@ -126,7 +126,7 @@ Version      : 1.0
       $('.datatable').DataTable({
         language: {
           search: '<i class="fas fa-search"></i>',
-          searchPlaceholder: "Search"
+          searchPlaceholder: "Rechercher"
         }
       });
     }
@@ -202,8 +202,12 @@ Version      : 1.0
         $('.subdrop + ul').slideUp();
       }
       setTimeout(function () {
-        mA.redraw();
-        mL.redraw();
+        $.fn.redraw = function(){
+          $(this).each(function(){
+            var redraw = this.offsetHeight;
+          });
+        };
+        $(document).redraw();
       }, 300);
       return false;
     });

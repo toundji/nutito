@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
-  selector: 'app-login-form',
+  selector: 'login-form-component',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
