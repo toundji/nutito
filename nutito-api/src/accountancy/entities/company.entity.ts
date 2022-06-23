@@ -7,6 +7,8 @@ import { Account } from './account.entity';
 import { Workfield } from './workfield.entity';
 import { User } from '../../user/entities/user.entity';
 import { Fichier } from './fichier.entity';
+import { OperationType } from './operation-type.entity';
+import { ClientOperationType } from './client-operation-type.entity';
 
 
 @Entity()
@@ -39,8 +41,11 @@ export class Company extends BaseEntity {
     @Column({ nullable: true })
     rccm: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: false, default: 3 })
     agent_number: number;
+
+    @Column({ nullable: true, default: "1M"})
+    duration: string;
 
     @ManyToOne(type => User, user => user.companies, { onDelete: "SET NULL" })
     @JoinColumn({ name: "owner_id" })
@@ -56,11 +61,11 @@ export class Company extends BaseEntity {
     @OneToMany(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
     licences?: Licence[];
 
-    @ManyToOne(type => Licence, licence => licence.company, { onDelete: "NO ACTION" })
+    @ManyToOne(type => Licence, licence => licence.company, { onDelete: "NO ACTION", eager:true })
     @JoinColumn({ name: "licence_id"})
     licence?: Licence;
 
-    @OneToOne(() => Account, { nullable: true})
+    @OneToOne(() => Account, { nullable: true, eager:true})
     @JoinColumn({ name: "account_id" })
     account!: Account;
 
@@ -71,6 +76,14 @@ export class Company extends BaseEntity {
     @ManyToMany(type => Workfield, { eager: true } )
     @JoinTable({ name: "companies_workfields" })
     workfields?: Workfield[];
+
+
+    @ManyToMany(type => OperationType )
+    @JoinTable({ name: "companies_operations" })
+    operationTypes?: OperationType[];
+
+    @OneToMany(type => ClientOperationType, clientOperationType => clientOperationType.company, { onDelete: "CASCADE" })
+    clientOperationTypes?: ClientOperationType[];
     
     get license(): Licence {
         return this.licences.find((licence) => licence.expiryDate > new Date())

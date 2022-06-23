@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Company } from './company.entity';
 import { LicenceTypeEnum } from '../../utilities/enums/licence-type.enum';
+import { DateTime, Duration } from 'luxon';
 @Entity()
 export class Licence extends BaseEntity {
 
@@ -34,5 +35,6 @@ export class Licence extends BaseEntity {
     @ManyToOne(type => Company, company => company.licences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "company_id" })
     company!: Company;
+
 
 }

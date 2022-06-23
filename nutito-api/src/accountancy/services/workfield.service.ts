@@ -18,6 +18,9 @@ export class WorkfieldService{
         return this.WorkfieldRepository.find();
     }
 
+    async  findByName(name:string): Promise<Workfield[]>{
+        return this.WorkfieldRepository.find({where:{name: name }});
+    }
     async findOneById(id: number): Promise<Workfield>{
         const Workfield = this.WorkfieldRepository.findOneOrFail(id);
         if(Workfield){
@@ -41,40 +44,36 @@ export class WorkfieldService{
     }
 
 
-    init():Promise<Workfield[]>{
-        return this.WorkfieldRepository.find().then((olds)=>{
-            if(olds && olds.length > 0){
-                console.log(olds);
-                
-                return olds;
-              }
-                        const fields = [
-                    {
-                        name: "Informaticien",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "Restauration",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "Pharmaticien",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "Commerçante",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "Transport",
-                        description: faker.lorem.lines(3),
-                    },
-                ];
-                const l =  this.WorkfieldRepository.create(fields);
-                return this.WorkfieldRepository.save(l);
-            
-        })
-        
+    async init():Promise<Workfield[]>{
+        const olds:Workfield[]= await this.WorkfieldRepository.find();
+        if(olds && olds.length > 0){
+            console.log(olds);
+            return olds;
+          }
+                    const fields = [
+                {
+                    name: "Informaticien",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "Restauration",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "Pharmaticien",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "Commerçante",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "Transport",
+                    description: faker.lorem.lines(3),
+                },
+            ];
+            const l =  this.WorkfieldRepository.create(fields);
+            return this.WorkfieldRepository.save(l);
     }
 }
    

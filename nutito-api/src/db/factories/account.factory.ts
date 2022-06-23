@@ -6,7 +6,6 @@ import { uuid } from '../../utilities/helpers/functions.helper';
 export class AccountFactory extends Factory<Account> {
     protected entity = Account
     protected attrs: FactorizedAttrs<Account> = {
-      code: faker.helpers.slugify(uuid()),
       amount: Number(faker.finance.amount()),
       amount_in: new InstanceAttribute(
           (instance) => instance.amount

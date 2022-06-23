@@ -32,6 +32,10 @@ export class WorkfieldController{
     async update(@Param('id') id : number, @Body() updateWorkfieldDto : UpdateWorkfieldDto){
         return await this.workfieldService.update(id,updateWorkfieldDto);
     }
+    @Get('name/:name')
+    async byName(@Param('name') name : string){
+        return await this.workfieldService.findByName(name);
+    }
   
     @Delete('delete/:id')
     async delete(@Param('id') id : number){

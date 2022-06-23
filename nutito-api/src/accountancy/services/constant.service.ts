@@ -32,28 +32,27 @@ export class ConstantService {
         return newConstant.save();
     }
 
-    init(): Promise<Constant[]>{
-        return this.constantsRepository.find().then((olds)=>{
-            if(olds && olds.length > 0){
-                console.log(olds);
+    async init(): Promise<Constant[]>{
+        const olds:Constant[]= await this.constantsRepository.find();
 
-                return olds;
-              }
-        
-                const fields = [
-                    {
-                        name:"PRIX MENSUEL",
-                        value: "1000"
-                    },
-                    {
-                        name:"PRIX ANNUEL",
-                        value: "1000"                    },
-                   
-                ];
-                const l =  this.constantsRepository.create(fields);
-                return this.constantsRepository.save(l);
-            
-        })
+        if(olds && olds.length > 0){
+            console.log(olds);
+
+            return olds;
+          }
+    
+            const fields = [
+                {
+                    name:"PRIX MENSUEL",
+                    value: "1000"
+                },
+                {
+                    name:"PRIX ANNUEL",
+                    value: "1000" 
+                },
+            ];
+            const l =  this.constantsRepository.create(fields);
+            return this.constantsRepository.save(l);
     }
 
 }

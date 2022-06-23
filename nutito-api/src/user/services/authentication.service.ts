@@ -16,7 +16,7 @@ export class AuthenticationService {
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
     const { password, ...rest } = user;
-    return { 
+    return {
       status: "success",
       access_token: access_token,
       user_data: rest,
@@ -25,13 +25,14 @@ export class AuthenticationService {
   }
 
   async validateUserWithEmail(email: string, password: string) {
-    console.log(password)
     let user: User;
+    console.log(email, password);
     let invalidCredentialsMessage = "Invalid credentials !"
     try {
       user = await this.userservice.findOneByEmail(email);
       console.log(user)
     } catch(error) { 
+      console.log(user)
       throw new BadRequestException(invalidCredentialsMessage);
     }
     const doesMatch = await bcrypt.compare(password, user.password);
@@ -51,6 +52,7 @@ export class AuthenticationService {
     try {
       user = await this.userservice.findOneByPhone(phone);
     } catch(error) {
+      console.log(error)
       throw new BadRequestException(invalidCredentialsMessage);
     }
 

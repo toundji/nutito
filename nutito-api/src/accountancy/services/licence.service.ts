@@ -47,7 +47,7 @@ export class LicenceService {
     newLicence.amount = PRICE_PER_MONTH * createLicenceDto.monthsNumber;
    const licence = await  newLicence.save();
    company.licence = licence;
-   Company.save(company);
+   await Company.save(company);
    licence.company.licence = null;
     return licence;
   }

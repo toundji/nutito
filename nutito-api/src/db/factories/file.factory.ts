@@ -5,7 +5,6 @@ import { CompanyCategoryFactory } from "./company-category.factory";
 import { AccountFactory } from './account.factory';
 import { Fichier } from "../../accountancy/entities/fichier.entity";
 import { UserFactory } from "./user.factory";
-import { OperationFactory } from "./operation.factory";
 
 export class FileFactory extends Factory<Fichier> {
     protected entity = Fichier;
