@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { endpoints } from './rest-configs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,7 @@ export class AuthenticationService {
       "password": password
     };
     var payload = JSON.stringify(data);
-    var url = environment.LOCAL_BASE_URL + "/users/auth/signin";
-    return this.http.post<any>(url, payload, {
+    return this.http.post<any>(endpoints.loginUrl, payload, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -31,8 +31,7 @@ export class AuthenticationService {
       "newPassword": newPassword
     };
     var payload = JSON.stringify(data);
-    var url = environment.ONLINE_BASE_URL + "/users/auth/password/reset";
-    return this.http.post<any>(url, payload, {
+    return this.http.post<any>(endpoints.passwordResetUrl, payload, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })

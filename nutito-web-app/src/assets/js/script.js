@@ -122,14 +122,14 @@ Version      : 1.0
 
     // Datatable
 
-    if ($('.datatable').length > 0) {
-      $('.datatable').DataTable({
-        language: {
-          search: '<i class="fas fa-search"></i>',
-          searchPlaceholder: "Rechercher"
-        }
-      });
-    }
+    // if ($('.datatable').length > 0) {
+    //   $('.datatable').DataTable({
+    //     language: {
+    //       search: '<i class="fas fa-search"></i>',
+    //       searchPlaceholder: "Rechercher"
+    //     }
+    //   });
+    // }
 
     // Sidebar Slimscroll
 

@@ -11,7 +11,8 @@ import { UsersPage } from './pages/users/users.page';
 import { CustomersPage } from './pages/customers/customers.page';
 import { LicensesPage } from './pages/licenses/licenses.page';
 import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admin.page';
-import { AgentsRolesPage } from './pages/agents-roles/agents-roles.page';
+import { AgentRolesPage } from './pages/agents-roles/agent-roles.page';
+import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
 
 const routes: Routes = [
   {
@@ -44,8 +45,12 @@ const routes: Routes = [
         component: ApplicativeAdminPage,
         children: [
           {
-            path: "agents-roles",
-            component: AgentsRolesPage
+            path: "",
+            component: AgentRolesPage
+          },
+          {
+            path: "company-categories",
+            component: CompanyCategoriesPage
           },
         ]
       },

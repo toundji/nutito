@@ -22,7 +22,7 @@ import { NetworkInterceptor } from './services/network-inerceptor.service';
 import { DashboardGuard } from './guards/dashboard.guard';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { PasswordResetFormComponent } from './components/reset-password-form/password-reset-form.component';
+import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
 import { PasswordResetPage } from './pages/reset-password/reset-password.page';
 import { MainPage } from './pages/main/main.page';
 import { NutitoCapitalComponent } from './components/nutito-capital/nutito-capital.component';
@@ -36,8 +36,13 @@ import { LicensesPage } from './pages/licenses/licenses.page';
 import { ApplicativeAdminComponent } from './components/applicative-admin/applicative-admin.component';
 import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admin.page';
 import { ApplicativeAdminMenuComponent } from './components/applicative-admin-menu/applicative-admin-menu.component';
-import { AgentsRolesListComponent } from './components/agents-roles-list/agents-roles-list.component';
-import { AgentsRolesPage } from './pages/agents-roles/agents-roles.page';
+import { AgentRolesListComponent } from './components/agent-roles-list/agent-roles-list.component';
+import { AgentRolesPage } from './pages/agents-roles/agent-roles.page';
+import { AgentRolesFormComponent } from './components/agent-roles-form/agent-roles-form.component';
+import { DataTablesModule } from 'angular-datatables';
+import { CompanyCategoriesListComponent } from './components/company-categories-list/company-categories-list.component';
+import { CompanyCategoryFormComponent } from './components/company-category-form/company-category-form.component';
+import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -65,8 +70,13 @@ registerLocaleData(localeFr);
     ApplicativeAdminComponent,
     ApplicativeAdminPage,
     ApplicativeAdminMenuComponent,
-    AgentsRolesListComponent,
-    AgentsRolesPage
+    AgentRolesListComponent,
+    AgentRolesPage,
+    AgentRolesFormComponent,
+    AgentRolesListComponent,
+    CompanyCategoriesListComponent,
+    CompanyCategoryFormComponent,
+    CompanyCategoriesPage
   ],
   imports: [
     BrowserModule,
@@ -75,6 +85,7 @@ registerLocaleData(localeFr);
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataTablesModule
   ],
   providers: [
     {
