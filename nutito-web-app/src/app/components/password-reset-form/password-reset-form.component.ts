@@ -27,30 +27,27 @@ export class PasswordResetFormComponent implements OnInit {
 
   submitForm() {
     this.formSubmitted = true;
+    var email = sessionStorage.getItem('user_email');
     var oldPassword = this.formGroup.controls['oldPassword'].value;
     var newPassword = this.formGroup.controls['password'].value;
-    // if ((email as string).length !== 0 && (password as string).length !== 0) {
-    //   this._loader = this.loader.loader;
-    //   this.loginUser(email, password);
-    // } else {
-    //   this.loginFailureMsg = "Veuillez entrer votre email et mot de passe";
-    // }
+    if ((email as string).length !== 0 && (oldPassword as string).length !== 0 && (newPassword as string).length !== 0) {
+      this._loader = this.loader.loader;
+      this.resetPassword(email!, oldPassword, newPassword)
+    } else {
+      this.loginFailureMsg = "Veuillez entrer votre email et mot de passe";
+    }
   }
 
-  loginUser(login: string, password: string) {
+  resetPassword(email: string, oldPassword: string, newPassword: string) {
     let spinner = document.getElementById("loader")!
     spinner.className = "spinner-border spinner-border-sm me-2"
-    this.authService.login(login, password).subscribe(
+    this.authService.resetPassword(email, oldPassword, newPassword).subscribe(
       (response) => {
         spinner.className = ""
-        var message = response['message'];
+        console.log(response)
         this.formSubmitted = false;
         this._loader = "";
         this.formGroup.reset();
-        var USER_TOKEN = response['access_token'];
-        var USER_EMAIL = login;
-        window.sessionStorage.setItem("user_token", USER_TOKEN);
-        window.sessionStorage.setItem("user_email", USER_EMAIL);
         this.router.navigateByUrl("/dashboard")
       },
       (error: HttpErrorResponse) => {
@@ -58,7 +55,7 @@ export class PasswordResetFormComponent implements OnInit {
         this.formSubmitted = false;
         this._loader = "";
         if (error.status === 400 || error.status === 404) {
-          this.loginFailureMsg = "Email ou mot de passe incorrect";
+          this.loginFailureMsg = "Une erreur est survenue. Veuillez réessayer";
         }
       }
     );

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var setAppBehavior: any;
 
 @Component({
-  selector: 'app-main',
+  selector: 'main-component',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })

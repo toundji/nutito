@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardLandingComponent } from './dashboard-landing.component';
+import { FilepickerComponent } from './filepicker.component';
 
-describe('DashboardLandingComponent', () => {
-  let component: DashboardLandingComponent;
-  let fixture: ComponentFixture<DashboardLandingComponent>;
+describe('FilepickerComponent', () => {
+  let component: FilepickerComponent;
+  let fixture: ComponentFixture<FilepickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardLandingComponent ]
+      declarations: [ FilepickerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardLandingComponent);
+    fixture = TestBed.createComponent(FilepickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

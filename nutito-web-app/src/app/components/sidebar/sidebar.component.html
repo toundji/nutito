@@ -4,23 +4,41 @@
       class="sidebar-menu">
       <ul>
         <li class="menu-title text-dark"><span>MENU DES ACTIONS</span></li>
-        <li class="active">
-          <a href="index-2.html"><i data-feather="home"></i> <span>Dashboard</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="/dashboard"
+            [routerLinkActiveOptions]="{exact: true}">
+          <a><i data-feather="home"></i> <span>Dashboard</span></a>
         </li>
-        <li>
-          <a href="customers.html"><i data-feather="dollar-sign"></i> <span>Capital Nutito</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="/dashboard/capital"
+            [routerLinkActiveOptions]="{exact: true}">
+          <a><i data-feather="dollar-sign"></i> <span>Capital Nutito</span></a>
         </li>
-        <li>
-          <a href="customers.html"><i data-feather="user"></i> <span>Utilisateurs</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="users"
+            [routerLinkActiveOptions]="{exact: true}">
+          <a><i data-feather="user"></i> <span>Utilisateurs</span></a>
         </li>
-        <li>
-          <a href="estimates.html"><i data-feather="users"></i> <span>Clients Nutito</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="/dashboard/customers"
+            [routerLinkActiveOptions]="{exact: true}">
+          <a><i data-feather="users"></i> <span>Clients Nutito</span></a>
         </li>
-        <li>
-          <a href="estimates.html"><i data-feather="file-text"></i> <span>Licences</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="/dashboard/licenses"
+            [routerLinkActiveOptions]="{exact: true}">
+          <a><i data-feather="file-text"></i> <span>Licences</span></a>
         </li>
-        <li>
-          <a href="estimates.html"><i data-feather="layers"></i> <span>Administration Applicative</span></a>
+        <li role="button"
+            routerLinkActive="active"
+            routerLink="/dashboard/applicative-admin"
+            [routerLinkActiveOptions]="{exact: false}">
+          <a><i data-feather="layers"></i> <span>Administration Applicative</span></a>
         </li>
       </ul>
     </div>

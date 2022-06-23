@@ -122,14 +122,14 @@ Version      : 1.0
 
     // Datatable
 
-    if ($('.datatable').length > 0) {
-      $('.datatable').DataTable({
-        language: {
-          search: '<i class="fas fa-search"></i>',
-          searchPlaceholder: "Search"
-        }
-      });
-    }
+    // if ($('.datatable').length > 0) {
+    //   $('.datatable').DataTable({
+    //     language: {
+    //       search: '<i class="fas fa-search"></i>',
+    //       searchPlaceholder: "Rechercher"
+    //     }
+    //   });
+    // }
 
     // Sidebar Slimscroll
 
@@ -202,8 +202,12 @@ Version      : 1.0
         $('.subdrop + ul').slideUp();
       }
       setTimeout(function () {
-        mA.redraw();
-        mL.redraw();
+        $.fn.redraw = function(){
+          $(this).each(function(){
+            var redraw = this.offsetHeight;
+          });
+        };
+        $(document).redraw();
       }, 300);
       return false;
     });

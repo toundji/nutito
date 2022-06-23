@@ -76,5 +76,4 @@ export class User extends BaseEntity {
     async setPassword() {
         this.password = await hashPassword(this.password!);
     }
-
 }

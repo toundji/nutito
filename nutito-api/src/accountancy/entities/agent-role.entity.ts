@@ -9,6 +9,6 @@ export class AgentRole extends BaseEntity {
     name: string;
 
     @Column('text')
-    description: string;
-
+    description: string
+    
 }

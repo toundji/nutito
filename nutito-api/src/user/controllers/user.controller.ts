@@ -13,6 +13,7 @@ import { SigninResponseDto } from '../dtos/signin-response.dto';
 import { SignupResponseDto } from '../dtos/signup-response.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Agent } from '../../accountancy/entities/agent.entity';
+import { ResetPasswordDto } from '../dtos/reset-password.dto';
 
 
 @ApiTags('auth')
@@ -48,6 +49,13 @@ export class UserController {
   @UseGuards(LocalAuthGuard)
   async signin(@Body() body: AuthenticateUserDto, @Request() request): Promise<SigninResponseDto> {
     return this.authenticationservice.signin(request.user);
+  }
+
+  @Post('auth/password/reset')
+  @DoesNotRequireAuthentication()
+  @DoesNotRequireAuthorisations()
+  async resetPassword(@Body() body: ResetPasswordDto, @Request() request): Promise<User> {
+    return this.authenticationservice.resetPassword(body)
   }
 
   @Post('auth/mail/check')

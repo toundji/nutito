@@ -7,6 +7,7 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
 import { DateTime, Duration } from 'luxon';
 import { UserTypeEnum } from 'src/utilities/enums/user-type.enum';
+import { UpdateUserDto } from '../dtos/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -77,6 +78,13 @@ export class UserService {
       }
     );
     return returnValue;
+  }
+
+  async update(updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.findOneByEmail(updateUserDto.email)
+    user.password = updateUserDto.password
+    user.save()
+    return user;
   }
 
   async set_verification_token(user: User, token: string) {

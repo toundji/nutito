@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_URL: "https://nutito-api.herokuapp.com/api/v1"
+  ONLINE_BASE_URL: "https://nutito-api.herokuapp.com/api/v1",
+  LOCAL_BASE_URL: "http://localhost:3000/api/v1"
 };
 
 /*
