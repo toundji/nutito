@@ -44,15 +44,11 @@ export class AgentRoleService{
         return result;
     }
 
-    async delete(id: number): Promise<DeleteResult>{
+    async delete(id: number): Promise<any> {
         const agentRole = await this.findOneById(id);
-        if(agentRole.id){
-            return this.agentRoleRepository.delete(agentRole);
-        }
-        throw new NotFoundException(`Agent Role id ${id} not found`);
-
-
+        return agentRole.remove();
     }
+    
     async update(id: number,updateAccountDto: UpdateAgentRoleDto): Promise<UpdateResult>{
         return await this.agentRoleRepository.update(id,updateAccountDto);
     }

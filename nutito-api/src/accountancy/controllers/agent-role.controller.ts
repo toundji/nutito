@@ -34,7 +34,7 @@ export class AgentRoleController{
     }
 
     @Delete(':id')
-    async deleteAgent(@Param('id') id){
+    async deleteAgent(@Param('id') id: number){
         return await this.agentRoleService.delete(id);
     }
     
