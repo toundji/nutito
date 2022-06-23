@@ -1,7 +1,7 @@
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './base.entity';
 @Entity()
-export class File extends BaseEntity {
+export class Fichier extends BaseEntity {
 
     @Column()
     name: string;
@@ -14,5 +14,8 @@ export class File extends BaseEntity {
 
     @Column()
     entity_name: string;
+
+    @Column()
+    entity_id: number;
 
 }

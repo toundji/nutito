@@ -4,24 +4,24 @@ import { CompanyService } from './company.service';
 import { CreateFileDto } from './../dtos/create-file.dto';
 import { UpdateFileDto } from './../dtos/update-file.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { File } from './../entities/file.entity';
+import { Fichier } from '../entities/fichier.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 @Injectable()
 export class FileService{
     constructor(
-        @InjectRepository(File)
-        private readonly FileRepository : Repository<File>,
+        @InjectRepository(Fichier)
+        private readonly FileRepository : Repository<Fichier>,
         private readonly companySerice: CompanyService,
         private readonly userService: UserService
     ){}
 
-    async findAll(): Promise<File[]>{
+    async findAll(): Promise<Fichier[]>{
         return await this.FileRepository.find();
     }
 
-    async findOnById(id: number): Promise<File>{
+    async findOnById(id: number): Promise<Fichier>{
          const companny = await this.FileRepository.findOneOrFail({where : { id : id}}).catch(
             (error)=> {
                 throw new NotFoundException(`File with id ${id} is not found`);

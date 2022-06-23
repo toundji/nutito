@@ -1,6 +1,6 @@
 import { Column, JoinColumn, ManyToOne, OneToMany, Entity, OneToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { File } from '../entities/file.entity';
+import { Fichier } from './fichier.entity';
 import { OperationType } from './operation-type.entity';
 import { ClientOperationType } from './client-operation-type.entity';
 
@@ -29,9 +29,9 @@ export class Operation extends BaseEntity {
     @Column()
     description: string;
 
-    @OneToOne(() => File)
+    @OneToOne(() => Fichier)
     @JoinColumn({ name: "document_id" })
-    document?: File; 
+    document?: Fichier; 
 
     @ManyToOne(type => OperationType, operationType => operationType.operations, { onDelete: "SET NULL" })
     @JoinColumn({ name: "operation_type_id" })

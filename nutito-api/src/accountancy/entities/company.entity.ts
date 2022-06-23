@@ -6,6 +6,7 @@ import { Licence } from './licence.entity';
 import { Account } from './account.entity';
 import { Workfield } from './workfield.entity';
 import { User } from '../../user/entities/user.entity';
+import { Fichier } from './fichier.entity';
 
 
 @Entity()
@@ -59,11 +60,15 @@ export class Company extends BaseEntity {
     @JoinColumn({ name: "licence_id"})
     licence?: Licence;
 
-    @OneToOne(() => Account, { nullable: true })
+    @OneToOne(() => Account, { nullable: true})
     @JoinColumn({ name: "account_id" })
     account!: Account;
 
-    @ManyToMany(type => Workfield)
+    @ManyToOne(type => Fichier, { onDelete: "SET NULL" })
+    @JoinColumn({ name: "logo_id" })
+    logo: Fichier;
+
+    @ManyToMany(type => Workfield, { eager: true } )
     @JoinTable({ name: "companies_workfields" })
     workfields?: Workfield[];
     
