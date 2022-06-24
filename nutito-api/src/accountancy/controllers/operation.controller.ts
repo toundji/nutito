@@ -3,8 +3,12 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { CreateOperationDto } from '../dtos/create-operation.dto';
 import { Operation } from '../entities/operation.entity';
 import { UpdateOperationDto } from '../dtos/update-operation.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { OperationByPeriodeDto } from '../dtos/operation-by-periode.dto';
+import { OperationRespoDto } from '../dtos/responses/operation-respo.dto';
 
 @Controller('operations')
+@ApiTags("operations")
 export class OperationController{
     constructor(private operationService : OperationService){}
 
@@ -13,12 +17,22 @@ export class OperationController{
     async create(@Body() createOperationDto : CreateOperationDto): Promise<Operation>{
         return await this.operationService.create(createOperationDto);
     }
-  
+    
     @Get()
     async getAll(): Promise<Operation[]> {
         return await this.operationService.findAll();
     }
-  
+
+    @Get("company/:id")
+    async getAllForCompany( @Param('id') id :number): Promise<Operation[]> {
+        return await this.operationService.findAllForCompany(id);
+    }
+
+    @Post("by-periode")
+    async getAllForCompanyByPeriode(@Body() periode: OperationByPeriodeDto): Promise<OperationRespoDto> {
+        return await this.operationService.findAllForCompanyByPeriode(periode);
+    }
+
     @Get('/:id')
     async getById(
         @Param('id') id :number
@@ -35,4 +49,5 @@ export class OperationController{
     async delete(@Param('id') id : number){
         return await this.operationService.delete(id);
     }
+
 }

@@ -7,12 +7,15 @@ import { Repository } from 'typeorm';
 import { UpdateOperationTypeDto } from '../dtos/update-operation-type.dto';
 import { faker } from "@faker-js/faker"
 import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
+import { WorkfieldService } from './workfield.service';
+import { Workfield } from './../entities/workfield.entity';
 
 @Injectable()
 export class OperationTypeService{
     constructor(
         @InjectRepository(OperationType)
-        private readonly OperationTypeRepository : Repository<OperationType>
+        private readonly OperationTypeRepository : Repository<OperationType>,
+        private readonly workfieldService: WorkfieldService
     ){}
 
     async findAll(): Promise<OperationType[]>{
@@ -36,52 +39,157 @@ export class OperationTypeService{
 
     }
 
-    async create(OperationTypeCreateDto : CreateOperationTypeDto): Promise<any>{
-       const newOperationType= await this.OperationTypeRepository.create(OperationTypeCreateDto);
-       return await this.OperationTypeRepository.save(newOperationType);
-        
-
+    async create(operationTypeCreateDto : CreateOperationTypeDto): Promise<any>{
+        const op: OperationType = new OperationType();
+        Object.keys(operationTypeCreateDto).forEach((key)=>{
+            op[key] = operationTypeCreateDto[key];
+        });
+        op.workfields = await  Workfield.findByIds(operationTypeCreateDto.workField_ids);
+       return await this.OperationTypeRepository.save(op);
     }
 
     async update(updateOperationTypeDto: UpdateOperationTypeDto, id:number):Promise<UpdateResult>{
-        return await this.OperationTypeRepository.update(id,updateOperationTypeDto);
+        const op: OperationType =await  this.findOnById(id);
+        Object.keys(updateOperationTypeDto).forEach((key)=>{
+            op[key] = updateOperationTypeDto[key];
+        });
+        op.workfields = await  Workfield.findByIds(updateOperationTypeDto.workField_ids);
+        return await this.OperationTypeRepository.update(id,op);
+    }
+    findByType(type:OperationTypeEnum){
+        return this.OperationTypeRepository.find({where:{type: type}});
     }
 
 
-    init(): Promise<OperationType[]>{
-        return this.OperationTypeRepository.find().then((olds)=>{
-            if(olds && olds.length > 0){
-                console.log(olds);
+    async findByWorkField(field_id:number){
+        const field:Workfield = await Workfield.findOne(field_id,{
+            relations:["operationTypes"],
+        });
 
-                return olds;
-              }
+
+        return field.operationTypes;
+    }
+
+    async findByTypeAndField(type:OperationTypeEnum, field_id:number):Promise<OperationType[]>{
+        const field:Workfield = await Workfield.findOne(field_id, {
+
+            relations:["operationTypes"],
+        });
+        return field.operationTypes.filter((element)=>element.type == type);
+    }
+
+
+    async init(): Promise<OperationType[]>{
+
+        const workFileds:Workfield[] = await this.workfieldService.findByName("Restauration");
+        const olds:OperationType[]=  await this.OperationTypeRepository.find();
+        if(olds && olds.length > 0){
+            console.log(olds);
+
+            return olds;
+          }
+    
+            const fields = [
+                {
+                    type: OperationTypeEnum.OUT,
+                    name:"Payement du loyer",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Payement de l'électricité",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name:"Payement de l'eau",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente de Jue",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat de Jue",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente de riz",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat du riz",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente de patte",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat de mais",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente d'arricot",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat d'arricot",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente de lait",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat de lait",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.IN,
+                    name: "Vente de agou",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    type: OperationTypeEnum.OUT,
+                    name: "Achat d'igname",
+                    workfields: workFileds,
+                    description: faker.lorem.lines(3),
+                },
+            ];
+            const l =  this.OperationTypeRepository.create(fields);
+            return this.OperationTypeRepository.save(l);
         
-                const fields = [
-                    {
-                        type: OperationTypeEnum.OUT,
-                        name:"Payement du loyer",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        type: OperationTypeEnum.OUT,
-                        name: "Payement de l'électricité",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        type: OperationTypeEnum.OUT,
-                        name:"Payement de l'eau",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        type: OperationTypeEnum.IN,
-                        name: "Vente",
-                        description: faker.lorem.lines(3),
-                    },
-                ];
-                const l =  this.OperationTypeRepository.create(fields);
-                return this.OperationTypeRepository.save(l);
-            
-        })
     }
 
 }

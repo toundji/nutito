@@ -21,6 +21,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utilities/utils';
 import { Fichier } from './../entities/fichier.entity';
+import { ClientChoiceOperationTypeDto } from '../dtos/client-choice-operation.dto';
+import { OperationType } from '../entities/operation-type.entity';
+import { ClientOperationType } from '../entities/client-operation-type.entity';
 
 @Controller('companies')
 @ApiTags('companies')
@@ -77,10 +80,31 @@ export class CompanyController {
     return await this.companySerice.delete(id);
   }
 
+  @Post("create/operation-type")
+    async choice(@Body() choices: ClientChoiceOperationTypeDto): Promise<Company>{
+        return await this.companySerice.choiceOperation(choices);
+    }
+
 
   @Get(':id/agents')
   async getCompanyAgents(@Param('id') id: number): Promise<Agent[]> {
     return await this.companySerice.getCompanyAgents(id);
+  }
+
+  @Get(':id/operation-types')
+  async getCompanyOperationType(@Param('id') id: number): Promise< Promise<OperationType[] | ClientOperationType[] > > {
+    return await this.companySerice.getCompanyOperations(id);
+  }
+
+
+  @Get(':id/operation-types/personal')
+  async getCompanyOperationTypePersonal(@Param('id') id: number): Promise< Promise< ClientOperationType[] > > {
+    return await this.companySerice.getCompanyOperartionPersonal(id);
+  }
+
+  @Get(':id/operation-types/common')
+  async getCompanyOperationTypeCommon(@Param('id') id: number): Promise< Promise< OperationType[] > > {
+    return await this.companySerice.getCompanyOperationCommon(id);
   }
 
   @Post(":id/logo")
@@ -117,7 +141,7 @@ export class CompanyController {
       }
   })
   @Get(":id/logo")
-  async getLogo(id:number, @Res() res){
+  async getLogo(@Param('id')id:number, @Res() res){
     const logo:Fichier = await this.companySerice.getLogo(id);
     return res.sendFile(logo.location, { root: './' });
   }

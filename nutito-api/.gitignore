@@ -4,6 +4,9 @@
 .vscode
 .env
 
+# nous deveons pas envore les fichier sur le serveur
+/files
+
 # orm
 myorm.ts
 

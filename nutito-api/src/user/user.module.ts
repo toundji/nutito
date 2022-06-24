@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
-import { AuthenticationService } from './services/authentication.service';
 import { JwtModule } from '@nestjs/jwt';
 import { MailModule } from '../mail/mail.module';
 import { PassportModule } from '@nestjs/passport';
@@ -33,7 +32,6 @@ import { User } from './entities/user.entity';
     ],
     exports: [
         UserService,
-        AuthenticationService,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,
@@ -46,7 +44,6 @@ import { User } from './entities/user.entity';
     ],
     providers: [
         UserService,
-        AuthenticationService,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,

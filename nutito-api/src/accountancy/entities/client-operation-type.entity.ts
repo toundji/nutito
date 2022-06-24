@@ -1,8 +1,7 @@
 import { OperationTypeEnum } from '../../utilities/enums/operation-type.enum';
-import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { Operation } from './operation.entity';
-import { OperationType } from './operation-type.entity';
+import { Company } from './company.entity';
 
 @Entity()
 export class ClientOperationType extends BaseEntity {
@@ -20,10 +19,8 @@ export class ClientOperationType extends BaseEntity {
     })
     type: string;
 
-    @OneToMany(type => Operation, operation => operation.clientOperationType, { onDelete: "NO ACTION" })
-    operations?: Operation[];
-
-    @ManyToOne(type => OperationType, operationType => operationType.clientOperationTypes, { onDelete: "NO ACTION" })
-    operationType?: OperationType;
+    @ManyToOne(type => Company, company => company.clientOperationTypes, { onDelete: "NO ACTION" })
+    @JoinColumn({ name: "company_id"})
+    company?: Company;
 
 }

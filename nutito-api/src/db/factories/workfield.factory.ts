@@ -1,7 +1,6 @@
 import { Factory, FactorizedAttrs, Subfactory } from "@jorgebodega/typeorm-seeding"
 import { faker } from "@faker-js/faker"
 import { Workfield } from "../../accountancy/entities/workfield.entity";
-import { OperationFactory } from './operation.factory';
 
 export class WorkfieldFactory extends Factory<Workfield> {
     protected entity = Workfield;

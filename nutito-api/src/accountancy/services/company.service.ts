@@ -18,6 +18,10 @@ import { User } from 'src/user/entities/user.entity';
 import { CompanyCategory } from '../entities/company-category.entity';
 import { Workfield } from './../entities/workfield.entity';
 import { Fichier } from '../entities/fichier.entity';
+import { OperationType } from '../entities/operation-type.entity';
+import { ClientChoiceOperationTypeDto } from '../dtos/client-choice-operation.dto';
+import { ClientOperationType } from './../entities/client-operation-type.entity';
+import { Account } from '../entities/account.entity';
 
 
 @Injectable()
@@ -43,7 +47,7 @@ export class CompanyService {
 
   async findOneById(id: number): Promise<Company> {
     const company = await this.companyRepository
-      .findOneOrFail({ where: { id: id } })
+      .findOneOrFail(id)
       .catch((error) => {
         throw new NotFoundException(`Company with id ${id} is not found`);
       });
@@ -69,6 +73,11 @@ export class CompanyService {
 
     newCompany.category = categoryType;
     newCompany.owner = user;
+
+    const account:Account = Account.create({});
+    const accounSaved :Account = await Account.save(account);
+    newCompany.account = account;
+
     let savedCompany = await newCompany.save();
 
 
@@ -77,9 +86,9 @@ export class CompanyService {
       role:agentRole,
       company:savedCompany,
       abilities: Object.values(ActionEnum),
-
     });
    const agentCreated :Agent = await Agent.save(agent);
+
    savedCompany.agents = [agentCreated];
     return savedCompany;
   }
@@ -114,7 +123,42 @@ export class CompanyService {
   }
 
   async getCompanyAgents(id: number): Promise<Agent[]> {
-    return (await this.findOneById(id)).agents;
+   const company:Company =  await Company.findOne(id).catch((error)=>{
+      console.log(error);
+      throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+    });
+    return company.agents;
+  }
+
+
+  async getCompanyOperations(id: number): Promise<OperationType[] | ClientOperationType[] > {
+    return Company.findOne(id, {relations:["operationTypes", "clientOperationTypes"]}).then((company)=>{
+      return [...company.operationTypes, ...company.clientOperationTypes];
+    }).catch((error)=>{
+
+      console.log(error);
+      throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+    })
+  }
+
+  async getCompanyOperartionPersonal(id: number): Promise< ClientOperationType[] > {
+    return Company.findOne(id, {relations:["clientOperationTypes"]}).then((company)=>{
+      return company.clientOperationTypes;
+    }).catch((error)=>{
+
+      console.log(error);
+      throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+    })
+  }
+
+  async getCompanyOperationCommon(id: number): Promise<OperationType[] > {
+    return Company.findOne(id, {relations:["operationTypes"]}).then((company)=>{
+      return company.operationTypes;
+    }).catch((error)=>{
+
+      console.log(error);
+      throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+    })
   }
 
 
@@ -150,5 +194,20 @@ export class CompanyService {
     const company:Company = await Company.findOne(id, {relations: ["logo"]});
     return company.logo;
   }
+
+  async choiceOperation(createClientOperationTypeDto  : ClientChoiceOperationTypeDto): Promise<Company>{
+    const company: Company = await Company.findOne(createClientOperationTypeDto.company_id, {relations: ["operationTypes"]});
+    if(company == null){
+      throw new BadRequestException("L'entreprise indiquée n'existe pas");
+    }
+    const typesList: OperationType[] = await OperationType.findByIds(createClientOperationTypeDto.operationType_ids);
+    if(typesList.length ==0){
+        throw new BadRequestException("Les opération indiquer n'existent pas");
+    }
+  
+   company.operationTypes ??= [];
+   company.operationTypes.push(...typesList);
+   return await Company.save(company);
+}
 
 }

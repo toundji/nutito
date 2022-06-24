@@ -11,6 +11,5 @@ export class ClientOperationTypeFactory extends Factory<ClientOperationType> {
         name: faker.word.noun(),
         description: faker.lorem.lines(3),
         type: faker.helpers.arrayElement(Object.values(OperationTypeEnum)),
-        operationType: new Subfactory(OperationTypeFactory)
     }
 }

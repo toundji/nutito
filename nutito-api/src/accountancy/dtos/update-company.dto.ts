@@ -1,7 +1,7 @@
 import {IsString,IsPositive, IsOptional, IsArray } from "class-validator";
 
 export class UpdateCompanyDto{
-    
+
     @IsString()
     name ? : string;
 
@@ -23,6 +23,7 @@ export class UpdateCompanyDto{
     // careers ? : Career[]
 
     @IsPositive()
+    @IsOptional()
     company_category_id? : number
     
     @IsPositive({each:true})

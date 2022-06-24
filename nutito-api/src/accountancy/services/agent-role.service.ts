@@ -53,41 +53,41 @@ export class AgentRoleService{
         return await this.agentRoleRepository.update(id,updateAccountDto);
     }
 
-    
-    init(){
-        return this.agentRoleRepository.find().then((olds:AgentRole[]) =>{
-            if(olds && olds.length > 0){
-                console.log(olds);
-                return olds;
-              }                const agentData = [
-                    {
-                        name: "AGENT",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "COMPTABLE",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "SECRÉTAIRE",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name: "DIRECTEUR TECHNIQUE",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name:  "DIRECTEUR GÉNÉRAL",
-                        description: faker.lorem.lines(3),
-                    },
-                    {
-                        name:  "CREATEUR SUR NUTITO",
-                        description: faker.lorem.lines(3),
-                    }
 
-                ];
-                const agents :AgentRole[] = this.agentRoleRepository.create(agentData);
-                return this.agentRoleRepository.save(agents);
-        })
+    async init(){
+       const olds:AgentRole[]= await this.agentRoleRepository.find();
+           if(olds && olds.length > 0){
+            console.log(olds);
+            return olds;
+          }                const agentData = [
+                {
+                    name: "AGENT",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "COMPTABLE",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "SECRÉTAIRE",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name: "DIRECTEUR TECHNIQUE",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name:  "DIRECTEUR GÉNÉRAL",
+                    description: faker.lorem.lines(3),
+                },
+                {
+                    name:  "CREATEUR SUR NUTITO",
+                    description: faker.lorem.lines(3),
+                }
+
+            ];
+            const agents :AgentRole[] = this.agentRoleRepository.create(agentData);
+            return this.agentRoleRepository.save(agents);
+    
     }
 }

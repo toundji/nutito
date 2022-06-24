@@ -12,7 +12,6 @@ export class AgentRoleController{
        private readonly agentRoleService: AgentRoleService
     ){}
 
-    
     @Get()
     async getAgents(): Promise<AgentRole[]>{
         return this.agentRoleService.findAll();

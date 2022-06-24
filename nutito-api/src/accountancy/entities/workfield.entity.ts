@@ -11,7 +11,7 @@ export class Workfield extends BaseEntity {
     @Column({nullable: true})
     description: string;
 
-    @ManyToMany(type => OperationType)
+    @ManyToMany(type => OperationType, opeType=>opeType.workfields)
     operationTypes: OperationType[];
 
 }

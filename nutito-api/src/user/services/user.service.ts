@@ -21,14 +21,27 @@ export class UserService {
     return this.usersrepository.find();
   }
 
-  async findOneById(userId: number): Promise<any> {
+  async findOneById(userId: number): Promise<Partial<User>> {
     const user = await this.usersrepository.findOne({ where: { id: userId } });
     const { id, password, ...rest } = user;
     return rest;
   }
 
+  async findOneForLogin(userId: number): Promise<Partial<User>> {
+    const user = await this.usersrepository.findOne({ where: { id: userId }, relations: ["agents", "agents.company"] });
+    const { id, password, ...rest } = user;
+    return rest;
+  }
+
+
   async findOneByEmail(email: string): Promise<User> {
-    const user = await this.usersrepository.findOneOrFail({ where: { email: email } }).catch(
+    const user = await this.usersrepository.find({ where: { email: email },  relations: ["profile_picture", "agents", "agents.company"] })
+    .then(
+      (list:User[]) => {
+        if(list && list.length>0)return list[0];
+        throw new NotFoundException(`User with email ${email} is not found`);
+      })
+    .catch(
       (error) => {
         throw new NotFoundException(`User with email ${email} is not found`);
       }
@@ -37,7 +50,14 @@ export class UserService {
   }
 
   async findOneByPhone(phone: string): Promise<User> {
-    const user = await this.usersrepository.findOneOrFail({ where: { phone: phone }, relations: ["profile_picture", "agents"] }).catch(
+    const user = await this.usersrepository.find({ where: { phone: phone }, relations: ["profile_picture", "agents", "agents.company"] })
+    .then(
+      (list:User[]) => {
+        if(list && list.length>0)return list[0];
+        throw new NotFoundException(`User with phone ${phone} is not found`);
+      })
+      .catch(
+      
       (error) => {
         throw new NotFoundException(`User with phone ${phone} is not found`);
       }
@@ -105,49 +125,47 @@ export class UserService {
     return (await this.findOneByPhone(phone)).agents
   }
 
-  init(){
-    return this.usersrepository.find().then((olds)=>{
-      if(olds && olds.length > 0){
-        return olds;
-      }
+  async init(){
+    const olds:User[] =await this.usersrepository.find();
+    if(olds && olds.length > 0){
+      return olds;
+    }
 
-        const user =[ {
-          email: "baba@gmail.com",
-          phone: "+22994851785",
-          ifu: "12345678",
-          birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
-          birth_place: "Doumè",
-          address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
-          country: "Country",
-          password: "gggggggg",
-          user_type: UserTypeEnum.ADMIN,
-        },
-    
-        {
-          email: "baba0@gmail.com",
-          phone: "+22994851780",
-          password: "gggggggg",
-          user_type: UserTypeEnum.USER,
-        },
-        {
-          email: "baba1@gmail.com",
-          phone: "+22994851781",
-          ifu: "12345678",
-          birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
-          birth_place: "Doumè",
-          address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
-          country: "Country",
-          password: "gggggggg",
-          user_type: UserTypeEnum.USER,
-        },
-      ];
-    
-       const user_: User[] = this.usersrepository.create(user);
-    
-       return this.usersrepository.save(user_);
-    
-      
-    });
+      const user =[ {
+        email: "baba@gmail.com",
+        phone: "+22994851785",
+        ifu: "12345678",
+        birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
+        birth_place: "Doumè",
+        address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
+        country: "Country",
+        password: "gggggggg",
+        user_type: UserTypeEnum.ADMIN,
+      },
+  
+      {
+        email: "baba0@gmail.com",
+        phone: "+22994851780",
+        password: "gggggggg",
+        user_type: UserTypeEnum.USER,
+      },
+      {
+        email: "baba1@gmail.com",
+        phone: "+22994851781",
+        ifu: "12345678",
+        birth_date: DateTime.now().minus(Duration.fromObject({year:24})).toJSDate(),
+        birth_place: "Doumè",
+        address: "Benin/savalou/Doumè/Zongo/maison-Daniel",
+        country: "Country",
+        password: "gggggggg",
+        user_type: UserTypeEnum.USER,
+      },
+    ];
+  
+     const user_: User[] = this.usersrepository.create(user);
+  
+     return this.usersrepository.save(user_);
+  
    
   }
 
