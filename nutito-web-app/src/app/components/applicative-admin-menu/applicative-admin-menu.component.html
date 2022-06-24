@@ -3,7 +3,7 @@
     <li class="nav-item">
       <a
         routerLinkActive="active"
-        routerLink="/dashboard/applicative-admin/agents-roles"
+        routerLink="/dashboard/applicative-admin"
         [routerLinkActiveOptions]="{exact: true}"
         role="button" class="nav-link">
         <i class="far fa-user"></i> <span>Rôles Agents</span>
@@ -30,7 +30,10 @@
       </a>
     </li>
     <li class="nav-item">
-      <a role="button" class="nav-link">
+      <a routerLinkActive="active"
+        routerLink="/dashboard/applicative-admin/workfields"
+        [routerLinkActiveOptions]="{exact: true}"
+        role="button" class="nav-link">
         <i class="far fa-bell"></i> <span>Domaines d'activité</span>
       </a>
     </li>

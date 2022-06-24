@@ -1,43 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgentRoleService } from 'src/app/services/agent-role.service';
-import { AgentRoleFormGroup } from '../../forms-validation/agent-role-form.group';
 import { AgentRole } from '../../models/agent-role.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { uiConstants } from 'src/utils/ui-constants';
+import { CompanyCategoryService } from '../../services/company-category.service';
+import { CompanyCategoryFormGroup } from '../../forms-validation/company-category-form.group';
+import { WorkfieldService } from '../../services/workfield.service';
+import { Workfield } from '../../models/workfield.model';
+import { WorkfieldFormGroup } from '../../forms-validation/workfield-form.group';
 
 @Component({
-  selector: 'agent-roles-form-component',
-  templateUrl: './agent-roles-form.component.html',
-  styleUrls: ['./agent-roles-form.component.css']
+  selector: 'workfield-form-component',
+  templateUrl: './workfield-form.component.html',
+  styleUrls: ['./workfield-form.component.css']
 })
-export class AgentRolesFormComponent implements OnInit {
+export class WorkfieldFormComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private agentRoleService: AgentRoleService
-    ) { }
+    private workfieldService: WorkfieldService
+    ) {  }
 
-  newAgentRole: any = new AgentRole();
+  @Input() operation: string = "create"
+
+  newWorkfield: any = new Workfield();
   formSubmitted: boolean = false;
-  formGroup: AgentRoleFormGroup = new AgentRoleFormGroup();
+  formGroup: WorkfieldFormGroup = new WorkfieldFormGroup();
   operationErrorMessage = "";
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.operation)
+  }
 
   submitForm() {
-    Object.keys(this.formGroup.controls).forEach(c => this.newAgentRole[c] = this.formGroup.controls[c].value);
+    Object.keys(this.formGroup.controls).forEach(c => this.newWorkfield[c] = this.formGroup.controls[c].value);
     this.formSubmitted = true;
+    if (this.operation === "update") {
+      this.formGroup.clearValidators()
+    }
     if (this.formGroup.valid) {
-      this.createAgentRole()
+      this.createWorkfield()
     }
   }
 
-  createAgentRole() {
+  createWorkfield() {
     let spinner = document.getElementById("loader")!
     spinner.className = "spinner-border spinner-border-sm me-2"
-    this.agentRoleService.create(this.newAgentRole).subscribe(
+    this.workfieldService.create(this.newWorkfield).subscribe(
       (response) => {
         spinner.className = ""
         this.formSubmitted = false;
@@ -45,13 +55,14 @@ export class AgentRolesFormComponent implements OnInit {
         modalCloseBtn.click();
         Swal.fire({
           title: "Succès de l'opération",
-          text: "Le rôle a été enregistré avec succès",
+          text: "Le domaine a été enregistré avec succès",
           icon: "success",
           ...uiConstants.swalAnimation
         })
         this.reloadComponent()
       },
       (error: HttpErrorResponse) => {
+        console.log(error)
         spinner.className = ""
         this.formSubmitted = false;
         this.operationErrorMessage = error.message

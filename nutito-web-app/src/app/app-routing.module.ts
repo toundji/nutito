@@ -13,6 +13,7 @@ import { LicensesPage } from './pages/licenses/licenses.page';
 import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admin.page';
 import { AgentRolesPage } from './pages/agents-roles/agent-roles.page';
 import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
+import { WorkfieldsPage } from './pages/workfields/workfields.page';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
           {
             path: "company-categories",
             component: CompanyCategoriesPage
+          },
+          {
+            path: "workfields",
+            component: WorkfieldsPage
           },
         ]
       },
