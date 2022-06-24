@@ -55,7 +55,8 @@ export class UserController {
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
   async resetPassword(@Body() body: ResetPasswordDto, @Request() request): Promise<User> {
-    return this.authenticationservice.resetPassword(body)
+    return null;
+    // return this.authenticationservice.resetPassword(body)
   }
 
   @Post('auth/mail/check')
