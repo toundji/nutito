@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { MailService } from 'src/mail/mail.service';
-import { AuthenticationService } from '../services/authentication.service';
 import { VerifyEmailDto } from '../dtos/verify-email.dto';
 import { User } from '../entities/user.entity';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
@@ -14,6 +13,7 @@ import { SignupResponseDto } from '../dtos/signup-response.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Agent } from '../../accountancy/entities/agent.entity';
 import { ResetPasswordDto } from '../dtos/reset-password.dto';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @ApiTags('auth')
@@ -22,8 +22,7 @@ export class UserController {
 
   constructor(
     private readonly userservice: UserService,
-    private readonly authenticationservice: AuthenticationService,
-    private mailservice: MailService
+    private readonly authenticationservice: AuthenticationService
   ) { }
 
   @Get()
@@ -54,7 +53,7 @@ export class UserController {
   @Post('auth/password/reset')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
-  async resetPassword(@Body() body: ResetPasswordDto, @Request() request): Promise<User> {
+  async resetPassword(@Body() body: ResetPasswordDto, @Request() request): Promise<any> {
     return this.authenticationservice.resetPassword(body)
   }
 
