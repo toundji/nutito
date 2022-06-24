@@ -14,6 +14,7 @@ import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { AuthenticationService } from './services/authentication.service';
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { User } from './entities/user.entity';
         LocalAuthGuard,
         AuthorisationsGuard,
         AuthorisationFactory,
+
     ],
     controllers: [
         UserController,
@@ -51,6 +53,7 @@ import { User } from './entities/user.entity';
         LocalAuthGuard,
         AuthorisationsGuard,
         AuthorisationFactory,
+        AuthenticationService
     ],
 })
 export class UserModule {}
