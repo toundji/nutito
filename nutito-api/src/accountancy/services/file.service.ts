@@ -35,30 +35,19 @@ export class FileService{
 
     }
 
-    // async create(createFileDto: CreateFileDto):Promise<File>{
-    //     const newFile= new File()
-    //     newFile.name= createFileDto.name;
-    //     newFile.location= createFileDto.location;
-    //     newFile.mimetype= createFileDto.mimetype;
-    //     newFile.entity_id= createFileDto.entity_id  ;
-    //     newFile.operation.id = await (await this.companySerice.findOnById(createFileDto.operation_id)).id;
-    //     newFile.user= await this.userService.findOneById(createFileDto.user_id)
-
-    //     const nv = await this.FileRepository.create(newFile);
-    //     return await this.FileRepository.save(nv);
-    // }
+    async create(createFileDto: CreateFileDto):Promise<File>{
+        const nv = await this.FileRepository.create(createFileDto);
+        return await this.FileRepository.save(nv);
+    }
     
-    // async update(updateFileDto: UpdateFileDto, id:number):Promise<File>{
+    async update(updateFileDto: UpdateFileDto, id:number):Promise<File>{
 
-    //     const updateFile= await this.findOnById(id);
-    //     updateFile.name= updateFileDto.name ? updateFileDto.name : updateFile.name;
-    //     updateFile.location= updateFileDto.location ? updateFileDto.location : updateFile.location;
-    //     updateFile.mimetype= updateFileDto.mimetype ? updateFileDto.mimetype : updateFile.mimetype;
-    //     updateFile.entity_id= updateFileDto.entity_id ? updateFileDto.entity_id : updateFile.entity_id ;
-    //     updateFile.operation.id =updateFileDto.operation_id? await (await this.companySerice.findOnById(updateFileDto.operation_id)).id : undefined;
-    //     updateFile.user= updateFileDto.user_id ? await this.userService.findOneById(updateFileDto.user_id): undefined;
+        const updateFile= await this.findOnById(id);
+        updateFile.name= updateFileDto.name ? updateFileDto.name : updateFile.name;
+        updateFile.location= updateFileDto.location ? updateFileDto.location : updateFile.location;
+        updateFile.mimetype= updateFileDto.mimetype ? updateFileDto.mimetype : updateFile.mimetype;
 
-    //     return await this.FileRepository.save(updateFile);
-    // }
+        return await this.FileRepository.save(updateFile);
+    }
 
 }

@@ -1,0 +1,68 @@
+<div class="main-wrapper login-body">
+  <div class="login-wrapper">
+    <div class="container">
+      <div class="loginbox">
+        <div class="login-right">
+          <div class="login-right-wrap">
+            <h1>Create Company Category</h1>
+            <form
+              novalidate
+              [formGroup]="formGroup"
+              (ngSubmit)="submitForm()"
+            >
+              <div class="form-group">
+                <label class="form-control-label">Nom</label>
+                <input
+                  type="name"
+                  formControlName="name"
+                  class="form-control"
+                />
+                <ul
+                  class="error-color list-unstyled mt-1"
+                  *ngIf="(formSubmitted || formGroup.controls['name'].dirty) && formGroup.controls['name'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('name')">{{error}}</li>
+                </ul>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label">Description</label>
+                <div class="pass-group">
+                  <input
+                    type="description"
+                    formControlName="description"
+                    class="form-control pass-input"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted || formGroup.controls['description'].dirty) && formGroup.controls['description'].invalid">
+                    <li *ngFor="let error of formGroup.getValidationMessages('description')">{{error}}</li>
+                  </ul>
+                  <!-- <span class="fas fa-eye toggle-description"></span> -->
+                </div>
+              </div>
+              <div class="flex justify-center mt-1">
+                <div class="w-8/12 p-2 rounded-lg">
+                  <div class="flex justify-center text-center">
+                    <ul class="error-color list-unstyled mt-1">
+                      <li style="font-size: 12px">
+                        {{ this.loginFailureMsg }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <button
+                  class="btn text-light btn-lg btn-block btn-primary w-100"
+                  type="submit"
+                  [disabled]="formSubmitted && formGroup.invalid"
+                  [class.btn-secondary]="formSubmitted && formGroup.invalid"
+                >Enrégistré
+                <span id="loader" class="" role="status"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-import { CreateCompanyCategory } from './../dtos/create-company-category.dto';
 /* eslint-disable prettier/prettier */
+import { CreateCompanyCategory } from './../dtos/create-company-category.dto';
 import { UpdateCompanyCategoryDto } from './../dtos/update-company-category.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

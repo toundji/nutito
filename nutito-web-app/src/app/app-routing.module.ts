@@ -1,3 +1,7 @@
+import { Licence } from './pages/licence/licence.page';
+import { Company } from './pages/company/company.page';
+import { CompanyCategory } from './pages/company-category/company-category.page';
+import { CreateAdministrator } from './pages/create-administrator/create-administrator.page';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
@@ -14,6 +18,7 @@ import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admi
 import { AgentRolesPage } from './pages/agents-roles/agent-roles.page';
 import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
 import { WorkfieldsPage } from './pages/workfields/workfields.page';
+import { AgentRole } from './pages/agent-role/agent-role.page';
 
 const routes: Routes = [
   {
@@ -72,9 +77,46 @@ const routes: Routes = [
     canActivate: [DashboardGuard]
   },
   {
+    path: "dashboard/agent-role",
+    component: AgentRole,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/company",
+    component: Company,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/company-category",
+    component: CompanyCategory,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
+    path: "dashboard/create-admininistrator",
+    component: CreateAdministrator,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+
+  {
+    path: "dashboard/licences",
+    component: Licence,
+    // canActivate: [AuthGuard]
+    canActivate: [DashboardGuard]
+
+  },
+  {
     path: "**",
     redirectTo: "/dashboard"
   },
+
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { CreateOperationTypeDto } from './../dtos/create-operation-type.dto';
 import { OperationType } from './../entities/operation-type.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';

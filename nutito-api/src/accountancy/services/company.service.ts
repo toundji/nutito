@@ -1,3 +1,4 @@
+import { WorkfieldService } from './workfield.service';
 /* eslint-disable prettier/prettier */
 import { CompanyCategoryService } from './company-category.service';
 import { UpdateCompanyDto } from './../dtos/update-company.dto';

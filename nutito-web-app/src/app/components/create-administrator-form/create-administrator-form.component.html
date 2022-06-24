@@ -1,0 +1,77 @@
+<div class="main-wrapper login-body">
+  <div class="login-wrapper">
+    <div class="container">
+      <div class="loginbox">
+        <div class="login-right">
+          <div class="login-right-wrap">
+            <h1>Create Administrator </h1>
+            <form
+              novalidate
+              [formGroup]="formGroup"
+              (ngSubmit)="submitForm()"
+            >
+              <div class="form-group">
+                <label class="form-control-label">Nom</label>
+                <input
+                  type="firstname"
+                  formControlName="firstname"
+                  class="form-control"
+                />
+                <ul
+                  class="error-color list-unstyled mt-1"
+                  *ngIf="(formSubmitted || formGroup.controls['firstname'].dirty) && formGroup.controls['firstname'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('firstname')">{{error}}</li>
+                </ul>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Prenom</label>
+                <input
+                  type="lastname"
+                  formControlName="lastname"
+                  class="form-control"
+                />
+                <ul
+                  class="error-color list-unstyled mt-1"
+                  *ngIf="(formSubmitted || formGroup.controls['lastname'].dirty) && formGroup.controls['lastname'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('lastname')">{{error}}</li>
+                </ul>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Email</label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="form-control"
+                />
+                <ul
+                  class="error-color list-unstyled mt-1"
+                  *ngIf="(formSubmitted || formGroup.controls['email'].dirty) && formGroup.controls['email'].invalid">
+                  <li *ngFor="let error of formGroup.getValidationMessages('email')">{{error}}</li>
+                </ul>
+              </div>
+              <div class="flex justify-center mt-1">
+                <div class="w-8/12 p-2 rounded-lg">
+                  <div class="flex justify-center text-center">
+                    <ul class="error-color list-unstyled mt-1">
+                      <li style="font-size: 12px">
+                        {{ this.loginFailureMsg }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <button
+                  class="btn text-light btn-lg btn-block btn-primary w-100"
+                  type="submit"
+                  [disabled]="formSubmitted && formGroup.invalid"
+                  [class.btn-secondary]="formSubmitted && formGroup.invalid"
+                >Enrégistré
+                <span id="loader" class="" role="status"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
