@@ -22,7 +22,8 @@ export class UserController {
 
   constructor(
     private readonly userservice: UserService,
-    private readonly authenticationservice: AuthenticationService
+    private readonly authenticationservice: AuthenticationService,
+
   ) { }
 
   @Get()
