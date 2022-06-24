@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgentRole } from '../../models/agent-role.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { uiConstants } from 'src/utils/ui-constants';
-import { CompanyCategoryService } from '../../services/company-category.service';
-import { CompanyCategoryFormGroup } from '../../forms-validation/company-category-form.group';
 import { WorkfieldService } from '../../services/workfield.service';
 import { Workfield } from '../../models/workfield.model';
 import { WorkfieldFormGroup } from '../../forms-validation/workfield-form.group';
