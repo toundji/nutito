@@ -39,11 +39,10 @@ export class OperationService{
     async  findAllForCompanyByPeriode(periode: OperationByPeriodeDto): Promise<OperationRespoDto>{
         const company:Company = Company.create({id:periode.company_id});
         periode.from_date ??= new Date();
-        
+        console.log(periode.from_date, periode.from_date);
         const operations :Operation[] =await  this.operationRepository.find({where:{
                 company:company,
-                // created_at: Between(periode.from_date, periode.from_date),
-                
+                created_at: Between(periode.from_date, periode.to_date),
                 },
              }).catch((error)=>{
                     throw new BadRequestException("Une erreur s'est produit pendant le traitement de votre requète");
@@ -60,10 +59,11 @@ export class OperationService{
         .getRawOne().catch((error)=>{
             console.log(error);
             throw new InternalServerErrorException("Vous n'avez effectere aucune opération dans cette période")
-        });
-        if(!debut_tresorerie){
-            debut_tresorerie = operations[0];
-        }
+        }); 
+        const start_balance:number = debut_tresorerie?.balance ?? operations[0].type == OperationTypeEnum.OUT 
+            ? operations[0].balance +  operations[0].amount 
+            : operations[0].balance - operations[0].amount;
+       
         const fin_tresorerie: Operation =  operations[operations.length-1];
         const response: OperationRespoDto = {
                 from_date: periode.from_date,
@@ -72,7 +72,7 @@ export class OperationService{
 
                 company: company,
 
-                start_balence: debut_tresorerie.balance,
+                start_balence: start_balance,
 
                 end_balence: fin_tresorerie.balance,
 
