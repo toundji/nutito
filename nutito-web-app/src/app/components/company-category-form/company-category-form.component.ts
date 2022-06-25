@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgentRoleService } from 'src/app/services/agent-role.service';
-import { AgentsRolesFormGroup } from '../../forms-validation/agents-roles-form.group';
 import { AgentRole } from '../../models/agent-role.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { uiConstants } from 'src/utils/ui-constants';
 import { CompanyCategoryService } from '../../services/company-category.service';
+import { CompanyCategoryFormGroup } from '../../forms-validation/company-category-form.group';
+import { CompanyCategory } from '../../models/company-category.model';
 
 @Component({
   selector: 'company-category-form-component',
@@ -20,23 +20,25 @@ export class CompanyCategoryFormComponent implements OnInit {
     private companyCategoryService: CompanyCategoryService
     ) { }
 
-  newAgentRole: any = new AgentRole();
+  newCompanyCategory: any = new CompanyCategory();
   formSubmitted: boolean = false;
-  formGroup: AgentsRolesFormGroup = new AgentsRolesFormGroup();
+  formGroup: CompanyCategoryFormGroup = new CompanyCategoryFormGroup();
   operationErrorMessage = "";
 
   ngOnInit(): void {}
 
   submitForm() {
+    Object.keys(this.formGroup.controls).forEach(c => this.newCompanyCategory[c] = this.formGroup.controls[c].value);
     this.formSubmitted = true;
-    Object.keys(this.formGroup.controls).forEach(c => this.newAgentRole[c] = this.formGroup.controls[c].value);
-    this.createCompanyCategory()
+    if (this.formGroup.valid) {
+      this.createCompanyCategory()
+    }
   }
 
   createCompanyCategory() {
     let spinner = document.getElementById("loader")!
     spinner.className = "spinner-border spinner-border-sm me-2"
-    this.companyCategoryService.create(this.newAgentRole).subscribe(
+    this.companyCategoryService.create(this.newCompanyCategory).subscribe(
       (response) => {
         spinner.className = ""
         this.formSubmitted = false;
@@ -51,6 +53,7 @@ export class CompanyCategoryFormComponent implements OnInit {
         this.reloadComponent()
       },
       (error: HttpErrorResponse) => {
+        console.log(error)
         spinner.className = ""
         this.formSubmitted = false;
         this.operationErrorMessage = error.message

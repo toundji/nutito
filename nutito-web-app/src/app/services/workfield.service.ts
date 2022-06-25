@@ -3,29 +3,30 @@ import { Injectable } from "@angular/core";
 import { AgentRole } from "../models/agent-role.model";
 import { endpoints, rest } from "./rest-configs";
 import { CompanyCategory } from '../models/company-category.model';
+import { Workfield } from "../models/workfield.model";
 
 @Injectable({
   providedIn: 'root',
 })
-export class CompanyCategoryService {
+export class WorkfieldService {
 
   constructor(private http: HttpClient) {}
 
-  create(newCompanyCategory: CompanyCategory) {
-    var payload = JSON.stringify(newCompanyCategory);
-    return this.http.post<any>(endpoints.companyCategoriesCreateUrl,
+  create(newWorkfield: Workfield) {
+    var payload = JSON.stringify(newWorkfield);
+    return this.http.post<any>(endpoints.workfieldsCreateUrl,
       payload, {
         headers: rest.authHeaders
       })
   }
 
   getAll() {
-    return this.http.get<CompanyCategory[]>(endpoints.companyCategoriesUrl, { headers: rest.authHeaders })
+    return this.http.get<Workfield[]>(endpoints.workfieldsUrl, { headers: rest.authHeaders })
   }
 
-  delete(companyCategory: CompanyCategory) {
+  delete(workfield: Workfield) {
     return this.http.delete<any>(
-      `${endpoints.companyCategoriesUrl}/delete/${companyCategory.id}`,
+      `${endpoints.workfieldsUrl}/delete/${workfield.id}`,
       { headers: rest.authHeaders }
     )
   }

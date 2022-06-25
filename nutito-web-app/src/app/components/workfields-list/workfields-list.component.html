@@ -8,25 +8,26 @@
               <thead class="thead-light">
                 <tr>
                   <th>#</th>
-                  <th>Nom Du Rôle Agent</th>
-                  <th>Description Du Rôle Agent</th>
+                  <th>Nom Du Type</th>
+                  <th>Description Du Type</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let agentRole of agentRoles; let i=index">
+                <tr *ngFor="let workfield of workfields; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ agentRole.name }}</td>
-                  <td>{{ agentRole.description }}</td>
+                  <td>{{ workfield.name }}</td>
+                  <td>{{ workfield.description }}</td>
                   <td class="text-end">
                     <a
                       role="button"
+                      (click)="toggleOperationVar()"
                       class="btn btn-sm btn-white text-success me-2"
                       ><i class="far fa-edit me-1"></i>Modifier</a
                     >
                     <a
                       role="button"
-                      (click)="deleteAgentRole(agentRole)"
+                      (click)="deleteWorkfield(workfield)"
                       class="btn btn-sm btn-white text-danger me-2"
                       ><i class="far fa-trash-alt me-1"></i>Supprimer</a
                     >
@@ -47,7 +48,8 @@
             <div class="invoices-settings-btn">
               <a
                 data-bs-toggle="modal"
-                data-bs-target="#bank_details"
+                data-bs-target="#cu_form"
+                id="modalOpenButton"
                 role="button" class="btn">
                 <i data-feather="plus-circle"></i> Enregister
               </a>
@@ -58,6 +60,5 @@
     </div>
   </div>
 </div>
-
-<agent-roles-form-component>
-</agent-roles-form-component>
+<workfield-form-component [operation]="operation">
+</workfield-form-component>

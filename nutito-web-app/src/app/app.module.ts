@@ -43,6 +43,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { CompanyCategoriesListComponent } from './components/company-categories-list/company-categories-list.component';
 import { CompanyCategoryFormComponent } from './components/company-category-form/company-category-form.component';
 import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
+import { WorkfieldsListComponent } from './components/workfields-list/workfields-list.component';
+import { WorkfieldsPage } from './pages/workfields/workfields.page';
+import { WorkfieldFormComponent } from './components/workfield-form/workfield-form.component';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ registerLocaleData(localeFr);
     AgentRolesListComponent,
     CompanyCategoriesListComponent,
     CompanyCategoryFormComponent,
-    CompanyCategoriesPage
+    CompanyCategoriesPage,
+    WorkfieldsListComponent,
+    WorkfieldsPage,
+    WorkfieldFormComponent
   ],
   imports: [
     BrowserModule,
