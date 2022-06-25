@@ -43,7 +43,6 @@ export class WorkfieldService{
         return await this.workfieldRepository.delete(id);
     }
 
-
     init():Promise<Workfield[]>{
         return this.workfieldRepository.find().then((olds)=>{
             if(olds && olds.length > 0){
