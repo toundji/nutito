@@ -62,7 +62,7 @@ const routes: Routes = [
             path: "workfields",
             component: WorkfieldsPage
           },
-        ]
+        ],
       },
     ]
   },
