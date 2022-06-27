@@ -9,7 +9,7 @@ const ormconfig: any = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   //ssl: { rejectUnauthorized: false },
-  synchronize: false,
+  synchronize: true,
   entities: ['dist/src/**/*.entity{.ts,.js}'],
   migrations: ['dist/src/db/migrations/*.js'],
   cli: {

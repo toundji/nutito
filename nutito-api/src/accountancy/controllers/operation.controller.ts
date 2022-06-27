@@ -6,6 +6,8 @@ import { UpdateOperationDto } from '../dtos/update-operation.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { OperationByPeriodeDto } from '../dtos/operation-by-periode.dto';
 import { OperationRespoDto } from '../dtos/responses/operation-respo.dto';
+import { DayBilan } from './../dtos/responses/day-bilan.dto';
+import { ResultatCompte } from './../dtos/responses/compte-resultat.dto';
 
 @Controller('operations')
 @ApiTags("operations")
@@ -23,14 +25,24 @@ export class OperationController{
         return await this.operationService.findAll();
     }
 
+    @Get("company/:id/day-summury")
+    async getAllForCompany( @Param('id') id :number): Promise<DayBilan> {
+        return await this.operationService.getBilanOfDay(id);
+    }
+
     @Get("company/:id")
-    async getAllForCompany( @Param('id') id :number): Promise<Operation[]> {
+    async getDayBilanForCompany( @Param('id') id :number): Promise<Operation[]> {
         return await this.operationService.findAllForCompany(id);
     }
 
     @Post("by-periode")
     async getAllForCompanyByPeriode(@Body() periode: OperationByPeriodeDto): Promise<OperationRespoDto> {
         return await this.operationService.findAllForCompanyByPeriode(periode);
+    }
+
+    @Post("compte-de-resultat")
+    async getCompteDeResultOfPeriode(@Body() periode: OperationByPeriodeDto): Promise<ResultatCompte> {
+        return await this.operationService.getBilanByOperation(periode);
     }
 
     @Get('/:id')
@@ -41,8 +53,8 @@ export class OperationController{
     } 
     
     @Put('update/:id')
-    async update(@Param('id') id : number, @Body() updateOperationDto : UpdateOperationDto) {
-        return await this.operationService.update(id,updateOperationDto);
+    async update(@Param('id') id : number, @Body() body : UpdateOperationDto) {
+        return await this.operationService.change(id,body);
     }
   
     @Delete('delete/:id')

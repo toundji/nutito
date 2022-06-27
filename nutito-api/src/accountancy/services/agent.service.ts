@@ -57,7 +57,7 @@ export class AgentService{
 
       agentThatIsMe(id:number): Promise<Agent[]> {
         const user:User = User.create({id:id});
-        return this.agentsRepository.find({where:{user:user}}).catch((error)=>{
+        return this.agentsRepository.find({where:{user:user}, relations:["company"]}).catch((error)=>{
             console.log("Erreur ");
             throw new NotFoundException();
           });

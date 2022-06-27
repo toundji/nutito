@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { MailService } from 'src/mail/mail.service';
@@ -85,6 +85,11 @@ export class UserController {
   @Get(':phone/agents')
   async getUserAgents(@Param('phone') phone: string): Promise<Agent[]> {
     return await this.userservice.getUserAgents(phone);
+  }
+
+  @Put(':id/update')
+  async update(@Param('id') id: number ,@Body() body): Promise<User> {
+    return ;
   }
 
 }

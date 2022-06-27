@@ -15,6 +15,9 @@ import { Account } from './../entities/account.entity';
 import { OperationTypeEnum } from 'src/utilities/enums/operation-type.enum';
 import { OperationByPeriodeDto } from '../dtos/operation-by-periode.dto';
 import { OperationRespoDto } from '../dtos/responses/operation-respo.dto';
+import { DayBilan } from './../dtos/responses/day-bilan.dto';
+import { ResultatCompte } from './../dtos/responses/compte-resultat.dto';
+import { ResultatCompteElement } from './../dtos/responses/resultat-de-compte-element.dto';
 
 
 
@@ -39,7 +42,6 @@ export class OperationService{
     async  findAllForCompanyByPeriode(periode: OperationByPeriodeDto): Promise<OperationRespoDto>{
         const company:Company = Company.create({id:periode.company_id});
         periode.from_date ??= new Date();
-        console.log(periode.from_date, periode.from_date);
         const operations :Operation[] =await  this.operationRepository.find({where:{
                 company:company,
                 created_at: Between(periode.from_date, periode.to_date),
@@ -47,7 +49,6 @@ export class OperationService{
              }).catch((error)=>{
                     throw new BadRequestException("Une erreur s'est produit pendant le traitement de votre requète");
                 });
-                console.log(operations);
         if( operations.length == 0){
             throw new NotFoundException("Vous n'avez effectere aucune opération dans cette période")
         }
@@ -79,6 +80,103 @@ export class OperationService{
                 operations: operations,
         }
         return response;
+    }
+
+    async getBilanOfDay(compnay_id:number):Promise<DayBilan>{
+        const company: Company = await Company.findOneOrFail(compnay_id).catch((error)=>{
+            console.log(error);
+            throw new NotFoundException("L'entreprise spécifier n'existe pas");
+        });
+        const date= new Date();
+        const from_date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0,0);
+
+        const operations :Operation[] = await  this.operationRepository.find({where:{
+                company:company,
+                created_at: MoreThanOrEqual(from_date),
+                },
+             }).catch((error)=>{
+                    throw new BadRequestException("Une erreur s'est produit pendant le traitement de votre requète");
+                });
+        const bilan:DayBilan = {
+            depense:0, 
+            revenu:0,
+            balance:0,
+            bilan:0
+        };
+        operations.forEach((element)=>{
+            if(element.type == OperationTypeEnum.OUT){
+                bilan.depense += element.amount;
+            }else{
+                bilan.revenu += element.amount;
+            }
+        })
+        bilan.bilan = bilan.revenu - bilan.depense;
+        bilan.balance = company.account.amount;
+        return bilan;
+    }
+
+
+    async getBilanByOperation(periode: OperationByPeriodeDto):Promise<any>{
+        const company: Company = await Company.findOneOrFail(periode.company_id).catch((error)=>{
+            console.log(error);
+            throw new NotFoundException("L'entreprise spécifier n'existe pas");
+        });
+        const operaGroup = await  this.operationRepository.createQueryBuilder("ope")
+        .select("ope.type", "type")
+        .addSelect("SUM(ope.amount)", "sum_amount")
+        .addSelect("ope.operationType", "operationType")
+        .addSelect("ope.clientOperationType", "clientOperationType")
+        .where("ope.company_id =:id", {id: periode.company_id})
+        .andWhere('user.created_at > :startDate', {startDate: periode.from_date})
+        .andWhere('user.created_at < :endDate', {endDate: periode.to_date})
+        .groupBy("ope.type")
+        .addGroupBy("ope.operationType")
+        .addGroupBy("ope.clientOperationType")
+        .getRawMany().catch((error)=>{
+            throw error;
+        });
+        company.agents = null;
+        company.category = null;
+        company.licence = null; 
+        company.workfields = null;
+        company.account = null;
+
+
+        const resultatDeCompte:ResultatCompte = {
+            amount_in: 0,
+            amount_out: 0,
+            from_date: periode.from_date,
+            to_date: periode.to_date,
+            company: company,
+            elements: [],
+        }
+
+        for (let i = 0; i < operaGroup.length; i++) {
+            const element = operaGroup[i];
+            const sumation : ResultatCompteElement = {
+                amount: element.sum_amount,
+                type: element.type,
+                operationType: null,
+                clientOperationType:null
+            };
+             if(sumation.type == OperationTypeEnum.OUT){
+                resultatDeCompte.amount_out  += +sumation.amount;
+            }else{
+                resultatDeCompte.amount_in  += +sumation.amount;
+            }
+            if(element.operationType){
+                sumation.operationType = await  OperationType.findOneOrFail(element.operationType)
+                sumation.operationType.workfields = null;
+            }
+            if(element.clientOperationType){
+                sumation.clientOperationType = await  ClientOperationType.findOneOrFail(element.operationType)
+                sumation.clientOperationType.company = null;
+
+            }
+           
+            resultatDeCompte.elements.push(sumation);
+        }
+        return resultatDeCompte;
     }
 
     async findOneById(id: number): Promise<Operation>{
@@ -113,12 +211,12 @@ export class OperationService{
         }
         newOperation.company = company;
         const account:Account = company.account;
-        if(createOperationDto.type == OperationTypeEnum.IN){
+        if(createOperationDto.type == OperationTypeEnum.OUT){
+            account.amount = +account.amount- createOperationDto.amount;
+            account.amount_out = +account.amount_out+ createOperationDto.amount;
+        }else{
             account.amount = +account.amount+ createOperationDto.amount;
             account.amount_in = +account.amount_in+ createOperationDto.amount;
-        }else{
-            account.amount = -account.amount+ createOperationDto.amount;
-            account.amount_out = +account.amount_out+ createOperationDto.amount;
         }
 
         newOperation.amount_in = account.amount_in;
@@ -297,14 +395,21 @@ export class OperationService{
         let total_in:number = 0;
         let total_out:number = 0;
 
+        let amount_in: number = 0;
+        let amount_out:number = 0;
+
         if(operation.type == OperationTypeEnum.OUT){
+            amount_in=old;
             total_out = 0 - old;
         }else{
+            amount_out = old;
             total_in = 0 - old;
         }
         if(createOperationDto.type == OperationTypeEnum.OUT){
+            amount_out += createOperationDto.amount;
             total_out = total_out+ createOperationDto.amount;
         }else{
+            amount_in += createOperationDto.amount;
             total_in = total_in + createOperationDto.amount;
         }
 
@@ -314,9 +419,9 @@ export class OperationService{
                 throw new InternalServerErrorException("Erreur pendant la mise à jour des opérations après l'opération specifié");
             });
             operations = operations.map(((element:Operation)=>{
-                element.balance = element.balance + total_in + total_out;
-                element.amount_in =  element.amount_in + total_in;
-                element.amount_out =  element.amount_in + total_out;
+                element.balance +=  amount_in - amount_out;
+                element.amount_in +=   total_in;
+                element.amount_out +=   total_out;
                 element.company = operation.company;
                 return element;
             }));
@@ -341,18 +446,18 @@ export class OperationService{
         }
 
         operation.amount = createOperationDto.amount?? operation.amount;
-        operation.balance = operation.balance +total_in + total_out;
+        operation.balance += amount_in - amount_out;
         operation.type = createOperationDto.type;
         operation.name = createOperationDto.name;
-        operation.amount_out =  operation.amount_out  + total_out;
-        operation.amount_in =  operation.amount_in  + total_in;
+        operation.amount_out +=  + total_out;
+        operation.amount_in +=  total_in;
         operation.clientOperationType = newClientOpeType ?? operation.clientOperationType ;
         operation.operationType = newOpeType ?? operation.operationType;
-        await Operation.update(operation.id, operation);
+        await Operation.save( operation);
         let account:Account = operation.company.account;
-        account.amount =  account.amount +  +total_in + total_out;
-        account.amount_in = account.amount_in + total_in;
-        account.amount_out = account.amount_out + total_out;
+        account.amount +=  amount_in - amount_out;
+        account.amount_in += + total_in;
+        account.amount_out += + total_out;
         await Account.update(account.id, account);
         return operation;
     }
