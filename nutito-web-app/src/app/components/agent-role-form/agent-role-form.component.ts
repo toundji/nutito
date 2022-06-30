@@ -37,29 +37,7 @@ export class AgentRoleFormComponent implements OnInit {
     }
   }
 
-  createAgentRole(name: string, description: string) {
-    let spinner = document.getElementById("loader")!
-    spinner.className = "spinner-border spinner-border-sm me-2"
-    this.agentRoleService.createAgentRole(name, description).subscribe(
-      (response) => {
-        spinner.className = ""
-        var message = response['message'];
-        this.formSubmitted = false;
-        this._loader = "";
-        this.formGroup.reset();
-
-        this.router.navigateByUrl("/dashboard") //rediriger sur la liste de AgentRole
-      },
-      (error: HttpErrorResponse) => {
-        spinner.className = ""
-        this.formSubmitted = false;
-        this._loader = "";
-        if (error.status === 400 || error.status === 404) {
-          this.loginFailureMsg = "Role ou Description  incorrect";
-        }
-      }
-    );
-  }
+ 
 }
 
 

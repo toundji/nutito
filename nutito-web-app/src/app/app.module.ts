@@ -74,7 +74,7 @@ registerLocaleData(localeFr);
     ApplicativeAdminPage,
     ApplicativeAdminMenuComponent,
     AgentRolesListComponent,
-    AgentRolesPage,
+    // AgentRolesPage,
     AgentRolesFormComponent,
     AgentRolesListComponent,
     CompanyCategoriesListComponent,
