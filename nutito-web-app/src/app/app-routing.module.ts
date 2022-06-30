@@ -1,3 +1,4 @@
+import { ClientOperationPage } from './pages/client-operation/client-operation.page';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
@@ -52,6 +53,32 @@ const routes: Routes = [
           {
             path: "company-categories",
             component: CompanyCategoriesPage
+          },
+          {
+            path: "client-operation",
+            component: ClientOperationPage
+          },
+          {
+            path: "workfields",
+            component: WorkfieldsPage
+          },
+        ]
+      },
+      {
+        path: "client-admin",
+        component: ApplicativeAdminPage,
+        children: [
+          {
+            path: "",
+            component: AgentRolesPage
+          },
+          {
+            path: "company-categories",
+            component: CompanyCategoriesPage
+          },
+          {
+            path: "client-operation",
+            component: ClientOperationPage
           },
           {
             path: "workfields",

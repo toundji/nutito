@@ -1,0 +1,153 @@
+<form novalidate [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div
+    class="modal custom-modal fade bank-details"
+    id="bank_details"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="form-header text-start mb-0">
+            <h4 class="mb-0">Enregistrer Une Operation</h4>
+          </div>
+          <button
+            id="modalCloseBtn"
+            type="button"
+            class="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="bank-inner-details">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Nom de l'operation</label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="form-control"
+                    placeholder="Entrer un nom"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['name'].dirty) &&
+                      formGroup.controls['name'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('name')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Description de l'Opération</label>
+                  <textarea
+                  name="description"
+                  formControlName="description"
+                  id="description"
+                  class="form-control"
+                >
+                </textarea>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['short'].dirty) &&
+                      formGroup.controls['short'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'short'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Choisir une catégorie</label>
+                  <div class="form-group">
+                    <label for=""></label>
+                    <select 
+                     name="category_id" 
+                     id="category"
+                     type="text"
+                     formControlName="catagory_id"
+                     class="form-control"
+                      >
+                      <option></option>
+                      <option></option>
+                      <option></option>
+                    </select>
+                  </div>
+                 
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['name'].dirty) &&
+                      formGroup.controls['name'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('name')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center mt-1">
+          <div class="w-8/12 p-2 rounded-lg">
+            <div class="flex justify-center text-center">
+              <ul class="error-color list-unstyled mt-1">
+                <li style="font-size: 12px">
+                <!-- {{ this.operationErrorMessage }}-->
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="bank-details-btn">
+            <a
+              role="button"
+              data-bs-dismiss="modal"
+              class="btn bank-cancel-btn me-2"
+              >Annuler</a
+            >
+            <button
+              type="submit"
+              [disabled]="formSubmitted && formGroup.invalid"
+              [class.btn-secondary]="formSubmitted && formGroup.invalid"
+              class="btn bank-save-btn"
+            >
+              Enregister
+              <span id="loader" class="" role="status"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

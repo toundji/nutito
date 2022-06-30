@@ -11,6 +11,7 @@ export const endpoints = {
   loginUrl: `${apiUrlBase}/users/auth/signin`,
   passwordResetUrl: `${apiUrlBase}/users/auth/password/reset`,
   agentRolesUrl: `${apiUrlBase}/agent-roles`,
+  clientOperationUrl: `${apiUrlBase}/client-operations/create`,
   agentRoleCreateUrl: `${apiUrlBase}/agent-roles/create`,
   companyCategoriesUrl: `${apiUrlBase}/companies-categories`,
   companyCategoriesCreateUrl: `${apiUrlBase}/companies-categories/create`,

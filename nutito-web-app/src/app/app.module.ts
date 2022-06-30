@@ -1,3 +1,5 @@
+import { ClientOperationFormComponent } from './components/client-operation-fom/client-operation-form.component';
+import { ClientOperationPage } from './pages/client-operation/client-operation.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID } from '@angular/core';
@@ -46,6 +48,7 @@ import { CompanyCategoriesPage } from './pages/company-categories/company-catego
 import { WorkfieldsListComponent } from './components/workfields-list/workfields-list.component';
 import { WorkfieldsPage } from './pages/workfields/workfields.page';
 import { WorkfieldFormComponent } from './components/workfield-form/workfield-form.component';
+import { ClientOperationsListComponent } from './components/client-operations-form-list/client-operations-form-list.component';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -68,13 +71,17 @@ registerLocaleData(localeFr);
     UsersPage,
     CustomersComponent,
     CustomersPage,
+    ClientOperationPage,
+    ClientOperationPage,
+    ClientOperationFormComponent,
+    ClientOperationsListComponent,
     LicensesComponent,
     LicensesPage,
     ApplicativeAdminComponent,
     ApplicativeAdminPage,
     ApplicativeAdminMenuComponent,
     AgentRolesListComponent,
-    // AgentRolesPage,
+     AgentRolesPage,
     AgentRolesFormComponent,
     AgentRolesListComponent,
     CompanyCategoriesListComponent,
