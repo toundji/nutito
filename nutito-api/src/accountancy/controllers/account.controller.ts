@@ -16,9 +16,9 @@ export class AccountController{
         return await this.accountservice.findAll();
     }
 
-    @Get(':code')
-    async getAccountByCode(@Param('code') code: string): Promise<Account> {
-        return await this.accountservice.findOneByCode(code);
+    @Get(':id')
+    async getAccountByCode(@Param('id') id: number): Promise<Account> {
+        return await this.accountservice.findOneById(id);
     }
 
     @Post()

@@ -54,7 +54,7 @@ export class Company extends BaseEntity {
     @OneToMany(type => Agent, agent => agent.company, { onDelete: "NO ACTION" })
     agents?: Agent[];
 
-    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL" })
+    @ManyToOne(type => CompanyCategory, category => category.companies, { onDelete: "SET NULL", eager:true })
     @JoinColumn({ name: "company_category_id" })
     category!: CompanyCategory;
 

@@ -24,7 +24,7 @@ export class LicenceController{
         @Param('id') id :number
     ): Promise<Licence>{
         return await this.licenceService.findOnById(id);
-    } 
+    }
     
     @Put('update/:id')
     async update(@Param('id') id : number, @Body() updateLicenceDto : UpdateLicenceDto){

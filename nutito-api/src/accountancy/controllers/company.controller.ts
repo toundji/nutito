@@ -24,6 +24,7 @@ import { Fichier } from './../entities/fichier.entity';
 import { ClientChoiceOperationTypeDto } from '../dtos/client-choice-operation.dto';
 import { OperationType } from '../entities/operation-type.entity';
 import { ClientOperationType } from '../entities/client-operation-type.entity';
+import { Licence } from './../entities/licence.entity';
 
 @Controller('companies')
 @ApiTags('companies')
@@ -91,6 +92,16 @@ export class CompanyController {
     return await this.companySerice.getCompanyAgents(id);
   }
 
+  @Get(':id/licence')
+  async getCompanyLicence(@Param('id') id: number): Promise<Licence> {
+    return await this.companySerice.getCompanyLicence(id);
+  }
+
+  @Get(':id/licence/history')
+  async getCompanyLicenceHistory(@Param('id') id: number): Promise<Licence[]> {
+    return await this.companySerice.getCompanyLicenceHistory(id);
+  }
+
   @Get(':id/operation-types')
   async getCompanyOperationType(@Param('id') id: number): Promise< Promise<OperationType[] | ClientOperationType[] > > {
     return await this.companySerice.getCompanyOperations(id);
@@ -130,7 +141,7 @@ export class CompanyController {
       }
     }
   })
-  updateProfile(@Param('id') id: number, @UploadedFile() logo, @Req() req): Promise<Company>{
+  updateLogo(@Param('id') id: number, @UploadedFile() logo, @Req() req): Promise<Company>{
     const user = req['user'];
     return this.companySerice.updateLogo(id, logo, user);
   }

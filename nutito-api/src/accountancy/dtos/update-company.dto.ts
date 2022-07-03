@@ -6,18 +6,23 @@ export class UpdateCompanyDto{
     name ? : string;
 
     @IsString()
+    @IsOptional()
     description ? : string;
 
     @IsString()
+    @IsOptional()
     city ? : string;
 
     @IsString()
+    @IsOptional()
     address ? : string;
 
     @IsString()
+    @IsOptional()
     ifu ? : string;
 
     @IsString()
+    @IsOptional()
     rccm ? : string;
 
     // careers ? : Career[]

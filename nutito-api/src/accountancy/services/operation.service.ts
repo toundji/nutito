@@ -7,7 +7,7 @@ import { CreateOperationDto } from './../dtos/create-operation.dto';
 import { HttpException, HttpStatus, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from "@nestjs/common";
-import { Between, DeleteResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, DeleteResult, LessThanOrEqual, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { Operation } from '../entities/operation.entity';
 import { Company } from './../entities/company.entity';
 import { BadRequestException } from '@nestjs/common';
@@ -116,6 +116,42 @@ export class OperationService{
     }
 
 
+    async getBilanOfPeriode(periode: OperationByPeriodeDto):Promise<DayBilan>{
+        const company: Company = await Company.findOneOrFail(periode.company_id).catch((error)=>{
+            console.log(error);
+            throw new NotFoundException("L'entreprise spécifier n'existe pas");
+        });
+       
+        const operations :Operation[] = await  this.operationRepository.find({where:[{
+                company:company,
+                created_at: MoreThanOrEqual(periode.from_date),
+               
+                },{
+                    company:company,
+                    created_at: LessThanOrEqual(periode.to_date),
+                }],
+             }).catch((error)=>{
+                    throw new BadRequestException("Une erreur s'est produit pendant le traitement de votre requète");
+                });
+        const bilan:DayBilan = {
+            depense:0, 
+            revenu:0,
+            balance:0,
+            bilan:0
+        };
+        operations.forEach((element)=>{
+            if(element.type == OperationTypeEnum.OUT){
+                bilan.depense += element.amount;
+            }else{
+                bilan.revenu += element.amount;
+            }
+        })
+        bilan.bilan = bilan.revenu - bilan.depense;
+        bilan.balance = company.account.amount;
+        return bilan;
+    }
+
+
     async getBilanByOperation(periode: OperationByPeriodeDto):Promise<any>{
         const company: Company = await Company.findOneOrFail(periode.company_id).catch((error)=>{
             console.log(error);
@@ -127,8 +163,8 @@ export class OperationService{
         .addSelect("ope.operationType", "operationType")
         .addSelect("ope.clientOperationType", "clientOperationType")
         .where("ope.company_id =:id", {id: periode.company_id})
-        .andWhere('user.created_at > :startDate', {startDate: periode.from_date})
-        .andWhere('user.created_at < :endDate', {endDate: periode.to_date})
+        .andWhere('ope.created_at > :startDate', {startDate: periode.from_date})
+        .andWhere('ope.created_at < :endDate', {endDate: periode.to_date})
         .groupBy("ope.type")
         .addGroupBy("ope.operationType")
         .addGroupBy("ope.clientOperationType")

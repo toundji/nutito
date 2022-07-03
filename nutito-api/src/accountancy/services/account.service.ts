@@ -17,7 +17,7 @@ export class AccountService {
     }
 
     async findOneById(accountId: number): Promise<Account> {
-        const account = await this.accountsRepository.findOneOrFail({ where: { id: accountId } }).catch(
+        const account = await this.accountsRepository.findOneOrFail(accountId).catch(
             (error) => {
                 throw new NotFoundException({ error: `Account matching id ${accountId} has not been found` });
             }

@@ -15,7 +15,7 @@ export class Agent extends BaseEntity {
     @JoinColumn({ name: "company_id" })
     company!: Company;
 
-    @ManyToOne(type => AgentRole)
+    @ManyToOne(type => AgentRole, {eager:true})
     @JoinColumn({ name: "agent_role_id" })
     role!: AgentRole;
 

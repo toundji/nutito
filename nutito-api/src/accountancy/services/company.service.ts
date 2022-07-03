@@ -2,17 +2,15 @@
 import { CompanyCategoryService } from './company-category.service';
 import { UpdateCompanyDto } from './../dtos/update-company.dto';
 import { CreateCompanyDto } from './../dtos/create-company.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import { Company } from './../entities/company.entity';
 import { BadRequestException, Injectable, Logger, NotFoundException, UploadedFile } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/services/user.service';
-import { CreateAgentDto } from '../dtos/create-agent.dto';
 import { AgentRoleService } from './agent-role.service';
 import { AgentRole } from '../entities/agent-role.entity';
 import { ActionEnum } from '../../utilities/enums/actions.enum';
-import { AgentService } from './agent.service';
 import { Agent } from '../entities/agent.entity';
 import { User } from 'src/user/entities/user.entity';
 import { CompanyCategory } from '../entities/company-category.entity';
@@ -22,6 +20,7 @@ import { OperationType } from '../entities/operation-type.entity';
 import { ClientChoiceOperationTypeDto } from '../dtos/client-choice-operation.dto';
 import { ClientOperationType } from './../entities/client-operation-type.entity';
 import { Account } from '../entities/account.entity';
+import { Licence } from './../entities/licence.entity';
 
 
 @Injectable()
@@ -32,7 +31,6 @@ export class CompanyService {
     private readonly companyCategoryService: CompanyCategoryService,
     private readonly userService: UserService,
     private readonly agentRoleService: AgentRoleService,
-    private readonly agentService: AgentService
   ) {}
 
   async findAll(): Promise<Company[]> {
@@ -64,11 +62,9 @@ export class CompanyService {
       createCompanyDto.companyCategoryId,
     );
     const agentRole: AgentRole = await this.agentRoleService.findOneByName("CREATEUR SUR NUTITO");
-    Object.keys(createCompanyDto).forEach(
-        (key) => {
+    Object.keys(createCompanyDto).forEach( (key) => {
             newCompany[key] = createCompanyDto[key];
-        }
-    );
+    });
     newCompany.workfields = await Workfield.findByIds(createCompanyDto.workfields);
 
     newCompany.category = categoryType;
@@ -79,7 +75,6 @@ export class CompanyService {
     newCompany.account = account;
 
     let savedCompany = await newCompany.save();
-
 
     const agent:Agent = Agent.create({
       user: user,
@@ -98,7 +93,6 @@ export class CompanyService {
    return this.companyRepository.find({where:{owner:user}}).catch((error)=>{
       console.log("Erreur ");
       throw new NotFoundException();
-      
     });
   }
 
@@ -123,12 +117,29 @@ export class CompanyService {
   }
 
   async getCompanyAgents(id: number): Promise<Agent[]> {
-   const company:Company =  await Company.findOne(id).catch((error)=>{
+   const company:Company =  await Company.findOne(id, {relations: ["agents", "agents.user"]}).catch((error)=>{
       console.log(error);
       throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
     });
     return company.agents;
   }
+
+  async getCompanyLicence(id: number): Promise<Licence> {
+    const company:Company =  await Company.findOne(id,{ relations:["licence"]}).catch((error)=>{
+       console.log(error);
+       throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+     });
+     return company.licence;
+   }
+ 
+   async getCompanyLicenceHistory(id: number): Promise<Licence[]> {
+    const company:Company =  await Company.findOne(id,{ relations:["licences"]}).catch((error)=>{
+       console.log(error);
+       throw new BadRequestException("Erreur lors de la récuperation de l'entreprise. Données invalides");
+     });
+     return company.licences;
+   }
+ 
 
 
   async getCompanyOperations(id: number): Promise<OperationType[] | ClientOperationType[] > {
@@ -208,6 +219,6 @@ export class CompanyService {
    company.operationTypes ??= [];
    company.operationTypes.push(...typesList);
    return await Company.save(company);
-}
+ }
 
 }
