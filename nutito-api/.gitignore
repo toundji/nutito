@@ -3,7 +3,7 @@
 /node_modules
 .vscode
 .env
-ormconfig.ts
+# ormconfig.ts
 
 # nous deveons pas envore les fichier sur le serveur
 /files
