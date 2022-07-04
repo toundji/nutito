@@ -7,6 +7,7 @@ import { Agent } from '../entities/agent.entity';
 import { CreateAgentDto } from '../dtos/create-agent.dto';
 import { Company } from '../entities/company.entity';
 import { User } from 'src/user/entities/user.entity';
+import { AgentRole } from './../entities/agent-role.entity';
 
 
 @Injectable()
@@ -32,19 +33,28 @@ export class AgentService{
       }
 
       async create(createAgentDto: CreateAgentDto): Promise<Agent> {
-        const agent = new Agent();
-        Object.keys(createAgentDto).forEach(
-          attribute => agent[attribute] = createAgentDto[attribute]
-        );
-        // const  user = await this.userService.findOneById(createAgentDto.user_id); 
-        // agent.user = user;
-        const newAgent = agent.save().catch(
+        const  user = await User.findOneOrFail(createAgentDto.user_id).catch((error)=>{
+          throw new BadRequestException("L'utilisateur n'existe pas");
+        }); 
+        const  company:Company = await Company.findOneOrFail(createAgentDto.company_id).catch((error)=>{
+          throw new BadRequestException("L'entrepise n'existe pas");
+        }); 
+        const  role:AgentRole = await AgentRole.findOneOrFail(createAgentDto.role_id).catch((error)=>{
+          throw new BadRequestException("Le role n'existe pas");
+        }); 
+
+        const agent: Agent = Agent.create({
+          role: role,
+          user:user,
+          company:company,
+          abilities: createAgentDto.abilities
+        });
+
+        return await agent.save().catch(
           (error) => {
             throw new BadRequestException({ error: `${error}` });
           }
         );
-        return newAgent;
-        return
       }
 
       async delete(id: number): Promise<DeleteResult>{

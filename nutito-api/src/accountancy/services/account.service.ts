@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { Account } from '../entities/account.entity';
 import { CreateAccountDto } from '../dtos/create-account.dto';
 import { UpdateAccountDto } from "../dtos/update-account.dto";
+import { Company } from "../entities/company.entity";
 
 export class AccountService {
 
@@ -24,6 +25,14 @@ export class AccountService {
         );
         return account;
     }
+
+    async findByCompanyId(companyId: number): Promise<Account> {
+      const company:Company = await Company.findOne(companyId, {relations:["account"]}).catch((error) => {
+              throw new NotFoundException({ error: `Account matching id ${companyId} has not been found` });
+          }
+      );
+      return company.account;
+  }
 
     // async update(code: any, account: UpdateAccountDto ): Promise<UpdateResult>{
     //     // this.accountRepository.update(account, code);

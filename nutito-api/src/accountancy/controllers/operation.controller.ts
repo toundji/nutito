@@ -26,8 +26,13 @@ export class OperationController{
     }
 
     @Get("company/:id/day-summury")
-    async getAllForCompany( @Param('id') id :number): Promise<DayBilan> {
+    async getDayForCompany( @Param('id') id :number): Promise<DayBilan> {
         return await this.operationService.getBilanOfDay(id);
+    }
+
+    @Get("company/periode-summury")
+    async getAllForCompany(  @Body() periode: OperationByPeriodeDto): Promise<DayBilan> {
+        return await this.operationService.getBilanOfPeriode(periode);
     }
 
     @Get("company/:id")

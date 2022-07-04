@@ -38,6 +38,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Post()
+  createOne(@Body() body: CreateUserDto): Promise<User> {
+    return this.userService.create(body);
+  }
+
   @Post('auth/signup')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
