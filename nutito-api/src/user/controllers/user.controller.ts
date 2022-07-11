@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { VerifyEmailDto } from '../dtos/verify-email.dto';
@@ -9,10 +9,19 @@ import { DoesNotRequireAuthentication } from '../../utilities/decorators/does-no
 import { DoesNotRequireAuthorisations } from '../../utilities/decorators/does-not-require-authorisations.decorator';
 import { SigninResponseDto } from '../dtos/signin-response.dto';
 import { SignupResponseDto } from '../dtos/signup-response.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Agent } from '../../accountancy/entities/agent.entity';
 import { ResetPasswordDto } from '../dtos/reset-password.dto';
 import { AuthenticationService } from '../services/authentication.service';
+import { UpdateUserDto } from './../dtos/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from 'src/utilities/utils';
+import { Fichier } from 'src/accountancy/entities/fichier.entity';
+import { profile } from 'console';
+import { ChangeEmailDto } from 'src/accountancy/dtos/change-emeail.dto';
+import { ChangePhoneDto } from 'src/accountancy/dtos/change-phone.dto';
+import { ChangePasswordDto } from 'src/accountancy/dtos/change-password.dto';
 
 
 
@@ -83,6 +92,67 @@ export class UserController {
   @Get(':phone/agents')
   async getUserAgents(@Param('phone') phone: string): Promise<Agent[]> {
     return await this.userservice.getUserAgents(phone);
+  }
+
+  @Put(':id/update')
+  async update(@Body() body, @Req() request): Promise<User> {
+    const user :User = request["user"];
+    return this.userservice.update(body, user);
+  }
+
+  @Put('change/password')
+  changePassword(@Req() request,  @Body() body: ChangePasswordDto):Promise<string> {
+    const user: User = request.user;
+    return this.userservice.changePassword(body, user);
+  }
+
+  @Put('change/phone')
+  changePhone(@Req() request,  @Body() body: ChangePhoneDto):Promise<string> {
+    const user: User = request.user;
+    return this.userservice.changePhone(body, user);
+  }
+
+  @Put('change/email')
+  changeEmail(@Req() request,  @Body() body: ChangeEmailDto):Promise<string> {
+    const user: User = request.user;
+    return this.userservice.changeEmail(body, user);
+  }
+
+  @Put('profile')
+  async updateMyProfile(@Body() body:UpdateUserDto, @Req() request): Promise<User> {
+    const user :User = request["user"];
+    return this.userservice.update(body, user);
+  }
+
+  @Post("profile/image")
+  @UseInterceptors( FileInterceptor('profile', { storage: diskStorage({
+        destination: './files/profiles', filename: editFileName, }),
+      fileFilter: imageFileFilter,
+    }),)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ schema:{ type: 'object', properties: {
+    profile:{
+      type: 'string',
+      format: 'binary'
+    }}}})
+  updateProfile( @UploadedFile() profile, @Req() req): Promise<User>{
+    const user = req['user'];
+    return this.userservice.updateProfile( profile, user);
+  }
+
+  @ApiOkResponse({schema:{ type: 'string', format: 'binary' }})
+  @Get("profile/image")
+  async getImageProfile( @Res() res,  @Req() req){
+    const user:User = req['user'];
+    const profile:Fichier = await this.userservice.getImageProfile(user.id);
+    return res.sendFile(profile.location, { root: './' });
+  }
+
+  @ApiOkResponse({schema:{ type: 'string', format: 'binary' }})
+  @Get(":id/profile/image")
+  async getImageProfileOf(@Param('id') id : number, @Res() res){
+    const profile:Fichier = await this.userservice.getImageProfile(id);
+    return res.sendFile(profile.location, { root: './' });
   }
   
   @Delete('delete/:id')

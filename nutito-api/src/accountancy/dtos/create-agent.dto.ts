@@ -12,10 +12,10 @@ export class CreateAgentDto {
 
     @IsNotEmpty()
     @IsPositive()
-    agent_role_id: number;
+    role_id: number;
 
     @IsNotEmpty()
     @IsArray()
-    abilities: string[]
+    abilities: string[];
 
 }

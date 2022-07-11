@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutito</title>
+</head>
+<body>
+    <title>Nutito</title>
+    <div>
+        <span>Entreprise: </span><span>{{company.name}}</span>
+    </div>
+
+      <div>
+        <h4>Période d'activité</h4>
+        <p>
+            <span>Date début d'activité: </span><span>{{journale.from_date}}</span>
+        </p>
+        <p>
+            <span>Date de fin d'acticité: </span><span>{{journale.to_date}}</span>
+        </p>
+    </div>
+    
+    <div>
+        <h4>Journale de transaction</h4>
+       
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Nom</th>
+            <th>Depense</th>
+            <th>Revenu</th>
+            <th>Solde</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Solde de debut de trésorerie</td>
+            <td></td>
+            <td></td>
+            <td>{{journale.start_balence}}</td>
+        </tr>
+        {{#each journale.operations}}
+        <tr>
+            <td>{{ date }}</td>
+            <td>{{name}}</td>
+            <td>{{type == "DEPENSE" ? amount : ''}}</td>
+            <td>{{type == "REVENU" ? amount : ''}}</td>
+            <td>{{balance}}</td>
+        </tr>
+       {{/each}}
+       <tr>
+            <td></td>
+            <td>Solde de fin de trésorerie</td>
+            <td></td>
+            <td></td>
+            <td>{{journale.end_balence}}</td>
+        </tr>
+    </table>
+    </div>
+
+     <div>
+        <h4>Compte de revenu</h4>
+    <table border="1">
+        <tr>
+            <th>Total revenu</th>
+            <th>{{revenus.amount}}</th>
+        </tr>
+        {{#each revenus.operations}}
+        <tr>
+            <td>{{operationType?.name ?? clientOperationType?.name ?? ''}}</td>
+            <td>{{amount}}</td>
+        </tr>
+       {{/each}}
+    </table>
+    </div>
+
+    <div>
+        <h4>Compte de dépense</h4>
+        <table border="1">
+            <tr>
+                <th>Total dépense</th>
+                <th>{{depense.amount}}</th>
+            </tr>
+            {{#each depense.operations}}
+            <tr>
+                <td>{{operationType?.name ?? clientOperationType?.name ?? ''}}</td>
+                <td>{{amount}}</td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+    <div>
+        <h4>Bilan</h4>
+        <p><span>Totale revenu : </span> <span>{{revenus.amount}}</span></p>
+        <p><span>Totale depense : </span> <span>{{depense.amount}}</span></p>
+        <p><span>{{resultatName}} : </span> <span>{{journale.end_balence}}</span></p>
+
+</div>
+
+</body>
+</html>

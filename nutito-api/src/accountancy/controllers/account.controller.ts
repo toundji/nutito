@@ -6,7 +6,7 @@ import { Controller, Get, Param, Post } from "@nestjs/common";
 import { UpdateAccountDto } from '../dtos/update-account.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('acccounts')
+@Controller('accounts')
 @ApiTags('accounts')
 export class AccountController{
     constructor(private readonly accountservice: AccountService){}
@@ -14,6 +14,18 @@ export class AccountController{
     @Get()
     async getAccounts(): Promise<Account[]>{
         return await this.accountservice.findAll();
+    }
+
+
+    @Get(':id')
+    async findOne(@Param('id') id: number): Promise<Account> {
+        return await this.accountservice.findOneById(id);
+    }
+   
+
+    @Get('companies/:id')
+    async findOneOfCompnay(@Param('id') id: number): Promise<Account> {
+        return await this.accountservice.findByCompanyId(id);
     }
 
     @Get(':code')

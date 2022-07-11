@@ -1,6 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
 import { JwtModule } from '@nestjs/jwt';
 import { MailModule } from '../mail/mail.module';
 import { PassportModule } from '@nestjs/passport';
@@ -41,6 +42,7 @@ import { AccountancyModule } from '../accountancy/accountancy.module';
     ],
     exports: [
         UserService,
+        AuthenticationService,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,
@@ -53,6 +55,7 @@ import { AccountancyModule } from '../accountancy/accountancy.module';
     ],
     providers: [
         UserService,
+        AuthenticationService,
         SessionSerializer,
         LocalStrategy,
         JwtStrategy,
