@@ -15,12 +15,8 @@ import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { FileService } from 'src/accountancy/services/file.service';
 import { Fichier } from 'src/accountancy/entities/fichier.entity';
-import { CompanyService } from 'src/accountancy/services/company.service';
-import { OperationService } from '../accountancy/services/operation.service';
 import { Company } from '../accountancy/entities/company.entity';
-import { AccountancyModule } from '../accountancy/accountancy.module';
 
 @Module({
     imports: [
