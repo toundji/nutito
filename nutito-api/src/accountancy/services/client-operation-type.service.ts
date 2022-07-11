@@ -5,10 +5,7 @@ import { ClientOperationType } from './../entities/client-operation-type.entity'
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { ClientChoiceOperationTypeDto } from './../dtos/client-choice-operation.dto';
-import { OperationType } from './../entities/operation-type.entity';
 import { Company } from '../entities/company.entity';
-import { Exception } from 'handlebars';
 import { BadRequestException } from '@nestjs/common';
 
 @Injectable()

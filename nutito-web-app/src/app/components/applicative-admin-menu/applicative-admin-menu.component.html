@@ -19,14 +19,17 @@
       </a>
     </li>
     <li class="nav-item">
-      <a role="button" class="nav-link">
-        <i class="far fa-check-square"></i> <span>Opérations Clients</span>
+      <a routerLinkActive="active"
+        routerLink="/dashboard/applicative-admin/operation-types"
+        [routerLinkActiveOptions]="{exact: true}"
+        role="button" class="nav-link">
+        <i class="far fa-list-alt"></i>
+        <span>Types d'opérations</span>
       </a>
     </li>
     <li class="nav-item">
       <a role="button" class="nav-link">
-        <i class="far fa-list-alt"></i>
-        <span>Types d'opérations</span>
+        <i class="far fa-check-square"></i> <span>Opérations Clients</span>
       </a>
     </li>
     <li class="nav-item">

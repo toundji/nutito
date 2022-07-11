@@ -24,7 +24,7 @@ export const editFileName = (req, file, callback) => {
 }
 
 export const fileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(pdf|docx)$/)) {
+    if (!file.originalname.match(/\.(pdf|docx|jpg|png)$/)) {
         req.fileValidationError = 'Mimetype not allowed';
         return callback(null, false, new Error("The extension of the file you uploaded is not allowed ! Double check your file"));
     }

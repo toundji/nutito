@@ -1,0 +1,98 @@
+<div
+  style="background-color: #dce1f1; width: 120vh; margin: auto"
+  class="card invoice-info-card"
+>
+  <div class="card-body">
+    <div class="invoice-item invoice-item-one">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="invoice-logo">
+            <h3>NUTITO CUSTOMER</h3>
+          </div>
+        </div>
+        <div class="col-md-6 mt-2">
+          <div class="invoice-info invoice-info2">
+            <p>
+              <strong style="font-size: 16px">INFORMATIONS CLIENT</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="invoice-item invoice-item-two">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="invoice-info">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >Nom|Prénom</strong
+            >
+            <h6 class="invoice-details-two">{{ customer.firstname }} {{ customer.lastname }}</h6>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="invoice-info invoice-info2">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >Genre</strong
+            >
+            <h6 class="invoice-details">{{ customer.gender }}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="invoice-info">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >Adresse Email</strong
+            >
+            <h6 class="invoice-details-two">{{ customer.email }}</h6>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="invoice-info invoice-info2">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >Téléphone</strong
+            >
+            <h6 class="invoice-details">{{ customer.phone }}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="invoice-info">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >Date De Naissance</strong
+            >
+            <h6 class="invoice-details-two">{{ getFormattedDate(customer.birth_date!) }}</h6>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="invoice-info invoice-info2">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >IFU</strong
+            >
+            <h6 class="invoice-details">{{ customer.ifu }}</h6>
+          </div>
+        </div>
+      </div>
+      <!--<div class="row mt-4">
+        <div class="col-md-6">
+          <div class="invoice-info">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >CIP</strong
+            >
+            <p class="invoice-details-two">{{ customer.cip }}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="invoice-info invoice-info2">
+            <strong style="font-size: 17px" class="customer-text-one"
+              >NIP</strong
+            >
+            <p class="invoice-details">SOMEFANCYNIPHERE</p>
+          </div>
+        </div>
+      </div>-->
+    </div>
+  </div>
+</div>

@@ -38,6 +38,8 @@ import { OperationController } from './controllers/operation.controller';
 import { OperationService } from './services/operation.service';
 import { ClientOpationTypeService } from './services/client-operation-type.service';
 import { ClientOperationController } from './controllers/client-operation.controller';
+import { FileService } from './services/file.service';
+import { FileController } from './controllers/file.controller';
 
 @Module({
     imports: [
@@ -65,7 +67,8 @@ import { ClientOperationController } from './controllers/client-operation.contro
         WorkfieldService,
         AgentRoleService,
         LicenceService,
-        ConstantService
+        ConstantService,
+        FileService
     ],
     controllers: [
         AccountController,
@@ -80,6 +83,7 @@ import { ClientOperationController } from './controllers/client-operation.contro
         OperationController,
         OperationTypeController,
         ClientOperationController,
+        FileController
     ],
     providers: [
        AccountService,
@@ -94,6 +98,7 @@ import { ClientOperationController } from './controllers/client-operation.contro
        OperationTypeService,
        OperationService,
        ClientOpationTypeService,
+       FileService
     ],
 })
 export class AccountancyModule {}

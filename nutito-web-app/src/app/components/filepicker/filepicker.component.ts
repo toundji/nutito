@@ -3,17 +3,19 @@ import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
 
 
 @Component({
-  selector: 'app-filepicker',
+  selector: 'filepicker-component',
   templateUrl: './filepicker.component.html',
   styleUrls: ['./filepicker.component.css']
 })
 export class FilepickerComponent implements OnInit {
 
   constructor() { }
+  
   @Output() onChange: EventEmitter<File> = new EventEmitter<File>();
   @Input() formGroup: any
   @Input() formSubmitted: boolean = false;
   @Input() need_blog_image: boolean = false;
+  @Input() need_profile_picture: boolean = false;
   source: string = '';
   uploadLabel: string = "";
 
@@ -43,11 +45,11 @@ export class FilepickerComponent implements OnInit {
   }
 
   previewImage(event: any) {
-    // var output = document.getElementById('output');
-    // output.src = URL.createObjectURL(event.target.files[0]);
-    // output.onload = function() {
-    //   URL.revokeObjectURL(output.src) // free memory
-    // }
+    var output = document.getElementById('output') as any;
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
   }
 
 }

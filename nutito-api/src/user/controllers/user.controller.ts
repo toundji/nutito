@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
-import { MailService } from 'src/mail/mail.service';
 import { VerifyEmailDto } from '../dtos/verify-email.dto';
 import { User } from '../entities/user.entity';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
@@ -16,6 +15,7 @@ import { ResetPasswordDto } from '../dtos/reset-password.dto';
 import { AuthenticationService } from '../services/authentication.service';
 
 
+
 @ApiTags('auth')
 @Controller('users')
 export class UserController {
@@ -23,38 +23,35 @@ export class UserController {
   constructor(
     private readonly userservice: UserService,
     private readonly authenticationservice: AuthenticationService,
-
   ) { }
 
   @Get()
-  getUsers(): Promise<User[]> {
-    return this.userservice.findAll();
+  async getUsers(): Promise<User[]> {
+    const users = await this.userservice.findAll();
+    console.log(users[8])
+    return users
   }
 
   @Post('auth/signup')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
-  async signup(@Body() body: CreateUserDto): Promise<SignupResponseDto> {
+  async signup(@Body() body: CreateUserDto): Promise<User> {
     const user = await this.userservice.create(body);
-    const token = Math.floor(10000000 + Math.random() * 90000000).toString();
-    user.verification_token = token;
-    await this.userservice.set_verification_token(user, token);
-    //this.mailservice.sendMailConfirmation(user, token);
-    return {"message": "User Successfully Created"};
+    return user
   }
 
   @Post('auth/signin')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
   @UseGuards(LocalAuthGuard)
-  async signin(@Body() body: AuthenticateUserDto, @Request() request): Promise<SigninResponseDto> {
+  async signin(@Body() body: AuthenticateUserDto, @Req() request): Promise<SigninResponseDto> {
     return this.authenticationservice.signin(request.user);
   }
 
   @Post('auth/password/reset')
   @DoesNotRequireAuthentication()
   @DoesNotRequireAuthorisations()
-  async resetPassword(@Body() body: ResetPasswordDto, @Request() request): Promise<any> {
+  async resetPassword(@Body() body: ResetPasswordDto, @Req() request): Promise<any> {
     return this.authenticationservice.resetPassword(body)
   }
 
@@ -86,6 +83,11 @@ export class UserController {
   @Get(':phone/agents')
   async getUserAgents(@Param('phone') phone: string): Promise<Agent[]> {
     return await this.userservice.getUserAgents(phone);
+  }
+  
+  @Delete('delete/:id')
+  async deleteUser(@Param('id') id: number) {
+    return await this.userservice.deleteUser(id)
   }
 
 }

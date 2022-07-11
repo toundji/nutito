@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -15,11 +15,19 @@ import { SessionSerializer } from './serializers/session.serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { AuthenticationService } from './services/authentication.service';
+import { FileService } from 'src/accountancy/services/file.service';
+import { Fichier } from 'src/accountancy/entities/fichier.entity';
+import { CompanyService } from 'src/accountancy/services/company.service';
+import { OperationService } from '../accountancy/services/operation.service';
+import { Company } from '../accountancy/entities/company.entity';
+import { AccountancyModule } from '../accountancy/accountancy.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([
-            User
+            User,
+            Fichier,
+            Company
         ]),
         PassportModule,
         JwtModule.registerAsync({
@@ -29,7 +37,7 @@ import { AuthenticationService } from './services/authentication.service';
             }),
             inject: [ConfigService],
         }),
-        MailModule,
+        MailModule
     ],
     exports: [
         UserService,
@@ -38,8 +46,7 @@ import { AuthenticationService } from './services/authentication.service';
         JwtStrategy,
         LocalAuthGuard,
         AuthorisationsGuard,
-        AuthorisationFactory,
-
+        AuthorisationFactory
     ],
     controllers: [
         UserController,

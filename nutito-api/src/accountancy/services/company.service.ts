@@ -31,8 +31,7 @@ export class CompanyService {
     private readonly companyRepository: Repository<Company>,
     private readonly companyCategoryService: CompanyCategoryService,
     private readonly userService: UserService,
-    private readonly agentRoleService: AgentRoleService,
-    private readonly agentService: AgentService
+    private readonly agentRoleService: AgentRoleService
   ) {}
 
   async findAll(): Promise<Company[]> {
@@ -58,11 +57,12 @@ export class CompanyService {
     return this.companyRepository.softDelete(id);
   }
 
-  async create(createCompanyDto: CreateCompanyDto, user: User): Promise<Company> {
+  async create(createCompanyDto: CreateCompanyDto, user?: User): Promise<Company> {
     const newCompany = new Company();
     const categoryType = await this.companyCategoryService.findOneById(
       createCompanyDto.companyCategoryId,
     );
+    const userInstance = user ? user : await this.userService.findOneByPhone(createCompanyDto.user_phone)
     const agentRole: AgentRole = await this.agentRoleService.findOneByName("CREATEUR SUR NUTITO");
     Object.keys(createCompanyDto).forEach(
         (key) => {
@@ -72,12 +72,12 @@ export class CompanyService {
     newCompany.workfields = await Workfield.findByIds(createCompanyDto.workfields);
 
     newCompany.category = categoryType;
-    newCompany.owner = user;
+    newCompany.owner = userInstance;
 
     const account:Account = Account.create({});
     const accounSaved :Account = await Account.save(account);
     newCompany.account = account;
-
+  
     let savedCompany = await newCompany.save();
 
 

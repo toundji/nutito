@@ -1,0 +1,369 @@
+<form novalidate [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div
+    class="modal custom-modal fade bank-details"
+    id="bank_details"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="form-header text-start mb-0">
+            <h4 class="mb-0">Créer Une Entreprise</h4>
+          </div>
+          <button
+            id="modalCloseBtn"
+            type="button"
+            class="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="bank-inner-details">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="form-control"
+                    placeholder="Entrer le nom de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted || formGroup.controls['name'].dirty) && formGroup.controls['name'].invalid">
+                    <li *ngFor="let error of formGroup.getValidationMessages('name')">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea
+                    type="text"
+                    formControlName="description"
+                    class="form-control"
+                    placeholder="Entrer la description de l'entreprise"
+                  ></textarea>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['description'].dirty) &&
+                      formGroup.controls['description'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'description'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Adresse Entreprise</label>
+                  <input
+                    type="text"
+                    formControlName="address"
+                    class="form-control"
+                    placeholder="Entrer l'adresse de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['address'].dirty) &&
+                      formGroup.controls['address'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('address')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Pays siège de l'entreprise</label>
+                  <select
+                    class="select"
+                    name="country"
+                    [ngModel]="selectedCountryName"
+                    (ngModelChange)="onChange($event)"
+                    [value]="benin.name"
+                    formControlName="country"
+                    id="type"
+                    class="form-control"
+                  >
+                    <option
+                      *ngFor="let country of countries"
+                      value="{{ country.name }}"
+                      selected="selected"
+                    >
+                      {{ country.flag }} {{ country.name }}
+                    </option>
+                  </select>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['country'].dirty) &&
+                      formGroup.controls['country'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('type')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['country'].dirty) &&
+                      formGroup.controls['country'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('country')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Ville siège de l'entreprise</label>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    class="form-control"
+                    placeholder="Entrer la ville siège de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['city'].dirty) &&
+                      formGroup.controls['city'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('city')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    class="form-control"
+                    placeholder="Entrer l'email de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['email'].dirty) &&
+                      formGroup.controls['email'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('email')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Téléphone</label>
+                  <div class="input-group">
+                    <span class="input-group-text">{{ dialCode }}</span>
+                    <input
+                      type="text"
+                      formControlName="phone"
+                      class="form-control"
+                      placeholder="Entrer le numéro de téléphone de l'entreprise"
+                    />
+                  </div>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['phone'].dirty) &&
+                      formGroup.controls['phone'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('phone')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>IFU</label>
+                  <input
+                    type="text"
+                    formControlName="ifu"
+                    class="form-control"
+                    placeholder="Entrer l'ifu de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['ifu'].dirty) &&
+                      formGroup.controls['ifu'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('ifu')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>RCCM</label>
+                  <input
+                    type="text"
+                    formControlName="rccm"
+                    class="form-control"
+                    placeholder="Entrer le régistre de commerce de l'entreprise"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['rccm'].dirty) &&
+                      formGroup.controls['rccm'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('rccm')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 py-2">
+                <div class="form-group">
+                  <label>Catégorie entreprise</label>
+                  <ng-multiselect-dropdown
+                    formControlName="companyCategoryId"
+                    [placeholder]="'Spécifier les secteurs d\'activités'"
+                    [settings]="companyCategoriesDropDownSettings"
+                    [data]="companyCategories"
+                    [(ngModel)]="selectedCompanyCategories"
+                  >
+                  </ng-multiselect-dropdown>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted && selectedCompanyCategories.length === 0)">
+                    <li>
+                      {{ "Veuillez spécifier les secteurs d'activités" }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>secteur d'activité</label>
+                  <ng-multiselect-dropdown
+                    formControlName="workfields"
+                    [placeholder]="'Spécifier les secteurs d\'activités'"
+                    [settings]="workfieldsDropDownSettings"
+                    [data]="workfields"
+                    [(ngModel)]="selectedWorkfields"
+                  >
+                  </ng-multiselect-dropdown>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted && selectedWorkfields.length === 0)">
+                    <li>
+                      {{ "Veuillez spécifier les secteurs d'activités" }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center mt-1">
+          <div class="w-8/12 p-2 rounded-lg">
+            <div class="flex justify-center text-center">
+              <ul class="error-color list-unstyled mt-1">
+                <li style="font-size: 12px">
+                  {{ this.operationErrorMessage }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="bank-details-btn">
+            <a
+              role="button"
+              data-bs-dismiss="modal"
+              class="btn bank-cancel-btn me-2"
+              >Annuler</a>
+            <button
+              type="submit"
+              [disabled]="formSubmitted && formGroup.invalid"
+              [class.btn-secondary]="formSubmitted && formGroup.invalid"
+              class="btn bank-save-btn">
+              Enregister
+              <span id="loader" role="status"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

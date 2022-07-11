@@ -10,21 +10,4 @@ export class CreateFileDto {
     @IsNumber()
     @IsPositive()
     entity_id: number;
-
-    @IsNotEmpty()
-    @IsString()
-    location: string;
-
-    @IsNotEmpty()
-    @IsString()
-    mimetype: string;
-
-    @IsNumber()
-    @IsPositive()
-    operation_id: number;
-
-    @IsNumber()
-    @IsPositive()
-    user_id: number;
-
 }

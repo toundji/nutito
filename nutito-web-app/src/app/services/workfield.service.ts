@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AgentRole } from "../models/agent-role.model";
 import { endpoints, rest } from "./rest-configs";
-import { CompanyCategory } from '../models/company-category.model';
 import { Workfield } from "../models/workfield.model";
 
 @Injectable({

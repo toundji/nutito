@@ -1,0 +1,106 @@
+<div class="content container-fluid">
+  <div id="filter_inputs" class="card filter-card">
+    <div class="card-body pb-0">
+      <div class="row">
+        <div class="col-sm-6 col-md-3">
+          <div class="form-group">
+            <label>Customer</label>
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="form-group">
+            <label>Payment Mode</label>
+            <select class="select">
+              <option>Payment Mode</option>
+              <option>Cash</option>
+              <option>Cheque</option>
+              <option>Card</option>
+              <option>Online</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-center table-hover datatable">
+              <thead class="thead-light">
+                <tr >
+                  <th class="text-center">ID</th>
+                  <th class="text-center">Client</th>
+                  <th class="text-center">Date</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of customers let i = index">
+                  <td class="text-center"><a role="button">#{{ i + 1 }}</a></td>
+                  <td class="">
+                    <h2 class="table-avatar">
+                      <a role="button">
+                        <img
+                          class="avatar avatar-sm me-2 avatar-img rounded-circle"
+                          src="{{ ('http://localhost:3000/api/v1/files/get/' + customer.id) ? ('http://localhost:3000/api/v1/files/get/' + customer.id) : 'assets/img/avatar.png' }}"
+                          alt="User Image"/>
+                        {{ customer.firstname }} {{ customer.lastname }}
+                      </a>
+                    </h2>
+                  </td>
+                  <td class="text-center">{{ getFormattedDate(customer.created_at!) }}</td>
+                  <td class="text-center">
+                    <a
+                      class="btn btn-sm btn-white"
+                      (click)="showCustomerDetail(customer)"
+                      role="button"
+                    >
+                      <i class="far fa-eye me-1"></i> Détails
+                    </a>
+                    <a
+                      class="btn btn-sm btn-danger"
+                      (click)="deleteCustomer(customer)"
+                      role="button"
+                    >
+                      <i class="far fa-trash-alt me-1"></i> Supprimer
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card invoices-tabs-card">
+  <div class="card-body card-body pt-0 pb-0">
+    <div class="invoices-main-tabs">
+      <div class="row align-items-center">
+        <div class="col-lg-4 col-md-4 offset-md-8">
+          <div class="invoices-settings-btn">
+            <a
+              data-bs-toggle="modal"
+              data-bs-target="#bank_details"
+              role="button" class="btn">
+              <i data-feather="plus-circle"></i> Enregister
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<user-form-component>
+</user-form-component>

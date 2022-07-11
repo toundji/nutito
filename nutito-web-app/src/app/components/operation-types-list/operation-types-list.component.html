@@ -1,0 +1,66 @@
+<div class="content container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-center table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Secteur D'Activité</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let operationType of operationTypes; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ operationType.name }}</td>
+                  <td>{{ operationType.description }}</td>
+                  <td>{{ operationType.type }}</td>
+                  <td>{{ operationType.workfields_string }}</td>
+                  <td class="text-end">
+                    <a
+                      role="button"
+                      class="btn btn-sm btn-white text-success me-2"
+                      ><i class="far fa-edit me-1"></i>Modifier</a
+                    >
+                    <a
+                      role="button"
+                      (click)="deleteOperationType(operationType)"
+                      class="btn btn-sm btn-white text-danger me-2"
+                      ><i class="far fa-trash-alt me-1"></i>Supprimer</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card invoices-tabs-card">
+    <div class="card-body card-body pt-0 pb-0">
+      <div class="invoices-main-tabs">
+        <div class="row align-items-center">
+          <div class="col-lg-4 col-md-4 offset-md-8">
+            <div class="invoices-settings-btn">
+              <a
+                data-bs-toggle="modal"
+                data-bs-target="#bank_details"
+                role="button" class="btn">
+                <i data-feather="plus-circle"></i> Enregister
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<operation-type-form-component>
+</operation-type-form-component>

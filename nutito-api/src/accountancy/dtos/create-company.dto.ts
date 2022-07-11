@@ -10,7 +10,6 @@ export class CreateCompanyDto {
     @IsOptional()
     description: string;
 
-    @IsPhoneNumber()
     @IsNotEmpty()
     user_phone: string;
 
@@ -27,7 +26,6 @@ export class CreateCompanyDto {
     email: string;
 
     @IsNotEmpty()
-    @IsPhoneNumber()
     phone: string;
 
     @IsString()

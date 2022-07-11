@@ -31,7 +31,6 @@ export class WorkfieldService{
 
     async create(createWorkfieldDto: CreateWorkfieldDto): Promise<Workfield>{
         const newWorkfield = this.workfieldRepository.create(createWorkfieldDto);
-        console.log(newWorkfield)
         return await this.workfieldRepository.save(newWorkfield);
     }
 

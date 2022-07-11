@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-import { hashPassword } from './../../utilities/helpers/functions.helper';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -18,13 +16,12 @@ export class UserService {
   ) { }
 
   async findAll(): Promise<User[]> {
-    return this.usersrepository.find();
+    return this.usersrepository.find({ relations: ["profile_picture", "companies"] });
   }
 
-  async findOneById(userId: number): Promise<Partial<User>> {
-    const user = await this.usersrepository.findOne({ where: { id: userId } });
-    const { id, password, ...rest } = user;
-    return rest;
+  async findOneById(userId: number): Promise<User> {
+    const user = await this.usersrepository.findOne({ where: { id: userId }, relations: ["profile_picture"] });
+    return user;
   }
 
   async findOneForLogin(userId: number): Promise<Partial<User>> {
@@ -119,6 +116,15 @@ export class UserService {
         }else return  { detail: "L'utilisateur n'existe pas" };
        })
       .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
+  }
+
+  async save(user: User) {
+    this.usersrepository.save(user)
+  }
+
+  async deleteUser(id: number): Promise<User> {
+    const user = await this.findOneById(id)
+    return user.remove()
   }
 
   async getUserAgents(phone: string): Promise<any> {

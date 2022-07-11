@@ -5,7 +5,7 @@ import { AgentRoleFormGroup } from '../../forms-validation/agent-role-form.group
 import { AgentRole } from '../../models/agent-role.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { uiConstants } from 'src/utils/ui-constants';
+import { swalSuccess, swalError } from '../../../utils/ui-constants';
 
 @Component({
   selector: 'agent-roles-form-component',
@@ -43,15 +43,11 @@ export class AgentRolesFormComponent implements OnInit {
         this.formSubmitted = false;
         let modalCloseBtn = document.getElementById("modalCloseBtn")!
         modalCloseBtn.click();
-        Swal.fire({
-          title: "Succès de l'opération",
-          text: "Le rôle a été enregistré avec succès",
-          icon: "success",
-          ...uiConstants.swalAnimation
-        })
+        Swal.fire(swalSuccess)
         this.reloadComponent()
       },
       (error: HttpErrorResponse) => {
+        Swal.fire(swalError)
         spinner.className = ""
         this.formSubmitted = false;
         this.operationErrorMessage = error.message

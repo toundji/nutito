@@ -12,7 +12,7 @@ export class CreateUserDto {
     @IsOptional()
     email?: string;
 
-    @IsPhoneNumber()
+    @IsString()
     phone: string;
 
     @IsOptional()
@@ -32,6 +32,10 @@ export class CreateUserDto {
     @IsString()
     @IsOptional()
     country?: string;
+
+    @IsString()
+    @IsOptional()
+    city?: string;
 
     @MinLength(8)
     @IsString()

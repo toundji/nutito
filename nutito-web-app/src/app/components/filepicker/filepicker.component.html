@@ -1,7 +1,7 @@
 <div class="mb-4" [formGroup]="formGroup">
   <label
-    class="w-full flex flex-col items-center bg-white text-blue rounded-lg uppercase border cursor-pointer hover:text-white">
-    <svg class="w-8 h-5"
+    class="flex flex-col items-center bg-white text-blue rounded-lg uppercase border cursor-pointer hover:text-grey">
+    <svg class="form-control"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20">
@@ -10,21 +10,21 @@
     </svg>
     <span class="mt-1 text-base leading-normal text-center">{{ uploadLabel }}</span>
     <input
-      *ngIf="need_blog_image == true"
+      *ngIf="need_profile_picture == true"
       type="file"
       accept="*/*"
-      name="blog_image"
-      formControlName="blog_image"
+      name="profilePicture"
+      formControlName="profilePicture"
       id="logo"
       class="hidden"
       (change)="updateSource($event)">
   </label>
-  <div *ngIf="need_blog_image == true">
+  <div *ngIf="need_profile_picture === true">
     <ul
       class="error-color list-unstyled mt-1"
-      *ngIf="(formSubmitted || formGroup.controls['blog_image'].dirty) &&
-                        formGroup.controls['blog_image'].invalid">
-      <li *ngFor="let error of formGroup.getValidationMessages('blog_image')">
+      *ngIf="(formSubmitted || formGroup.controls['profilePicture'].dirty) &&
+                        formGroup.controls['profilePicture'].invalid">
+      <li *ngFor="let error of formGroup.getValidationMessages('profilePicture')">
         {{error}}
       </li>
     </ul>

@@ -46,6 +46,19 @@ import { CompanyCategoriesPage } from './pages/company-categories/company-catego
 import { WorkfieldsListComponent } from './components/workfields-list/workfields-list.component';
 import { WorkfieldsPage } from './pages/workfields/workfields.page';
 import { WorkfieldFormComponent } from './components/workfield-form/workfield-form.component';
+import { OperationTypesListComponent } from './components/operation-types-list/operaton-types-list.component';
+import { OperationTypesPage } from './pages/operation-types/operation-types.page';
+import { OperationTypeFormComponent } from './components/operation-type-form/operation-type-form.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { FilepickerComponent } from './components/filepicker/filepicker.component';
+import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { CustomerDetailPage } from './pages/customer-detail/customer-detail.page';
+import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { CompanyCategoryService } from './services/company-category.service';
+import { CompanyService } from './services/company.service';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -82,16 +95,27 @@ registerLocaleData(localeFr);
     CompanyCategoriesPage,
     WorkfieldsListComponent,
     WorkfieldsPage,
-    WorkfieldFormComponent
+    WorkfieldFormComponent,
+    OperationTypesListComponent,
+    OperationTypesPage,
+    OperationTypeFormComponent,
+    UsersListComponent,
+    UserFormComponent,
+    FilepickerComponent,
+    CustomerDetailComponent,
+    CustomerDetailPage,
+    CustomerInfoComponent,
+    CompanyFormComponent
   ],
   imports: [
+    NgMultiSelectDropDownModule.forRoot(),
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
   ],
   providers: [
     {
@@ -107,7 +131,8 @@ registerLocaleData(localeFr);
     AuthGuard,
     NetworkInterceptor,
     AuthenticationService,
-    LoadingService
+    LoadingService,
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })
