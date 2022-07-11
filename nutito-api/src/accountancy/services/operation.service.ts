@@ -18,6 +18,9 @@ import { OperationRespoDto } from '../dtos/responses/operation-respo.dto';
 import { DayBilan } from './../dtos/responses/day-bilan.dto';
 import { ResultatCompte } from './../dtos/responses/compte-resultat.dto';
 import { ResultatCompteElement } from './../dtos/responses/resultat-de-compte-element.dto';
+import { ResultatCompteOfType } from '../dtos/responses/compte-resultat-of-type.dto';
+import { PDFService } from '@t00nday/nestjs-pdf';
+import then from './../../../node_modules/es6-promise/lib/es6-promise/then';
 
 
 
@@ -27,11 +30,14 @@ export class OperationService{
         @InjectRepository(Operation)
         private readonly operationRepository: Repository<Operation>,
         private readonly operationTypeService : OperationTypeService,
-        private readonly clientOpationTypeService: ClientOpationTypeService
+        private readonly clientOpationTypeService: ClientOpationTypeService,
+        private readonly pdfService: PDFService,
+
     ){}
 
     async  findAll(): Promise<Operation[]>{
         return this.operationRepository.find();
+
     }
 
     async  findAllForCompany(company_id: number): Promise<Operation[]>{
@@ -82,6 +88,61 @@ export class OperationService{
         return response;
     }
 
+    async pdfRessource(periode: OperationByPeriodeDto){
+        const journale = await this.findAllForCompanyByPeriode(periode);
+        const journaleGroupe:ResultatCompte = await this.getBilanByOperation(periode);
+        const depense:ResultatCompteOfType = {
+            from_date: periode.from_date,
+            to_date: periode.to_date,
+            type: OperationTypeEnum.OUT,
+            company: journale.company,
+            amount: journaleGroupe.amount_out,
+            elements:[],
+        }
+
+        const revenu:ResultatCompteOfType = {
+            from_date: periode.from_date,
+            to_date: periode.to_date,
+            type: OperationTypeEnum.IN,
+            company: journale.company,
+            amount: journaleGroupe.amount_in,
+            elements:[],
+        }
+
+        journaleGroupe.elements.forEach((element)=>{
+            if(element.type == OperationTypeEnum.OUT){
+                depense.elements.push(element);
+            }else{
+                revenu.elements.push(element);
+            }
+        });
+        const resultatName = journale.end_balence<0 ? "Perte" : "Bénéfice";
+    const pdf =  await  new Promise((resolve, reject) => {
+        this.pdfService.toFile(
+            `./journale-pdf-template.hbs`,
+             'journale-pdf-template',
+             {
+                 locals: {
+                     journale : journale,
+                     revenu: revenu,
+                     company: journaleGroupe.company,
+                     depense: depense,
+                     resultatName:resultatName,
+                 }
+             }
+        ).subscribe({
+            next: (v) => resolve(v),
+            error: (e) => {
+                console.log(e)
+                throw new BadRequestException("....")
+            },
+            complete: () => console.info('complete') 
+        })
+        });
+        console.log(pdf);
+
+    }
+
     async getBilanOfDay(compnay_id:number):Promise<DayBilan>{
         const company: Company = await Company.findOneOrFail(compnay_id).catch((error)=>{
             console.log(error);
@@ -122,14 +183,11 @@ export class OperationService{
             throw new NotFoundException("L'entreprise spécifier n'existe pas");
         });
        
-        const operations :Operation[] = await  this.operationRepository.find({where:[{
+        const operations :Operation[] = await  this.operationRepository.find({where:{
                 company:company,
-                created_at: MoreThanOrEqual(periode.from_date),
+                created_at: Between(periode.from_date,periode.to_date),
                
-                },{
-                    company:company,
-                    created_at: LessThanOrEqual(periode.to_date),
-                }],
+                },
              }).catch((error)=>{
                     throw new BadRequestException("Une erreur s'est produit pendant le traitement de votre requète");
                 });
@@ -152,7 +210,7 @@ export class OperationService{
     }
 
 
-    async getBilanByOperation(periode: OperationByPeriodeDto):Promise<any>{
+    async getBilanByOperation(periode: OperationByPeriodeDto):Promise<ResultatCompte>{
         const company: Company = await Company.findOneOrFail(periode.company_id).catch((error)=>{
             console.log(error);
             throw new NotFoundException("L'entreprise spécifier n'existe pas");

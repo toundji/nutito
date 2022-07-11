@@ -4,14 +4,15 @@ import { ResultatCompteElement } from './resultat-de-compte-element.dto';
 
 
 
-export class ResultatCompte{
+export class ResultatCompteOfType{
     from_date: Date;
+
     to_date: Date;
+
+    type: OperationTypeEnum;
 
     company: Company;
 
-    amount_in:number;
-    amount_out:number;
-    
+    amount: number;
     elements:ResultatCompteElement[];
 }

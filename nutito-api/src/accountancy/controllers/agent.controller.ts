@@ -4,6 +4,8 @@ import { Body, Controller, Get } from "@nestjs/common";
 import { Agent } from '../entities/agent.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateAgentDto } from '../dtos/create-agent.dto';
+import { UpdateAgentAbilityDto } from './../dtos/update-agent-ability.dto';
+import { User } from 'src/user/entities/user.entity';
 
 
 @Controller('agents')
@@ -26,6 +28,12 @@ export class AgentController{
     @Post()
     async createAgent(@Body() createAgentDto: CreateAgentDto): Promise<Agent>{
         return await this.agentservice.create(createAgentDto)
+    }
+
+    @Put("/abilities")
+    async updateAgent(@Body() body: UpdateAgentAbilityDto, @Req() request): Promise<Agent>{
+      const user:User = request.user;
+        return await this.agentservice.setAgentAbility(body,user);
     }
 
     // @Put('update/:id')

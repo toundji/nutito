@@ -30,7 +30,7 @@ export class OperationController{
         return await this.operationService.getBilanOfDay(id);
     }
 
-    @Get("company/periode-summury")
+    @Post("company/periode-summury")
     async getAllForCompany(  @Body() periode: OperationByPeriodeDto): Promise<DayBilan> {
         return await this.operationService.getBilanOfPeriode(periode);
     }
@@ -48,6 +48,11 @@ export class OperationController{
     @Post("compte-de-resultat")
     async getCompteDeResultOfPeriode(@Body() periode: OperationByPeriodeDto): Promise<ResultatCompte> {
         return await this.operationService.getBilanByOperation(periode);
+    }
+
+    @Post("pdf-of-periode")
+    async getpdfOfActivityOfPeriode(@Body() periode: OperationByPeriodeDto) {
+        return await this.operationService.pdfRessource(periode);
     }
 
     @Get('/:id')

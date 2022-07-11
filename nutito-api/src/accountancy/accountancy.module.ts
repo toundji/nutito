@@ -38,6 +38,9 @@ import { OperationController } from './controllers/operation.controller';
 import { OperationService } from './services/operation.service';
 import { ClientOpationTypeService } from './services/client-operation-type.service';
 import { ClientOperationController } from './controllers/client-operation.controller';
+import { PDFModule } from '@t00nday/nestjs-pdf';
+
+
 
 @Module({
     imports: [
@@ -55,7 +58,13 @@ import { ClientOperationController } from './controllers/client-operation.contro
            Workfield,
            Constant
        ]),
-       UserModule
+       UserModule,
+       PDFModule.register({
+        view: {
+            root: '../views',
+            engine: 'pug',
+        },
+    }),
     ],
     exports: [
         AccountService,
