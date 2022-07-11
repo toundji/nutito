@@ -15,7 +15,6 @@ import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { AuthenticationService } from './services/authentication.service';
 import { FileService } from 'src/accountancy/services/file.service';
 import { Fichier } from 'src/accountancy/entities/fichier.entity';
 import { CompanyService } from 'src/accountancy/services/company.service';
