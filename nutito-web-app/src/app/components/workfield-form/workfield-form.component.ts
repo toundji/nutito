@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { uiConstants } from 'src/utils/ui-constants';
 import { WorkfieldService } from '../../services/workfield.service';
 import { Workfield } from '../../models/workfield.model';
 import { WorkfieldFormGroup } from '../../forms-validation/workfield-form.group';
+import { swalAnimation, swalSuccess } from 'src/utils/ui-constants';
+import { swalError } from '../../../utils/ui-constants';
 
 @Component({
   selector: 'workfield-form-component',
@@ -50,15 +51,11 @@ export class WorkfieldFormComponent implements OnInit {
         this.formSubmitted = false;
         let modalCloseBtn = document.getElementById("modalCloseBtn")!
         modalCloseBtn.click();
-        Swal.fire({
-          title: "Succès de l'opération",
-          text: "Le domaine a été enregistré avec succès",
-          icon: "success",
-          ...uiConstants.swalAnimation
-        })
+        Swal.fire(swalSuccess)
         this.reloadComponent()
       },
       (error: HttpErrorResponse) => {
+        Swal.fire(swalError)
         console.log(error)
         spinner.className = ""
         this.formSubmitted = false;

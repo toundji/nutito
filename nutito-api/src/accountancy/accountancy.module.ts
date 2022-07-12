@@ -38,9 +38,9 @@ import { OperationController } from './controllers/operation.controller';
 import { OperationService } from './services/operation.service';
 import { ClientOpationTypeService } from './services/client-operation-type.service';
 import { ClientOperationController } from './controllers/client-operation.controller';
+import { FileService } from './services/file.service';
+import { FileController } from './controllers/file.controller';
 import { PDFModule } from '@t00nday/nestjs-pdf';
-
-
 
 @Module({
     imports: [
@@ -74,7 +74,8 @@ import { PDFModule } from '@t00nday/nestjs-pdf';
         WorkfieldService,
         AgentRoleService,
         LicenceService,
-        ConstantService
+        ConstantService,
+        FileService
     ],
     controllers: [
         AccountController,
@@ -89,6 +90,7 @@ import { PDFModule } from '@t00nday/nestjs-pdf';
         OperationController,
         OperationTypeController,
         ClientOperationController,
+        FileController
     ],
     providers: [
        AccountService,
@@ -103,6 +105,7 @@ import { PDFModule } from '@t00nday/nestjs-pdf';
        OperationTypeService,
        OperationService,
        ClientOpationTypeService,
+       FileService
     ],
 })
 export class AccountancyModule {}

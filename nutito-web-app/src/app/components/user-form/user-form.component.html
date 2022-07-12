@@ -1,0 +1,384 @@
+<form novalidate [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div
+    class="modal custom-modal fade bank-details"
+    id="bank_details"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="form-header text-start mb-0">
+            <h4 class="mb-0">Enregistrer Un Client Nutito</h4>
+          </div>
+          <button
+            id="modalCloseBtn"
+            type="button"
+            class="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="bank-inner-details">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input
+                    type="text"
+                    formControlName="lastname"
+                    class="form-control"
+                    placeholder="Entrer le nom du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['lastname'].dirty) &&
+                      formGroup.controls['lastname'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('lastname')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Prénom</label>
+                  <input
+                    type="text"
+                    formControlName="firstname"
+                    class="form-control"
+                    placeholder="Entrer le prénom du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['firstname'].dirty) &&
+                      formGroup.controls['firstname'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'firstname'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    class="form-control"
+                    placeholder="Entrer l'email du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted || formGroup.controls['email'].dirty) && formGroup.controls['email'].invalid">
+                    <li
+                      *ngFor="let error of formGroup.getValidationMessages('email')">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Ifu</label>
+                  <input
+                    type="text"
+                    formControlName="ifu"
+                    class="form-control"
+                    placeholder="Entrer l'ifu du client"/>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted || formGroup.controls['email'].dirty) && formGroup.controls['email'].invalid"
+                  >
+                    <li *ngFor="let error of formGroup.getValidationMessages('email')">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Date de naissance</label>
+                  <input
+                    type="date"
+                    formControlName="birth_date"
+                    class="form-control"
+                    placeholder="Entrer la date de naissance du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['birth_date'].dirty) &&
+                      formGroup.controls['birth_date'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'birth_date'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Lieu de naissance</label>
+                  <input
+                    type="text"
+                    formControlName="birth_place"
+                    class="form-control"
+                    placeholder="Entrer le lieu de naissance du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['birth_place'].dirty) &&
+                      formGroup.controls['birth_place'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'birth_place'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Adresse</label>
+                  <input
+                    type="text"
+                    formControlName="address"
+                    class="form-control"
+                    placeholder="Entrer la date de naissance du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['address'].dirty) &&
+                      formGroup.controls['address'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('address')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Pays de résidence</label>
+                  <select
+                    class="select"
+                    name="country"
+                    [ngModel]="selectedCountryName" 
+                    (ngModelChange)="onChange($event)"
+                    [value]="benin.name"
+                    formControlName="country"
+                    id="type"
+                    class="form-control">
+                    <option
+                      *ngFor="let country of countries"
+                      value="{{ country.name }}"
+                      selected="selected">
+                      {{ country.flag }}   {{ country.name }}
+                    </option>
+                  </select>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['country'].dirty) &&
+                      formGroup.controls['country'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('type')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['country'].dirty) &&
+                      formGroup.controls['country'].invalid
+                    "
+                  >
+                    <li *ngFor="let error of formGroup.getValidationMessages('country')">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Ville de résidence</label>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    class="form-control"
+                    placeholder="Entrer la ville de résidence du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['city'].dirty) &&
+                      formGroup.controls['city'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('city')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Téléphone</label>
+                  <div class="input-group">
+                    <span class="input-group-text">{{ dialCode }}</span>
+                    <input
+                      type="text"
+                      formControlName="phone"
+                      class="form-control"
+                      placeholder="Entrer le numéro de téléphone du client"/>
+                  </div>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['phone'].dirty) &&
+                      formGroup.controls['phone'].invalid
+                    ">
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('phone')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group  pb-5">
+                  <label>Mot de passe</label>
+                  <input
+                    type="password"
+                    formControlName="password"
+                    class="form-control"
+                    placeholder="Entrer le mot de passe du client"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['password'].dirty) &&
+                      formGroup.controls['password'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('password')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label>Image de profil</label>
+                  <filepicker-component
+                    [formGroup]="formGroup"
+                    [need_profile_picture]="true"
+                    (onChange)="getProfilePicture($event)"
+                    >
+                  </filepicker-component>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center mt-1">
+          <div class="w-8/12 p-2 rounded-lg">
+            <div class="flex justify-center text-center">
+              <ul class="error-color list-unstyled mt-1">
+                <li style="font-size: 12px">
+                  {{ this.operationErrorMessage }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="bank-details-btn">
+            <a
+              role="button"
+              data-bs-dismiss="modal"
+              class="btn bank-cancel-btn me-2"
+              >Annuler</a
+            >
+            <button
+              type="submit"
+              [disabled]="formSubmitted && formGroup.invalid"
+              [class.btn-secondary]="formSubmitted && formGroup.invalid"
+              class="btn bank-save-btn">
+              Enregister
+              <span id="loader" class="" role="status"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

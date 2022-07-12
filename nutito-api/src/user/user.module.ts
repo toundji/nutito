@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -15,11 +15,15 @@ import { AuthorisationsGuard } from './guards/authorisation.guard';
 import { SessionSerializer } from './serializers/session.serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { Fichier } from 'src/accountancy/entities/fichier.entity';
+import { Company } from '../accountancy/entities/company.entity';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([
-            User
+            User,
+            Fichier,
+            Company
         ]),
         PassportModule,
         JwtModule.registerAsync({
@@ -29,7 +33,7 @@ import { User } from './entities/user.entity';
             }),
             inject: [ConfigService],
         }),
-        MailModule,
+        MailModule
     ],
     exports: [
         UserService,
@@ -39,7 +43,7 @@ import { User } from './entities/user.entity';
         JwtStrategy,
         LocalAuthGuard,
         AuthorisationsGuard,
-        AuthorisationFactory,
+        AuthorisationFactory
     ],
     controllers: [
         UserController,
@@ -54,6 +58,7 @@ import { User } from './entities/user.entity';
         LocalAuthGuard,
         AuthorisationsGuard,
         AuthorisationFactory,
+        AuthenticationService
     ],
 })
 export class UserModule {}

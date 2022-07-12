@@ -16,7 +16,7 @@ export class AuthenticationService {
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
     const { password, ...rest } = user;
-    return {
+    return { 
       status: "success",
       access_token: access_token,
       user_data: rest,
@@ -64,4 +64,10 @@ export class AuthenticationService {
       throw new BadRequestException(invalidCredentialsMessage);
     }
   }
+
+  async resetPassword(body: any) {
+
+  }
+
 }
+

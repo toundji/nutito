@@ -4,6 +4,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { LicenceService } from "../services/licence.service";
 import { Licence } from '../entities/licence.entity';
 import { ApiTags } from '@nestjs/swagger';
+
 @Controller('licences')
 @ApiTags('licences')
 export class LicenceController{

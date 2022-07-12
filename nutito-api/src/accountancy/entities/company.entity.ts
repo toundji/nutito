@@ -14,7 +14,7 @@ import { ClientOperationType } from './client-operation-type.entity';
 @Entity()
 export class Company extends BaseEntity {
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     name: string;
 
     @Column({ nullable: true })
@@ -41,7 +41,7 @@ export class Company extends BaseEntity {
     @Column({ nullable: true })
     rccm: string;
 
-    @Column({ nullable: false, default: 3 })
+    @Column({ nullable: true, default: 3 })
     agent_number: number;
 
     @Column({ nullable: true, default: "1M"})

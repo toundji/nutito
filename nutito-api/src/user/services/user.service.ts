@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
-import { hashPassword } from './../../utilities/helpers/functions.helper';
-import { BadRequestException, HttpException, HttpStatus, Injectable, Logger, NotFoundException, UploadedFile } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Logger, UploadedFile } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -24,13 +23,12 @@ export class UserService {
   ) { }
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({ relations: ["profile_picture", "companies"] });
   }
 
-  async findOneById(userId: number): Promise<Partial<User>> {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    const { id, password, ...rest } = user;
-    return rest;
+  async findOneById(userId: number): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id: userId }, relations: ["profile_picture"] });
+    return user;
   }
 
   async findOneForLogin(userId: number): Promise<Partial<User>> {
@@ -163,7 +161,6 @@ export class UserService {
     const user: User =await User.findOne(createur.id);
     const file: Fichier = new Fichier();
     const name = profile.originalname.split(".")[0];
-
     file.creator_id = createur?.id;
     file.name = name,
     file.location= profile.path,
@@ -223,6 +220,15 @@ export class UserService {
         }else return  { detail: "L'utilisateur n'existe pas" };
        })
       .catch((error) =>  {throw new BadRequestException({ detail: "L'utilisateur existe" });} );
+  }
+
+  async save(user: User) {
+    this.userRepository.save(user)
+  }
+
+  async deleteUser(id: number): Promise<User> {
+    const user = await this.findOneById(id)
+    return user.remove()
   }
 
   async getUserAgents(phone: string): Promise<any> {

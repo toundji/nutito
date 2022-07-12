@@ -1,0 +1,171 @@
+<form novalidate [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div
+    class="modal custom-modal fade bank-details"
+    id="bank_details"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="form-header text-start mb-0">
+            <h4 class="mb-0">Enregistrer Un Type D'Operation</h4>
+          </div>
+          <button
+            id="modalCloseBtn"
+            type="button"
+            class="close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="bank-inner-details">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="form-control"
+                    placeholder="Entrer le nom du rôle"
+                  />
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted || formGroup.controls['name'].dirty) &&
+                      formGroup.controls['name'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages('name')
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea
+                    name="description"
+                    formControlName="description"
+                    id="description"
+                    class="form-control"
+                  >
+                  </textarea>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['description'].dirty) &&
+                      formGroup.controls['description'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'description'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>type</label>
+                  <select
+                    class="select"
+                    name="type"
+                    formControlName="type"
+                    id="type"
+                    class="form-control"
+                  >
+                    <option value="REVENU" selected="selected">Revenue</option>
+                    <option value="DEPENSE">Dépense</option>
+                  </select>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="
+                      (formSubmitted ||
+                        formGroup.controls['type'].dirty) &&
+                      formGroup.controls['type'].invalid
+                    "
+                  >
+                    <li
+                      *ngFor="
+                        let error of formGroup.getValidationMessages(
+                          'type'
+                        )
+                      "
+                    >
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                  <label>secteur d'activité</label>
+                  <ng-multiselect-dropdown
+                    formControlName="workField_ids"
+                    [placeholder]="'Spécifier les secteurs d\'activités'"
+                    [settings]="dropDownSettings"
+                    [data]="workfields"
+                    [(ngModel)]="selectedItems"
+                  >
+                  </ng-multiselect-dropdown>
+                  <ul
+                    class="error-color list-unstyled mt-1"
+                    *ngIf="(formSubmitted && selectedItems.length === 0)">
+                    <li>
+                      {{ "Veuillez spécifier les secteurs d'activités" }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center mt-1">
+          <div class="w-8/12 p-2 rounded-lg">
+            <div class="flex justify-center text-center">
+              <ul class="error-color list-unstyled mt-1">
+                <li style="font-size: 12px">
+                  {{ this.operationErrorMessage }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="bank-details-btn">
+            <a
+              role="button"
+              data-bs-dismiss="modal"
+              class="btn bank-cancel-btn me-2"
+              >Annuler</a
+            >
+            <button
+              type="submit"
+              [disabled]="formSubmitted && (selectedItems.length === 0 || formGroup.invalid)"
+              [class.btn-secondary]="formSubmitted && formGroup.invalid"
+              class="btn bank-save-btn"
+            >
+              Enregister
+              <span id="loader" class="" role="status"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -14,6 +14,9 @@ import { ApplicativeAdminPage } from './pages/applicative-admin/applicative-admi
 import { AgentRolesPage } from './pages/agents-roles/agent-roles.page';
 import { CompanyCategoriesPage } from './pages/company-categories/company-categories.page';
 import { WorkfieldsPage } from './pages/workfields/workfields.page';
+import { OperationTypesPage } from './pages/operation-types/operation-types.page';
+import { CustomerDetailPage } from './pages/customer-detail/customer-detail.page';
+import { CompanyDetailsPage } from './pages/company-details/company-details.page';
 
 const routes: Routes = [
   {
@@ -38,6 +41,20 @@ const routes: Routes = [
         component: CustomersPage
       },
       {
+        path: "company-detail",
+        component: CompanyDetailsPage
+      },
+      {
+        path: "customer-detail",
+        component: CustomerDetailPage,
+        children: [
+          {
+            path: "",
+            component: AgentRolesPage
+          },
+        ]
+      },
+      {
         path: "licenses",
         component: LicensesPage
       },
@@ -52,6 +69,10 @@ const routes: Routes = [
           {
             path: "company-categories",
             component: CompanyCategoriesPage
+          },
+          {
+            path: "operation-types",
+            component: OperationTypesPage
           },
           {
             path: "workfields",

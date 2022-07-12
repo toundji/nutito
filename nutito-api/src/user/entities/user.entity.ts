@@ -65,7 +65,7 @@ export class User extends BaseEntity {
     @OneToMany(type => Agent, agent => agent.user, { onDelete: "CASCADE" })
     agents: Agent[];
 
-    @OneToMany(type => Company, company => company.owner, { onDelete: "CASCADE" })
+    @OneToMany(type => Company, company => company.owner, { onDelete: "CASCADE", eager: true })
     companies: Company[];
 
     get profile(): Fichier {

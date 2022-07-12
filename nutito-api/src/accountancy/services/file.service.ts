@@ -2,27 +2,30 @@
 import { UserService } from './../../user/services/user.service';
 import { CompanyService } from './company.service';
 import { CreateFileDto } from './../dtos/create-file.dto';
-import { UpdateFileDto } from './../dtos/update-file.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import { Fichier } from '../entities/fichier.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { OperationService } from './operation.service';
+import { User } from '../../user/entities/user.entity';
+import { Operation } from '../entities/operation.entity';
 @Injectable()
 export class FileService{
     constructor(
         @InjectRepository(Fichier)
-        private readonly FileRepository : Repository<Fichier>,
+        private readonly fileRepository : Repository<Fichier>,
         private readonly companySerice: CompanyService,
-        private readonly userService: UserService
+        private readonly userService: UserService,
+        private readonly operationService: OperationService
     ){}
 
     async findAll(): Promise<Fichier[]>{
-        return await this.FileRepository.find();
+        return await this.fileRepository.find();
     }
 
     async findOnById(id: number): Promise<Fichier>{
-         const companny = await this.FileRepository.findOneOrFail({where : { id : id}}).catch(
+         const companny = await this.fileRepository.findOneOrFail({where : { id : id}}).catch(
             (error)=> {
                 throw new NotFoundException(`File with id ${id} is not found`);
             }
@@ -31,22 +34,27 @@ export class FileService{
     }
 
     async delete(id :number): Promise<DeleteResult>{
-        return  this.FileRepository.softDelete(id);
+        return  this.fileRepository.softDelete(id);
 
     }
 
-    // async create(createFileDto: CreateFileDto):Promise<File>{
-    //     const newFile= new File()
-    //     newFile.name= createFileDto.name;
-    //     newFile.location= createFileDto.location;
-    //     newFile.mimetype= createFileDto.mimetype;
-    //     newFile.entity_id= createFileDto.entity_id  ;
-    //     newFile.operation.id = await (await this.companySerice.findOnById(createFileDto.operation_id)).id;
-    //     newFile.user= await this.userService.findOneById(createFileDto.user_id)
-
-    //     const nv = await this.FileRepository.create(newFile);
-    //     return await this.FileRepository.save(nv);
-    // }
+    async create(createFileDto: CreateFileDto): Promise<Fichier>{
+        const newFile = new Fichier()
+        Object.keys(createFileDto).forEach(key => newFile[key] = createFileDto[key])
+        let user: User
+        let operation: Operation
+        try {
+            user = await this.userService.findOneById(createFileDto.entity_id)
+            operation = await this.operationService.findOneById(createFileDto.entity_id)
+        } catch (error) {
+            // do nothing
+        }
+        const statgedFile = this.fileRepository.create(newFile);
+        const savedFile =  await statgedFile.save()
+        user.profile_picture = savedFile
+        this.userService.save(user)
+        return savedFile
+    }
     
     // async update(updateFileDto: UpdateFileDto, id:number):Promise<File>{
 

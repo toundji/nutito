@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { dataTableSettings } from "../../../utils/ui-constants";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { dataTableSettings, swalDeleteConfirm } from '../../../utils/ui-constants';
 import { AgentRoleService } from '../../services/agent-role.service';
 import { AgentRole } from '../../models/agent-role.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import "animate.css"
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agent-roles-list-component',
@@ -14,7 +14,10 @@ import Swal from 'sweetalert2';
 })
 export class AgentRolesListComponent implements OnInit {
 
-  constructor(private agentsRoleService: AgentRoleService) { }
+  constructor(
+    private agentsRoleService: AgentRoleService,
+    private router: Router
+  ) { }
 
   agentRoles: AgentRole[] = [];
 
@@ -42,24 +45,8 @@ export class AgentRolesListComponent implements OnInit {
     )
   }
 
-
   deleteAgentRole(agentRole: AgentRole) {
-    Swal.fire({
-      title: 'Êtes vous sûr ?',
-      text: "Voulez-vous vraiment procéder à la suppression de cet élément ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: "Annuler",
-      confirmButtonText: "Supprimer l'élément",
-      showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-      }
-    }).then((result) => {
+    Swal.fire(swalDeleteConfirm).then((result) => {
       if (result.isConfirmed) {
         this.agentRoles.splice(this.agentRoles.indexOf(agentRole), 1);
         this.agentsRoleService.delete(agentRole).subscribe(
@@ -71,6 +58,14 @@ export class AgentRolesListComponent implements OnInit {
           }
         )
       }
+    });
+  }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+        console.log(currentUrl);
     });
   }
 
