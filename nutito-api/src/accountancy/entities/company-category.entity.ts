@@ -11,7 +11,7 @@ export class CompanyCategory extends BaseEntity {
     @Column({nullable: true})
     short: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     name: string;
 
     @Column({nullable: true})
