@@ -41,26 +41,18 @@
                 <img src="assets/img/Company.gif" alt="" />
               </div>
               <div class="card-content">
-                <h3 class="card-title" id="title">
+                <h4 class="card-title" id="title">
                   {{ company.name }}
-                </h3>
-                <p class="card-excerpt" id="excerpt">
-                  {{ company.description }}
-                  <span class="">&nbsp;</span>
-                  <span class="">&nbsp;</span>
-                  <span class="">&nbsp;</span>
-                </p>
+                </h4>
                 <div class="author">
                   <div class="profile-img animated-bg" id="profile_img">&nbsp;</div>
-                  <div class="author-info">
-                    <strong class="" id="name">{{ customer.firstname }} {{ customer.lastname }}</strong
-                    >
+                  <div class="author-info mt-2">
                     <small class="" id="date">{{ getFormatedDate(company.created_at) }}</small>
                   </div>
                 </div>
               </div>
               <div class="pb-2 row">
-                <button class="btn btn-primary col-md-6 offset-6">Détails</button>
+                <button (click)="showCompanyDetails(company)" class="btn btn-primary col-md-6 offset-6">Détails</button>
               </div>
             </div>
           </div>

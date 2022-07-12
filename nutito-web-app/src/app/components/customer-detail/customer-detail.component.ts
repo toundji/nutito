@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { formatDate } from '../../../utils/server-constants';
 import { CompanyService } from '../../services/company.service';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 declare var setButtonBehavior: any
 
 @Component({
@@ -14,7 +13,8 @@ declare var setButtonBehavior: any
 export class CustomerDetailComponent implements OnInit {
 
   constructor(
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private router: Router
   ) { }
 
   customer: User = new User()
@@ -32,13 +32,17 @@ export class CustomerDetailComponent implements OnInit {
     return formatDate(date)
   }
 
-
   getCompanies() {
     this.companies = this.customer.companies
   }
 
   deleteCustomer(customer: any) {
 
+  }
+
+  showCompanyDetails(company: any) {
+    localStorage.setItem("company", JSON.stringify(company))
+    this.router.navigateByUrl("/dashboard/company-detail")
   }
 
 }

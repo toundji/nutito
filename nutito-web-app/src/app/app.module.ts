@@ -59,6 +59,8 @@ import { CustomerInfoComponent } from './components/customer-info/customer-info.
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { CompanyCategoryService } from './services/company-category.service';
 import { CompanyService } from './services/company.service';
+import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import { CompanyDetailsPage } from './pages/company-details/company-details.page';
 registerLocaleData(localeFr);
 @NgModule({
   declarations: [
@@ -105,7 +107,9 @@ registerLocaleData(localeFr);
     CustomerDetailComponent,
     CustomerDetailPage,
     CustomerInfoComponent,
-    CompanyFormComponent
+    CompanyFormComponent,
+    CompanyDetailsComponent,
+    CompanyDetailsPage
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),

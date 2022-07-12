@@ -16,6 +16,7 @@ import { CompanyCategoriesPage } from './pages/company-categories/company-catego
 import { WorkfieldsPage } from './pages/workfields/workfields.page';
 import { OperationTypesPage } from './pages/operation-types/operation-types.page';
 import { CustomerDetailPage } from './pages/customer-detail/customer-detail.page';
+import { CompanyDetailsPage } from './pages/company-details/company-details.page';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: "customers",
         component: CustomersPage
+      },
+      {
+        path: "company-detail",
+        component: CompanyDetailsPage
       },
       {
         path: "customer-detail",
